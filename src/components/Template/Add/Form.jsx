@@ -25,6 +25,10 @@ class TemplateAddForm extends React.Component {
     });
   };
 
+  handleAddCustomField = () => {
+    console.log();
+  };
+
   render() {
     return (
       <>
