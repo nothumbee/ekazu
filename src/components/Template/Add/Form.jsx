@@ -1,5 +1,19 @@
 import React, { useState } from 'react';
+import { REQUIRED_FIELDS, OPTIONAL_FIELDS } from '../../../constants/fields';
+import { ShowInput, ExamInput } from './FormAtoms';
 // import axios from 'axios';
+
+// const AddImagesForm = () => {};
+// const AddExamForm = () => {};
+// const AddRangeForm = () => {};
+
+// const BaseForm = props => {
+//   return (
+//     <form>
+//       <input type="submit" />
+//     </form>
+//   );
+// };
 
 const INITIAL_STATE = {
   diagnosis: '',
@@ -9,47 +23,12 @@ const INITIAL_STATE = {
   customFields: []
 };
 
-const DEFAULT_INPUTS = [
-  {
-    name: 'exam',
-    title: 'Vyšetření',
-    type: 'exam',
-    values: ['title', 'show', 'malus', 'price', 'bonus', 'items']
-  },
-  {
-    name: 'range',
-    title: 'Rozmezí',
-    type: 'range',
-    values: ['min', 'max']
-  },
-  { name: 'text', title: 'Text', type: 'text' },
-  { name: 'show', title: 'Ukázat?', type: 'boolean' },
-  { name: 'malus', title: 'Malus', type: 'number' },
-  { name: 'price', title: 'Cena', type: 'number' },
-  { name: 'min', title: 'Minimum', type: 'number' },
-  { name: 'max', title: 'Maximum', type: 'number' },
-  { name: 'items', title: 'Položky', type: 'array' },
-  { name: 'title', title: 'Nazev', type: 'text' },
-  { name: 'name', title: 'Nazev souboru', type: 'text' },
-  {
-    name: 'imageGroup',
-    title: 'Skupina Obrazky',
-    type: 'array',
-    items: ['title', 'images']
-  },
-  {
-    name: 'images',
-    title: 'Obrazky',
-    type: 'array',
-    items: ['filename', 'text']
-  }
-];
-
 class TemplateAddForm extends React.Component {
   state = { ...INITIAL_STATE };
 
-  handleSubmit = () => {
+  handleSubmit = event => {
     // axios.get();
+    event.preventDefault();
   };
 
   handleChange = event => {
@@ -71,39 +50,21 @@ class TemplateAddForm extends React.Component {
   render() {
     return (
       <>
+        <h1>Add Template Form</h1>
         <form onSubmit={this.handleSubmit}>
-          <input
-            onChange={this.handleChange}
-            name="diagnosis"
-            placeholder="Diagnóza"
-            type="text"
-            value={this.state.diagnosis}
-          />
-          <br />
-          <input
-            onChange={this.handleChange}
-            name="minBonus"
-            placeholder="minBonus"
-            type="number"
-            value={this.state.minBonus}
-          />
-          <br />
-          <input
-            onChange={this.handleChange}
-            name="maxMalus"
-            placeholder="maxMalus"
-            type="number"
-            value={this.state.maxMalus}
-          />
-          <br />
-          <input
-            onChange={this.handleChange}
-            name="maxPrice"
-            placeholder="maxPrice"
-            type="number"
-            value={this.state.maxPrice}
-          />
-          <br />
+          {REQUIRED_FIELDS.map((field, index) => (
+            <React.Fragment key={index}>
+              <input
+                onChange={this.handleChange}
+                name={field.name}
+                type={field.type}
+                value={this.state[field.name]}
+                placeholder={field.title}
+              />
+              <br />
+            </React.Fragment>
+          ))}
+
           <CustomFields
             fields={this.state.customFields}
             handleChange={this.handleChange}
@@ -117,6 +78,7 @@ class TemplateAddForm extends React.Component {
           handleSubmit={this.handleAddCustomField}
           usedInputs={this.state.customFields}
         />
+        <ExamInput />
       </>
     );
   }
@@ -130,13 +92,13 @@ const AddCustomFieldForm = ({ handleSubmit, usedInputs }) => {
       <input
         name="name"
         type="text"
-        placeholder="Name"
+        placeholder="Title"
         onChange={e => setName(e.target.value)}
         value={name}
       />
 
       <SelectType
-        types={filterTypeInputs(DEFAULT_INPUTS, usedInputs)}
+        types={filterTypeInputs(OPTIONAL_FIELDS, usedInputs)}
         handleChange={setType}
         selected={type}
       />
@@ -152,7 +114,7 @@ const CustomFields = ({ fields, state, handleChange }) => {
     <React.Fragment key={index}>
       <input
         type="text"
-        name={field.name}
+        name={field.type}
         onChange={handleChange}
         value={state[field.name]}
         placeholder={field.name}
@@ -185,21 +147,22 @@ const SelectType = ({ types, handleChange, selected }) => {
   );
 };
 
-const Input = ({ type }) => {
-  // used to add plus btn next to input
+// const Input = ({ type }) => {
+//   // used to add plus btn next to input
 
-  switch (type) {
-    case 'ahoj':
-      break;
-    default:
-      return false;
-  }
+//   switch (type) {
+//     case 'ahoj':
+//       return null;
+//       break;
+//     default:
+//       return null;
+//   }
 
-  return (
-    <p>
-      <input type={DEFAULT_INPUTS[type].type} />
-    </p>
-  );
-};
+//   return (
+//     <p>
+//       <input type={OPTIONAL_FIELDS[type].type} />
+//     </p>
+//   );
+// };
 
 export default TemplateAddForm;
