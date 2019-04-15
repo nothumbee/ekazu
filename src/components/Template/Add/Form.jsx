@@ -1,49 +1,107 @@
-import React, { useState } from 'react';
-import { REQUIRED_FIELDS, OPTIONAL_FIELDS } from '../../../constants/fields';
-import { ShowInput, ExamInput } from './FormAtoms';
-// import axios from 'axios';
-
-// const AddImagesForm = () => {};
-// const AddExamForm = () => {};
-// const AddRangeForm = () => {};
-
-// const BaseForm = props => {
-//   return (
-//     <form>
-//       <input type="submit" />
-//     </form>
-//   );
-// };
+import React from 'react';
+import { REQUIRED_FIELDS } from '../../../constants/fields';
+import CustomInputBase from './FormAtoms';
+import AddCustomFieldForm from './Form/AddCustomFieldForm';
 
 const INITIAL_STATE = {
   diagnosis: '',
   minBonus: '',
   maxMalus: '',
   maxPrice: '',
+  exams: {
+    count: [],
+    data: [
+      {
+        title: 'CT Hrudníku',
+        exam: true,
+        show: false,
+        malus: 10,
+        price: 15000,
+        text: ['Bez nálezu', 'Malé těleso'],
+        imageGroup: [
+          {
+            title: 'RTG horního břicha',
+            images: [
+              {
+                filename: 'nativ01.jpg',
+                text: ''
+              },
+              {
+                filename: 'nativ02.jpg',
+                text: ''
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  ranges: { count: [], data: [{ title: '', min: 0, max: 10 }] },
+  symptoms: { count: [], data: [{ title: '', text: [] }] },
   customFields: []
 };
 
+// there is a slight issue with backing up form to localstorage, because values are not binded with state
+// data saves to state, but not the other way
+
+// validation is missing
+// and also imageGroup needs to be refactored because single image description is missing
 class TemplateAddForm extends React.Component {
   state = { ...INITIAL_STATE };
 
   handleSubmit = event => {
-    // axios.get();
     event.preventDefault();
+    // axios.get();
+
+    const { ranges, exams, symptoms } = this.state;
+
+    const rRanges = Object.values(ranges.data);
+    // const rExams = { Object.values(exams.data) }
+
+    const template = {
+      generators: [...Object.values(ranges.data)]
+    };
   };
 
   handleChange = event => {
-    event.preventDefault();
-
     this.setState({
       [event.target.name]: event.target.value
     });
   };
 
-  handleAddCustomField = (event, field) => {
-    event.preventDefault();
+  handleChangeCustomField = (id, newItem, type) => {
+    // contains pretty WET code, DRY it , wackily erasable turf
+    console.log('newITem', newItem);
+
+    const typeRef = `${type}s`;
     this.setState(prevState => ({
       ...prevState,
-      customFields: [...prevState.customFields, { ...field }]
+      [typeRef]: {
+        ...prevState[typeRef],
+        data: { ...prevState[typeRef].data, [id]: { ...newItem } }
+      }
+    }));
+  };
+
+  componentDidUpdate() {
+    console.log(this.state);
+  }
+
+  handleAddCustomField = (event, type) => {
+    event.preventDefault();
+    // refactor and DRY it
+    const typeRef = `${type}s`;
+
+    this.setState(prevState => ({
+      ...prevState,
+      customFields: [...prevState.customFields, { type }],
+      [typeRef]: {
+        ...prevState[typeRef],
+        count: [
+          ...prevState[typeRef].count,
+          prevState[typeRef].count.length + 1
+        ]
+      }
     }));
   };
 
@@ -51,118 +109,55 @@ class TemplateAddForm extends React.Component {
     return (
       <>
         <h1>Add Template Form</h1>
+        <AddCustomFieldForm
+          handleSubmit={this.handleAddCustomField}
+          usedInputs={this.state.customFields}
+        />
         <form onSubmit={this.handleSubmit}>
-          {REQUIRED_FIELDS.map((field, index) => (
-            <React.Fragment key={index}>
-              <input
-                onChange={this.handleChange}
-                name={field.name}
-                type={field.type}
-                value={this.state[field.name]}
-                placeholder={field.title}
-              />
-              <br />
-            </React.Fragment>
-          ))}
+          <RequiredFields onChange={this.handleChange} />
 
           <CustomFields
             fields={this.state.customFields}
-            handleChange={this.handleChange}
-            state={this.state}
+            handleChange={this.handleChangeCustomField}
+            // state={this.state}
           />
           <input type="submit" />
         </form>
         <br />
         <br />
-        <AddCustomFieldForm
-          handleSubmit={this.handleAddCustomField}
-          usedInputs={this.state.customFields}
-        />
-        <ExamInput />
       </>
     );
   }
 }
 
-const AddCustomFieldForm = ({ handleSubmit, usedInputs }) => {
-  const [name, setName] = useState('');
-  const [type, setType] = useState('');
-  return (
-    <form onSubmit={event => handleSubmit(event, { name, type })}>
-      <input
-        name="name"
-        type="text"
-        placeholder="Title"
-        onChange={e => setName(e.target.value)}
-        value={name}
-      />
-
-      <SelectType
-        types={filterTypeInputs(OPTIONAL_FIELDS, usedInputs)}
-        handleChange={setType}
-        selected={type}
-      />
-
-      <input type="submit" value="Add custom field" />
-    </form>
-  );
-};
-
-const CustomFields = ({ fields, state, handleChange }) => {
-  console.log(state);
-  return fields.map((field, index) => (
+const RequiredFields = ({ onChange }) => {
+  return REQUIRED_FIELDS.map((field, index) => (
     <React.Fragment key={index}>
       <input
-        type="text"
-        name={field.type}
-        onChange={handleChange}
-        value={state[field.name]}
-        placeholder={field.name}
+        onChange={onChange}
+        name={field.name}
+        type={field.type}
+        // value={this.state[field.name]}
+        placeholder={field.title}
       />
       <br />
     </React.Fragment>
   ));
 };
 
-const filterTypeInputs = (inputs, usedInputs) => {
-  return inputs.filter(input => {
-    return !usedInputs.map(usedInput => usedInput.type).includes(input.name);
-  });
+const CustomFields = ({ fields, handleChange }) => {
+  return fields.map((field, index) => (
+    <React.Fragment key={index}>
+      <CustomInputBase
+        id={index}
+        field={field}
+        onChange={handleChange}
+        // value={state[field.name]}
+        placeholder={field.name}
+      />
+      <br />
+    </React.Fragment>
+  ));
 };
-
-const SelectType = ({ types, handleChange, selected }) => {
-  return (
-    <select
-      name="type"
-      onChange={e => handleChange(e.target.value)}
-      value={selected}
-    >
-      <option value="" />
-      {types.map((type, index) => (
-        <option value={type.name} key={index}>
-          {type.title}
-        </option>
-      ))}
-    </select>
-  );
-};
-
-// const Input = ({ type }) => {
-//   // used to add plus btn next to input
-
-//   switch (type) {
-//     case 'ahoj':
-//       return null;
-//       break;
-//     default:
-//       return null;
-//   }
-
-//   return (
-//     <p>
-//       <input type={OPTIONAL_FIELDS[type].type} />
-//     </p>
-//   );
-// };
 
 export default TemplateAddForm;
