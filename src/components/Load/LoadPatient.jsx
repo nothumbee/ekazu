@@ -8,6 +8,7 @@ export default class LoadPatient extends Component {
   // add error to state to handle trough HOC
 
   componentDidMount() {
+    
     axios.get('student').then(response => {
       // handle success
       const { properties, id } = response.data;
