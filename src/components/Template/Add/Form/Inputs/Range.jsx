@@ -9,7 +9,7 @@ const RangeInput = ({ onChange, id }) => {
     const newRange = { ...range, [name]: value };
 
     setRange(newRange);
-    onChange(id, newRange, 'range');
+    onChange(id, newRange, 'ranges');
     // and send to onChange handler with id of group and save to state
   };
 

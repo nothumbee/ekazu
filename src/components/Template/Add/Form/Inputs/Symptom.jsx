@@ -9,7 +9,7 @@ const SymptomInput = ({ onChange, id }) => {
     const newSymptom = { ...symptom, [name]: value };
 
     setSymptom(newSymptom);
-    onChange(id, newSymptom, 'symptom');
+    onChange(id, newSymptom, 'symptoms');
     // and send to onChange handler with id of group and save to state
   };
 
@@ -21,7 +21,7 @@ const SymptomInput = ({ onChange, id }) => {
     }
 
     setSymptom(newSymptom);
-    onChange(id, newSymptom, 'exam');
+    onChange(id, newSymptom, 'symptoms');
   };
 
   return (

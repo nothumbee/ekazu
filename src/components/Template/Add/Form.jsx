@@ -36,12 +36,12 @@ const INITIAL_STATE = {
       }
     ]
   },
-  ranges: { count: [], data: [{ title: '', min: 0, max: 10 }] },
-  symptoms: { count: [], data: [{ title: '', text: [] }] },
-  customFields: []
+  ranges: { data: {} },
+  symptoms: { data: {} },
+  customFields: { exams: [], ranges: [], symptoms: [] }
 };
 
-// there is a slight issue with backing up form to localstorage, because values are not binded with state
+// there is a sligh t issue with backing up form to localstorage, because values are not binded with state
 // data saves to state, but not the other way
 
 // validation is missing
@@ -50,16 +50,42 @@ class TemplateAddForm extends React.Component {
   state = { ...INITIAL_STATE };
 
   handleSubmit = event => {
-    event.preventDefault();
-    // axios.get();
+    // event.preventDefault();
+    // axios.post();
 
     const { ranges, exams, symptoms } = this.state;
 
     const rRanges = Object.values(ranges.data);
-    // const rExams = { Object.values(exams.data) }
+    // console.log('RANGES', rRanges);
+
+    const rSymptoms = Object.values(symptoms.data).map(
+      ({ title, textGroup }) => ({
+        title: title,
+        text: Object.values(textGroup || {})
+      })
+    );
+    // console.log('SYMPTOMS', rSymptoms);
+
+    const rExams = Object.values(exams.data).map(exam => ({
+      title: exam.title,
+      exam: true,
+      show: exam.show,
+      price: exam.price,
+      malus: exam.malus,
+      bonus: exam.bonus,
+      text: Object.values(exam.textGroup),
+      imageGroup: [
+        {
+          // error undefined
+          title: exam.imageGroup.title,
+          images: Object.values(exam.imageGroup.images)
+        }
+      ]
+    }));
+    console.log(rExams);
 
     const template = {
-      generators: [...Object.values(ranges.data)]
+      generators: [...Object.values(ranges.data)] // contains only self-contained objects
     };
   };
 
@@ -72,15 +98,19 @@ class TemplateAddForm extends React.Component {
   handleChangeCustomField = (id, newItem, type) => {
     // contains pretty WET code, DRY it , wackily erasable turf
     console.log('newITem', newItem);
+    console.log('newITem ID', id, type);
 
-    const typeRef = `${type}s`;
-    this.setState(prevState => ({
-      ...prevState,
-      [typeRef]: {
-        ...prevState[typeRef],
-        data: { ...prevState[typeRef].data, [id]: { ...newItem } }
-      }
-    }));
+    console.log('REF', type);
+    this.setState(
+      prevState => ({
+        ...prevState,
+        [type]: {
+          ...prevState[type],
+          data: { ...prevState[type].data, [id]: newItem }
+        }
+      }),
+      this.handleSubmit
+    );
   };
 
   componentDidUpdate() {
@@ -89,20 +119,18 @@ class TemplateAddForm extends React.Component {
 
   handleAddCustomField = (event, type) => {
     event.preventDefault();
-    // refactor and DRY it
-    const typeRef = `${type}s`;
 
-    this.setState(prevState => ({
-      ...prevState,
-      customFields: [...prevState.customFields, { type }],
-      [typeRef]: {
-        ...prevState[typeRef],
-        count: [
-          ...prevState[typeRef].count,
-          prevState[typeRef].count.length + 1
-        ]
-      }
-    }));
+    if (type !== '')
+      this.setState(prevState => ({
+        ...prevState,
+        customFields: {
+          ...prevState.customFields,
+          [type]: [
+            ...prevState.customFields[type],
+            prevState.customFields[type].length
+          ]
+        }
+      }));
   };
 
   render() {
@@ -146,18 +174,34 @@ const RequiredFields = ({ onChange }) => {
 };
 
 const CustomFields = ({ fields, handleChange }) => {
-  return fields.map((field, index) => (
-    <React.Fragment key={index}>
-      <CustomInputBase
-        id={index}
-        field={field}
-        onChange={handleChange}
-        // value={state[field.name]}
-        placeholder={field.name}
-      />
-      <br />
-    </React.Fragment>
-  ));
+  // first convert fields
+  return Object.keys(fields).map(fieldType =>
+    fields[fieldType].map(fieldId => (
+      <React.Fragment key={fieldId}>
+        <CustomInputBase
+          id={fieldId}
+          type={fieldType}
+          onChange={handleChange}
+          // value={state[field.name]}
+          // placeholder={field.name}
+        />
+        <br />
+      </React.Fragment>
+    ))
+  );
+
+  // return fields.map((field, index) => (
+  //   <React.Fragment key={index}>
+  //     <CustomInputBase
+  //       id={index}
+  //       field={field}
+  //       onChange={handleChange}
+  //       // value={state[field.name]}
+  //       placeholder={field.name}
+  //     />
+  //     <br />
+  //   </React.Fragment>
+  // ));
 };
 
 export default TemplateAddForm;

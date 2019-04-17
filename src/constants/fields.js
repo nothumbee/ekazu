@@ -1,17 +1,15 @@
 export const OPTIONAL_FIELDS = [
   {
-    name: 'exam',
+    name: 'exams',
     title: 'Vyšetření',
-    type: 'exam',
-    values: ['title', 'show', 'malus', 'price', 'bonus', 'items']
+    type: 'exams'
   },
   {
-    name: 'range',
+    name: 'ranges',
     title: 'Rozmezí',
-    type: 'range',
-    values: ['min', 'max']
+    type: 'ranges'
   },
-  { name: 'symptom', title: 'Text', type: 'text' }
+  { name: 'symptoms', title: 'Text', type: 'text' }
 ];
 
 export const REQUIRED_FIELDS = [

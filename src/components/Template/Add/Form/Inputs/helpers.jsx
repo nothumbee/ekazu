@@ -1,53 +1,14 @@
 import React, { useState } from 'react';
 
-export const ImageGroupInput = ({ onChange }) => {
-  const [items, setItems] = useState([1]);
-  const [count, setCount] = useState(1);
-
-  const addItem = (items, newItem) => {
-    setItems([...items, newItem]);
-  };
-
-  const handleChange = event => {
-    const { name, value } = event.target;
-    onChange({ [name]: value });
-  };
-
-  return (
-    <div>
-      <b>Add Images:</b> <br />
-      <TitleInput onChange={handleChange} />
-      {items.map(item => (
-        <React.Fragment key={item}>
-          Image{' '}
-          <input
-            type="file"
-            name={`image${item}`}
-            key={item}
-            onChange={handleChange}
-          />
-          <br />
-        </React.Fragment>
-      ))}
-      <button
-        onClick={() => {
-          const newCount = count + 1;
-          setCount(newCount);
-          addItem(items, newCount);
-        }}
-      >
-        Add Next Image
-      </button>
-    </div>
-  );
-};
-
 export const ItemsInput = ({ onChange }) => {
   const [items, setItems] = useState([1]);
   const [count, setCount] = useState(1);
 
-  const addItem = (items, newItem) => {
-    setItems([...items, newItem]);
+  const handleAddItem = event => {
+    event.preventDefault();
+    const newCount = count + 1;
+    setCount(newCount);
+    setItems([...items, newCount]);
   };
 
   const handleChange = event => {
@@ -67,10 +28,8 @@ export const ItemsInput = ({ onChange }) => {
         />
       ))}
       <button
-        onClick={() => {
-          const newCount = count + 1;
-          setCount(newCount);
-          addItem(items, newCount);
+        onClick={event => {
+          handleAddItem(event);
         }}
       >
         Add Item

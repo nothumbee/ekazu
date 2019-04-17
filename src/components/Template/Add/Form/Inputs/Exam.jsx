@@ -12,18 +12,18 @@ const ExamInput = ({ onChange, id }) => {
   const [exam, setExam] = useState({});
   // i dont even need the state here
 
-  const handleChange = (event, imageGroup) => {
+  const handleChange = event => {
+    // imageGroup was in param
     const { name, type, checked, value } = event.target;
     const insertValue = type === 'checkbox' ? checked : value;
-    const newExam = { ...exam, [name]: insertValue };
+    const newExam = { ...exam, show: false, [name]: insertValue };
 
     setExam(newExam);
-    onChange(id, newExam, 'exam');
+    onChange(id, newExam, 'exams');
     // and send to onChange handler with id of group and save to state
   };
 
   const handleGroupChange = (item, type) => {
-    console.log('groupType', type, item);
     let newExam;
     if (type === 'imageGroup') {
       newExam = { ...exam, imageGroup: { ...exam.imageGroup, ...item } };
@@ -32,7 +32,7 @@ const ExamInput = ({ onChange, id }) => {
     }
 
     setExam(newExam);
-    onChange(id, newExam, 'exam');
+    onChange(id, newExam, 'exams');
   };
 
   return (
@@ -55,13 +55,18 @@ const ImageGroupInput = ({ onChange }) => {
   const [items, setItems] = useState([1]);
   const [count, setCount] = useState(1);
 
-  const addItem = (items, newItem) => {
-    setItems([...items, newItem]);
+  const handleAddItem = event => {
+    event.preventDefault();
+    const newCount = count + 1;
+    setCount(newCount);
+    setItems([...items, newCount]);
   };
 
   const handleChange = event => {
-    const { name, value } = event.target;
-    const newItem = { [name]: value };
+    const { name, value, type } = event.target;
+
+    const newItem =
+      type === 'file' ? { images: { [name]: value } } : { [name]: value };
     console.log(newItem);
     onChange(newItem, 'imageGroup');
   };
@@ -83,10 +88,8 @@ const ImageGroupInput = ({ onChange }) => {
         </React.Fragment>
       ))}
       <button
-        onClick={() => {
-          const newCount = count + 1;
-          setCount(newCount);
-          addItem(items, newCount);
+        onClick={event => {
+          handleAddItem(event);
         }}
       >
         Add Next Image
