@@ -2,6 +2,7 @@ import React from 'react';
 import { REQUIRED_FIELDS } from '../../../constants/fields';
 import CustomInputBase from './FormAtoms';
 import AddCustomFieldForm from './Form/AddCustomFieldForm';
+import SelectDiagnosis from './Form/Selects/Diagnosis';
 
 const INITIAL_STATE = {
   diagnosis: '',
@@ -9,32 +10,7 @@ const INITIAL_STATE = {
   maxMalus: '',
   maxPrice: '',
   exams: {
-    count: [],
-    data: [
-      {
-        title: 'CT Hrudníku',
-        exam: true,
-        show: false,
-        malus: 10,
-        price: 15000,
-        text: ['Bez nálezu', 'Malé těleso'],
-        imageGroup: [
-          {
-            title: 'RTG horního břicha',
-            images: [
-              {
-                filename: 'nativ01.jpg',
-                text: ''
-              },
-              {
-                filename: 'nativ02.jpg',
-                text: ''
-              }
-            ]
-          }
-        ]
-      }
-    ]
+    data: {}
   },
   ranges: { data: {} },
   symptoms: { data: {} },
@@ -53,10 +29,17 @@ class TemplateAddForm extends React.Component {
     // event.preventDefault();
     // axios.post();
 
-    const { ranges, exams, symptoms } = this.state;
+    const {
+      ranges,
+      exams,
+      symptoms,
+      diagnosis,
+      minBonus,
+      maxMalus,
+      maxPrice
+    } = this.state;
 
     const rRanges = Object.values(ranges.data);
-    // console.log('RANGES', rRanges);
 
     const rSymptoms = Object.values(symptoms.data).map(
       ({ title, textGroup }) => ({
@@ -64,7 +47,6 @@ class TemplateAddForm extends React.Component {
         text: Object.values(textGroup || {})
       })
     );
-    // console.log('SYMPTOMS', rSymptoms);
 
     const rExams = Object.values(exams.data).map(exam => ({
       title: exam.title,
@@ -73,20 +55,24 @@ class TemplateAddForm extends React.Component {
       price: exam.price,
       malus: exam.malus,
       bonus: exam.bonus,
-      text: Object.values(exam.textGroup),
+      text: Object.values(exam.textGroup || {}),
       imageGroup: [
         {
           // error undefined
-          title: exam.imageGroup.title,
-          images: Object.values(exam.imageGroup.images)
+          title: exam.imageGroup ? exam.imageGroup.title : '',
+          images: exam.imageGroup ? Object.values(exam.imageGroup.images) : []
         }
       ]
     }));
-    console.log(rExams);
 
     const template = {
-      generators: [...Object.values(ranges.data)] // contains only self-contained objects
+      diagnosis,
+      minBonus,
+      maxMalus,
+      maxPrice,
+      generators: [...rExams, ...rRanges, ...rSymptoms] // contains only self-contained objects
     };
+    console.log('template', template);
   };
 
   handleChange = event => {
@@ -142,12 +128,12 @@ class TemplateAddForm extends React.Component {
           usedInputs={this.state.customFields}
         />
         <form onSubmit={this.handleSubmit}>
+          Diagnosis <SelectDiagnosis />
+          <br />
           <RequiredFields onChange={this.handleChange} />
-
           <CustomFields
             fields={this.state.customFields}
             handleChange={this.handleChangeCustomField}
-            // state={this.state}
           />
           <input type="submit" />
         </form>
@@ -189,19 +175,6 @@ const CustomFields = ({ fields, handleChange }) => {
       </React.Fragment>
     ))
   );
-
-  // return fields.map((field, index) => (
-  //   <React.Fragment key={index}>
-  //     <CustomInputBase
-  //       id={index}
-  //       field={field}
-  //       onChange={handleChange}
-  //       // value={state[field.name]}
-  //       placeholder={field.name}
-  //     />
-  //     <br />
-  //   </React.Fragment>
-  // ));
 };
 
 export default TemplateAddForm;
