@@ -23,7 +23,7 @@ const SelectType = ({ types, handleChange, selected }) => {
       onChange={e => handleChange(e.target.value)}
       value={selected}
     >
-      <option value="" />
+      <option value="">Vyber typ</option>
       {types.map((type, index) => (
         <option value={type.name} key={index}>
           {type.title}

@@ -13,11 +13,7 @@ export const OPTIONAL_FIELDS = [
 ];
 
 export const REQUIRED_FIELDS = [
-  {
-    name: 'diagnosis',
-    title: 'Diagnoza',
-    type: 'text'
-  },
+
   {
     name: 'minBonus',
     title: 'minBonus',

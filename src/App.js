@@ -1,14 +1,10 @@
 import React from 'react';
 
-import AppBar from './components/AppBar';
 import ScreensRoot from './screens/Root';
+import { withAuthentication } from './components/Session';
 
 const App = () => {
-  return (
-    <ScreensRoot>
-      <AppBar />
-    </ScreensRoot>
-  );
+  return <ScreensRoot />;
 };
 
-export default App;
+export default withAuthentication(App);
