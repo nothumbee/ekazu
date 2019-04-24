@@ -1,8 +1,8 @@
 import React from 'react';
-import Student from '../../components/Student';
+import PatientCase from '../../components/PatientCase';
 
 const StudentPage = () => {
-  return <Student />;
+  return <PatientCase />;
 };
 
 export default StudentPage;

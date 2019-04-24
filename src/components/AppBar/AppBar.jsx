@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 // import LoadPatient from '../Load/LoadPatient';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter } from "react-router-dom";
 
-import { Menu, Icon } from 'antd';
+import { Menu, Icon } from "antd";
 
-import * as ROUTES from '../../constants/routes';
-import 'antd/dist/antd.css';
+import * as ROUTES from "../../constants/routes";
+import "antd/dist/antd.css";
 
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
 const logoStyles = {
-  width: '120px',
-  height: '31px',
-  background: 'rgba(255,255,255,.2)',
-  margin: '16px 24px 16px 0',
-  float: 'left'
+  width: "120px",
+  height: "31px",
+  background: "rgba(255,255,255,.2)",
+  margin: "16px 24px 16px 0",
+  float: "left"
 };
 
 const AppBar = props => {
@@ -24,7 +24,7 @@ const AppBar = props => {
   props.history.listen(location => setCurrent(location.pathname));
 
   const handleClick = e => {
-    console.log('click ', e);
+    console.log("click ", e);
     // setCurrent(e.key);
   };
 
@@ -37,13 +37,13 @@ const AppBar = props => {
         selectedKeys={[current]}
         mode="horizontal"
         theme="dark"
-        style={{ lineHeight: '64px' }}
+        style={{ lineHeight: "64px" }}
       >
         <Menu.Item key={ROUTES.LANDING}>
           <Link to={ROUTES.LANDING}>Landing</Link>
         </Menu.Item>
 
-        <SubMenu title={'ADMIN'}>
+        <SubMenu title={"ADMIN"}>
           <MenuItemGroup
             title={<span className="submenu-title-wrapper">Create</span>}
           >
@@ -74,6 +74,17 @@ const AppBar = props => {
               <Link to={ROUTES.ADMIN_SHOW_DIAGNOSIS_LIST}>
                 <Icon type="form" />
                 Diagnosis List
+              </Link>
+            </Menu.Item>
+          </MenuItemGroup>
+
+          <MenuItemGroup
+            title={<span className="submenu-title-wrapper">Edit</span>}
+          >
+            <Menu.Item key={ROUTES.ADMIN_EDIT_TEMPLATE}>
+              <Link to={ROUTES.ADMIN_EDIT_TEMPLATE}>
+                <Icon type="edit" />
+                Template
               </Link>
             </Menu.Item>
           </MenuItemGroup>

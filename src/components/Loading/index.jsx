@@ -6,5 +6,9 @@ export const LoadingSkeleton = () => {
 };
 
 export const LoadingSpin = () => {
+<<<<<<< HEAD
   return <Spin />;
+=======
+  return <Spin style={{ margin: '0.8em' }} />;
+>>>>>>> feature/student-loading
 };
