@@ -6,5 +6,5 @@ export const LoadingSkeleton = () => {
 };
 
 export const LoadingSpin = () => {
-  return <Spin />;
+  return <Spin style={{ margin: '0.8em' }} />;
 };

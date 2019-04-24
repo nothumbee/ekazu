@@ -77,6 +77,17 @@ const AppBar = props => {
               </Link>
             </Menu.Item>
           </MenuItemGroup>
+
+          <MenuItemGroup
+            title={<span className="submenu-title-wrapper">Edit</span>}
+          >
+            <Menu.Item key={ROUTES.ADMIN_EDIT_TEMPLATE}>
+              <Link to={ROUTES.ADMIN_EDIT_TEMPLATE}>
+                <Icon type="edit" />
+                Template
+              </Link>
+            </Menu.Item>
+          </MenuItemGroup>
         </SubMenu>
 
         <Menu.Item key={ROUTES.STUDENT}>

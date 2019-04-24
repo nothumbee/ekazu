@@ -13,7 +13,7 @@ const withAuthorization = condition => Component => {
       const checkUser = () => {
         const authUser = sessionStorage.getItem('authUser');
         if (!condition(authUser)) {
-          this.props.history.push(ROUTES.SIGN_IN);
+          this.props.history.push(`${ROUTES.SIGN_IN}?loginfirst`);
         }
       };
       checkUser();

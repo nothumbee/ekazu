@@ -9,7 +9,7 @@ import Properties from './Properties';
 const { Title, Text } = Typography;
 
 // Would be great to store the unfinished generated patient in localStorage or something
-class LoadPatient extends Component {
+class PatientCase extends Component {
   state = {
     properties: [],
     caseID: '',
@@ -24,7 +24,7 @@ class LoadPatient extends Component {
     setTimeout(() => {
       axe.get('student').then(response => {
         // handle success
-        const { properties, id } = response.data;
+        const { properties, id, templateId } = response.data;
         console.log(response.data);
 
         const exams = properties.filter(property => !!property.exam);
@@ -46,22 +46,20 @@ class LoadPatient extends Component {
 
   handleShowNextExam = event => {
     event.preventDefault();
-    console.log('stateexa,as :', this.state.exams);
-    if (!this.state.exams.hidden.length)
+    // here i need to switch one item from one property to another
+    if (this.state.exams.hidden.length)
       this.setState(prevState => {
-        const filee = prevState.exams.hidden.filter(
+        const newHidden = prevState.exams.hidden.filter(
           // could be abstracted to new func filterArrayByIndex
           (exam, index) => index !== 0
         );
         return {
           exams: {
             visible: [...prevState.exams.visible, prevState.exams.hidden[0]],
-            hidden: filee // remove first item
+            hidden: newHidden // remove first item
           }
         };
       });
-    // add to state is there another exam?
-    // exams: {visible:[], hidden:[]}
   };
 
   render() {
@@ -77,7 +75,10 @@ class LoadPatient extends Component {
           exams={this.state.exams.visible}
           handleShowNextExam={this.handleShowNextExam}
         />
-        <DiagnosisGuessForm id={this.state.caseID} />
+        <DiagnosisGuessForm
+          id={this.state.caseID}
+          exams={this.state.exams.visible}
+        />
       </div>
     );
   }
@@ -123,4 +124,4 @@ const ExamWithImageGroup = ({ title, text = '', imageGroup }) => {
   );
 };
 
-export default LoadPatient;
+export default PatientCase;
