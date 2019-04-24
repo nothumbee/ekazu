@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   TitleInput,
   ShowInput,
@@ -6,7 +6,8 @@ import {
   MalusInput,
   PriceInput,
   ItemsInput
-} from './helpers';
+} from "./helpers";
+import { Row, Col } from "antd";
 
 const ExamInput = ({ onChange, id }) => {
   const [exam, setExam] = useState({});
@@ -15,36 +16,45 @@ const ExamInput = ({ onChange, id }) => {
   const handleChange = event => {
     // imageGroup was in param
     const { name, type, checked, value } = event.target;
-    const insertValue = type === 'checkbox' ? checked : value;
+    const insertValue = type === "checkbox" ? checked : value;
     const newExam = { ...exam, show: false, [name]: insertValue };
 
     setExam(newExam);
-    onChange(id, newExam, 'exams');
+    onChange(id, newExam, "exams");
     // and send to onChange handler with id of group and save to state
   };
 
   const handleGroupChange = (item, type) => {
     let newExam;
-    if (type === 'imageGroup') {
+    if (type === "imageGroup") {
       newExam = { ...exam, imageGroup: { ...exam.imageGroup, ...item } };
-    } else if (type === 'textGroup') {
+    } else if (type === "textGroup") {
       newExam = { ...exam, textGroup: { ...exam.textGroup, ...item } };
     }
 
     setExam(newExam);
-    onChange(id, newExam, 'exams');
+    onChange(id, newExam, "exams");
   };
 
   return (
-    <div className={'exam'}>
-      <h2>Examination input</h2>
+    <div className={"exam"}>
+      <h2>Přidání vyšetření</h2>
       <TitleInput onChange={handleChange} />
-      <ShowInput onChange={handleChange} />
-      <BonusInput onChange={handleChange} />
-      <MalusInput onChange={handleChange} />
-      <PriceInput onChange={handleChange} />
-      <ItemsInput onChange={handleGroupChange} />
-      <ImageGroupInput onChange={handleGroupChange} />
+
+      <Row gutter={16}>
+        {/* <ShowInput onChange={handleChange} /> */}
+        <Col span={8}>
+          <BonusInput onChange={handleChange} />
+        </Col>
+        <Col span={8}>
+          <MalusInput onChange={handleChange} />
+        </Col>
+        <Col span={8}>
+          <PriceInput onChange={handleChange} />
+        </Col>
+        <ItemsInput onChange={handleGroupChange} />
+        <ImageGroupInput onChange={handleGroupChange} />
+      </Row>
     </div>
   );
 };
@@ -66,18 +76,18 @@ const ImageGroupInput = ({ onChange }) => {
     const { name, value, type } = event.target;
 
     const newItem =
-      type === 'file' ? { images: { [name]: value } } : { [name]: value };
+      type === "file" ? { images: { [name]: value } } : { [name]: value };
     console.log(newItem);
-    onChange(newItem, 'imageGroup');
+    onChange(newItem, "imageGroup");
   };
 
   return (
     <div>
-      <b>Add Images:</b> <br />
+      <b>Přidat fotky:</b> <br />
       <TitleInput onChange={handleChange} />
       {items.map(item => (
         <React.Fragment key={item}>
-          Image{' '}
+          Image{" "}
           <input
             type="file"
             name={`image${item}`}

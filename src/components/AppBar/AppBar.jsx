@@ -6,6 +6,7 @@ import { Menu, Icon } from "antd";
 
 import * as ROUTES from "../../constants/routes";
 import "antd/dist/antd.css";
+import "./AppBar.css";
 
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
@@ -29,7 +30,7 @@ const AppBar = props => {
   };
 
   return (
-    <>
+    <div className="inside">
       <div className="logo" style={logoStyles} />
 
       <Menu
@@ -37,7 +38,7 @@ const AppBar = props => {
         selectedKeys={[current]}
         mode="horizontal"
         theme="dark"
-        style={{ lineHeight: "64px" }}
+        style={{ lineHeight: "64px", float: "right" }}
       >
         <Menu.Item key={ROUTES.LANDING}>
           <Link to={ROUTES.LANDING}>Landing</Link>
@@ -50,13 +51,13 @@ const AppBar = props => {
             <Menu.Item key={ROUTES.ADMIN_CREATE_TEMPLATE}>
               <Link to={ROUTES.ADMIN_CREATE_TEMPLATE}>
                 <Icon type="plus" />
-                New Template
+                Přidat template
               </Link>
             </Menu.Item>
             <Menu.Item key={ROUTES.ADMIN_CREATE_DIAGNOSIS}>
               <Link to={ROUTES.ADMIN_CREATE_DIAGNOSIS}>
                 <Icon type="plus" />
-                New Diagnosis
+                Přidat diagnózu
               </Link>
             </Menu.Item>
           </MenuItemGroup>
@@ -67,19 +68,19 @@ const AppBar = props => {
             <Menu.Item key={ROUTES.ADMIN_SHOW_TEMPLATE_LIST}>
               <Link to={ROUTES.ADMIN_SHOW_TEMPLATE_LIST}>
                 <Icon type="ordered-list" />
-                Template List
+                Seznam templatů
               </Link>
             </Menu.Item>
             <Menu.Item key={ROUTES.ADMIN_SHOW_DIAGNOSIS_LIST}>
               <Link to={ROUTES.ADMIN_SHOW_DIAGNOSIS_LIST}>
                 <Icon type="form" />
-                Diagnosis List
+                Seznam diagnóz
               </Link>
             </Menu.Item>
           </MenuItemGroup>
 
           <MenuItemGroup
-            title={<span className="submenu-title-wrapper">Edit</span>}
+            title={<span className="submenu-title-wrapper">Editovat</span>}
           >
             <Menu.Item key={ROUTES.ADMIN_EDIT_TEMPLATE}>
               <Link to={ROUTES.ADMIN_EDIT_TEMPLATE}>
@@ -101,7 +102,7 @@ const AppBar = props => {
           </Link>
         </Menu.Item>
       </Menu>
-    </>
+    </div>
   );
 };
 

@@ -5,7 +5,7 @@ import { withAuthorization } from "../../components/Session";
 
 import { withRouter } from "react-router";
 import * as ROUTES from "../../constants/routes";
-import TemplateAddForm from "../../components/Template/Add/Form";
+import TemplateAddForm from "../../components/Template/Add/Form/Form";
 import DiagnosisAddForm from "../../components/Diagnosis/AddForm";
 import TemplateList from "../../components/Template/List";
 import DiagnosisList from "../../components/Diagnosis/List";
