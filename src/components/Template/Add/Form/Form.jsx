@@ -7,9 +7,11 @@ import { REQUIRED_FIELDS } from "../../../../constants/fields";
 import CustomInputBase from "../FormAtoms";
 import AddCustomFieldForm from "./AddCustomFieldForm";
 import SelectDiagnosis from "./Selects/Diagnosis";
-import { Row, Col } from "antd";
 
+import { Row, Col, Affix, Typography } from "antd";
 import "./Form.css";
+
+const { Title } = Typography;
 
 const INITIAL_STATE = {
   diagnosis: "",
@@ -129,15 +131,16 @@ class TemplateAddForm extends React.Component {
   render() {
     return (
       <>
-        <h1>Přidání templatu</h1>
-
-        <AddCustomFieldForm
-          handleSubmit={this.handleAddCustomField}
-          usedInputs={this.state.customFields}
-        />
+        <Title level={2}>Přidání šablony</Title>
+        <Affix offsetTop={0}>
+          <AddCustomFieldForm
+            handleSubmit={this.handleAddCustomField}
+            usedInputs={this.state.customFields}
+          />
+        </Affix>
 
         <div className="addTemplateform">
-          <h2>Template</h2>
+          <h2>Šablona</h2>
           <form onSubmit={this.handleSubmit}>
             Diagnóza <SelectDiagnosis />
             <br />
