@@ -17,11 +17,11 @@ const withAuthorization = condition => Component => {
         }
       };
       checkUser();
-      this.listener = setInterval(() => checkUser, 2000);
+      // this.listener = setInterval(() => checkUser, 2000);
     }
 
     componentWillUnmount() {
-      clearInterval(this.listener);
+      // clearInterval(this.listener);
     }
 
     render() {
