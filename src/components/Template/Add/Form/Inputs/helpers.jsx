@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 export const ItemsInput = ({ onChange }) => {
   const [items, setItems] = useState([1]);
@@ -13,7 +13,7 @@ export const ItemsInput = ({ onChange }) => {
 
   const handleChange = event => {
     const { name, value } = event.target;
-    onChange({ [name]: value }, 'textGroup');
+    onChange({ [name]: value }, "textGroup");
   };
 
   return (
@@ -32,7 +32,7 @@ export const ItemsInput = ({ onChange }) => {
           handleAddItem(event);
         }}
       >
-        Add Item
+        +
       </button>
     </div>
   );
@@ -41,7 +41,7 @@ export const ItemsInput = ({ onChange }) => {
 export const ShowInput = ({ onChange }) => {
   return (
     <div>
-      Zobrazit{' '}
+      Zobrazit
       <input type="checkbox" value="true" name="show" onChange={onChange} />
     </div>
   );
@@ -58,7 +58,7 @@ export const MalusInput = ({ onChange }) => {
 export const PriceInput = ({ onChange }) => {
   return (
     <div>
-      Price <input type="number" name="price" onChange={onChange} />
+      Cena <input type="number" name="price" onChange={onChange} />
     </div>
   );
 };
@@ -74,7 +74,7 @@ export const BonusInput = ({ onChange }) => {
 export const MinInput = ({ onChange }) => {
   return (
     <div>
-      Min <input type="number" name="min" onChange={onChange} />
+      Minimum <input type="number" name="min" onChange={onChange} />
     </div>
   );
 };
@@ -82,7 +82,7 @@ export const MinInput = ({ onChange }) => {
 export const MaxInput = ({ onChange }) => {
   return (
     <div>
-      Max <input type="number" name="max" onChange={onChange} />
+      Maximum <input type="number" name="max" onChange={onChange} />
     </div>
   );
 };
@@ -90,8 +90,8 @@ export const MaxInput = ({ onChange }) => {
 export const TitleInput = ({ onChange, value }) => {
   return (
     <div>
-      Title
-      <input type="text" value={value} name={'title'} onChange={onChange} />
+      Název
+      <input type="text" value={value} name={"title"} onChange={onChange} />
     </div>
   );
 };

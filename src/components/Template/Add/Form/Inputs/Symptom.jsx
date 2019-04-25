@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { TitleInput, ItemsInput } from './helpers';
+import React, { useState } from "react";
+import { TitleInput, ItemsInput } from "./helpers";
 
 const SymptomInput = ({ onChange, id }) => {
   const [symptom, setSymptom] = useState({});
@@ -9,24 +9,24 @@ const SymptomInput = ({ onChange, id }) => {
     const newSymptom = { ...symptom, [name]: value };
 
     setSymptom(newSymptom);
-    onChange(id, newSymptom, 'symptoms');
+    onChange(id, newSymptom, "symptoms");
     // and send to onChange handler with id of group and save to state
   };
 
   const handleGroupChange = (item, type) => {
     let newSymptom;
 
-    if (type === 'textGroup') {
+    if (type === "textGroup") {
       newSymptom = { ...symptom, textGroup: { ...symptom.textGroup, ...item } };
     }
 
     setSymptom(newSymptom);
-    onChange(id, newSymptom, 'symptoms');
+    onChange(id, newSymptom, "symptoms");
   };
 
   return (
-    <div>
-      <h3>Add Symptom or Text</h3>
+    <div className="symptom">
+      <h3>Přidat symptom nebo text</h3>
       <TitleInput onChange={handleChange} />
       <ItemsInput onChange={handleGroupChange} symptom={symptom} />
     </div>

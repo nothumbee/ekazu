@@ -1,18 +1,20 @@
-import React, { useState } from 'react';
-import { OPTIONAL_FIELDS } from '../../../../constants/fields';
+import React, { useState } from "react";
+import { OPTIONAL_FIELDS } from "../../../../constants/fields";
 
 const AddCustomFieldForm = ({ handleSubmit }) => {
-  const [type, setType] = useState('');
+  const [type, setType] = useState("");
   return (
-    <form onSubmit={event => handleSubmit(event, type)}>
-      <SelectType
-        types={OPTIONAL_FIELDS}
-        handleChange={setType}
-        selected={type}
-      />
+    <div className="customFieldsBar">
+      <form onSubmit={event => handleSubmit(event, type)}>
+        <SelectType
+          types={OPTIONAL_FIELDS}
+          handleChange={setType}
+          selected={type}
+        />
 
-      <input type="submit" value="Add custom field" />
-    </form>
+        <input type="submit" value="Přidat vlastní pole" />
+      </form>
+    </div>
   );
 };
 
