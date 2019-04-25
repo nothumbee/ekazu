@@ -11,7 +11,6 @@ const AddCustomFieldForm = ({ handleSubmit }) => {
           handleChange={setType}
           selected={type}
         />
-
         <input type="submit" value="Přidat vlastní pole" />
       </form>
     </div>

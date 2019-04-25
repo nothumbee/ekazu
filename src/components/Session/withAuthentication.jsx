@@ -24,7 +24,7 @@ const withAuthentication = Component => {
       };
 
       checkUser();
-      this.listener = setInterval(checkUser, 5000);
+      // this.listener = setInterval(checkUser, 5000);
 
       // console.log(this.listener);
       // this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
@@ -35,7 +35,7 @@ const withAuthentication = Component => {
     }
 
     componentWillUnmount() {
-      clearInterval(this.listener);
+      // clearInterval(this.listener);
     }
 
     render() {

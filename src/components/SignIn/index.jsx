@@ -101,6 +101,7 @@ class SignInFormBase extends Component {
             placeholder="Heslo"
           />
           <button
+            className="ant-btn ant-btn-primary"
             // disabled={isInvalid}
             type="submit"
           >

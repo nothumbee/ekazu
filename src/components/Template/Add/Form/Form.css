@@ -27,6 +27,7 @@ input[type="password"] {
   margin: 0.4em 0 1em 0 !important;
 }
 
+
 input[type="text"]:focus,
 input[type="number"]:focus,
 input[type="password"]:focus {
@@ -105,7 +106,6 @@ select {
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
   box-sizing: border-box;
-
   margin: 0 auto;
 }
 

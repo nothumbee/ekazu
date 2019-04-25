@@ -7,6 +7,7 @@ import { REQUIRED_FIELDS } from "../../../../constants/fields";
 import CustomInputBase from "../FormAtoms";
 import AddCustomFieldForm from "./AddCustomFieldForm";
 import SelectDiagnosis from "./Selects/Diagnosis";
+
 import { Row, Col, Affix, Typography } from "antd";
 import "./Form.css";
 
