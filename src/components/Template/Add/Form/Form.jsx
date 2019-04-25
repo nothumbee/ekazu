@@ -2,20 +2,20 @@
 ze bude zprvu schovany, takze neni treba delit na tri typy pri nacteni,
  ale pri odeslani je to fajn pro lepsi UX */
 
-import React from "react";
-import { REQUIRED_FIELDS } from "../../../../constants/fields";
-import CustomInputBase from "../FormAtoms";
-import AddCustomFieldForm from "./AddCustomFieldForm";
-import SelectDiagnosis from "./Selects/Diagnosis";
-import { Row, Col } from "antd";
+import React from 'react';
+import { REQUIRED_FIELDS } from '../../../../constants/fields';
+import CustomInputBase from '../FormAtoms';
+import AddCustomFieldForm from './AddCustomFieldForm';
+import SelectDiagnosis from './Selects/Diagnosis';
+import { Row, Col } from 'antd';
 
-import "./Form.css";
+import './Form.css';
 
 const INITIAL_STATE = {
-  diagnosis: "",
-  minBonus: "",
-  maxMalus: "",
-  maxPrice: "",
+  diagnosis: '',
+  minBonus: '',
+  maxMalus: '',
+  maxPrice: '',
   exams: {
     data: {}
   },
@@ -66,7 +66,7 @@ class TemplateAddForm extends React.Component {
       imageGroup: [
         {
           // error undefined
-          title: exam.imageGroup ? exam.imageGroup.title : "",
+          title: exam.imageGroup ? exam.imageGroup.title : '',
           images: exam.imageGroup ? Object.values(exam.imageGroup.images) : []
         }
       ]
@@ -79,7 +79,7 @@ class TemplateAddForm extends React.Component {
       maxPrice,
       generators: [...rExams, ...rRanges, ...rSymptoms] // contains only self-contained objects
     };
-    console.log("template", template);
+    console.log('template', template);
   };
 
   handleChange = event => {
@@ -90,10 +90,10 @@ class TemplateAddForm extends React.Component {
 
   handleChangeCustomField = (id, newItem, type) => {
     // contains pretty WET code, DRY it , wackily erasable turf
-    console.log("newITem", newItem);
-    console.log("newITem ID", id, type);
+    console.log('newITem', newItem);
+    console.log('newITem ID', id, type);
 
-    console.log("REF", type);
+    console.log('REF', type);
     this.setState(
       prevState => ({
         ...prevState,
@@ -113,7 +113,7 @@ class TemplateAddForm extends React.Component {
   handleAddCustomField = (event, type) => {
     event.preventDefault();
 
-    if (type !== "")
+    if (type !== '')
       this.setState(prevState => ({
         ...prevState,
         customFields: {
@@ -129,7 +129,7 @@ class TemplateAddForm extends React.Component {
   render() {
     return (
       <>
-        <h1>Přidání templatu</h1>
+        <h1>Přidání šablony</h1>
 
         <AddCustomFieldForm
           handleSubmit={this.handleAddCustomField}
@@ -137,7 +137,7 @@ class TemplateAddForm extends React.Component {
         />
 
         <div className="addTemplateform">
-          <h2>Template</h2>
+          <h2>Šablona</h2>
           <form onSubmit={this.handleSubmit}>
             Diagnóza <SelectDiagnosis />
             <br />
