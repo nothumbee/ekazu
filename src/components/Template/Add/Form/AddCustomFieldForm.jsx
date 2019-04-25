@@ -12,7 +12,7 @@ const AddCustomFieldForm = ({ handleSubmit }) => {
           selected={type}
         />
 
-        <input type="submit" value="Add custom field" />
+        <input type="submit" value="Přidat vlastní pole" />
       </form>
     </div>
   );
