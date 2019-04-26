@@ -4,10 +4,9 @@ import { Link, withRouter } from 'react-router-dom';
 
 import { Menu, Icon } from 'antd';
 
-
-import * as ROUTES from "../../constants/routes";
-import "antd/dist/antd.css";
-import "./AppBar.css";
+import * as ROUTES from '../../constants/routes';
+import 'antd/dist/antd.css';
+import './AppBar.css';
 
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
@@ -39,7 +38,7 @@ const AppBar = props => {
         selectedKeys={[current]}
         mode="horizontal"
         theme="dark"
-        style={{ lineHeight: "64px", float: "right" }}
+        style={{ lineHeight: '64px', float: 'right' }}
       >
         <Menu.Item key={ROUTES.LANDING}>
           <Link to={ROUTES.LANDING}>Úvod</Link>

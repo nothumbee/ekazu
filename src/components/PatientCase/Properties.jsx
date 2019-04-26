@@ -1,18 +1,23 @@
 import React from 'react';
 import withEither from '../HOC/withEither';
 
-import { Typography } from 'antd';
+import { Typography, List } from 'antd';
 import { LoadingSkeleton } from '../Loading';
 
 const { Title, Text } = Typography;
 
-const PropertiesWithLoading = ({ properties }) =>
-  properties.map((field, index) => (
-    <div key={index}>
-      <Title level={3}>{field.title}</Title>
-      <Text>{field.text}</Text>
-    </div>
-  ));
+const PropertiesWithLoading = ({ properties }) => (
+  <List
+    style={{ marginBottom: 20 }}
+    bordered
+    dataSource={properties}
+    renderItem={item => (
+      <List.Item>
+        <Title level={4}>{item.title}</Title> {item.text}
+      </List.Item>
+    )}
+  />
+);
 
 const isLoadingConditionFn = props => props.loading;
 

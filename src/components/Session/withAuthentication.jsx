@@ -16,15 +16,16 @@ const withAuthentication = Component => {
       const checkUser = () => {
         const authUser = sessionStorage.getItem('authUser');
 
-        authUser
-          ? this.setState({ authUser })
-          : this.setState({ authUser: null });
+        if (this.state.authUser !== authUser)
+          authUser
+            ? this.setState({ authUser })
+            : this.setState({ authUser: null });
 
         console.log(authUser);
       };
 
       checkUser();
-      // this.listener = setInterval(checkUser, 5000);
+      this.listener = setInterval(checkUser, 5000);
 
       // console.log(this.listener);
       // this.listener = this.props.firebase.auth.onAuthStateChanged(authUser => {
@@ -35,7 +36,7 @@ const withAuthentication = Component => {
     }
 
     componentWillUnmount() {
-      // clearInterval(this.listener);
+      clearInterval(this.listener);
     }
 
     render() {
