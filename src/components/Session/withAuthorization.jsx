@@ -17,7 +17,7 @@ const withAuthorization = condition => Component => {
         }
       };
       checkUser();
-      // this.listener = setInterval(() => checkUser, 2000);
+      this.listener = setTimeout(() => checkUser, 2000);
     }
 
     componentWillUnmount() {

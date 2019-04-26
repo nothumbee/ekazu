@@ -1,47 +1,60 @@
-import React, { useState, useEffect } from "react";
-import axe from "../Axios";
-import Title from "antd/lib/typography/Title";
-import { LoadingSpin } from "../Loading";
-import withEither from "../HOC/withEither";
+import React, { useState, useEffect } from 'react';
+import axe from '../Axios';
+import Title from 'antd/lib/typography/Title';
+import { Modal, Button } from 'antd';
 
-const DiagnosisGuessForm = ({ id, exams }) => {
-  const [selectedDiagnosis, setSelectedDiagnosis] = useState("");
+import { LoadingSpin } from '../Loading';
+import withEither from '../HOC/withEither';
+
+const DiagnosisGuessForm = ({ studentID, exams }) => {
+  const [selectedDiagnosis, setSelectedDiagnosis] = useState('');
   const [diagnosisList, setDiagnosisList] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [checking, setChecking] = useState(false);
 
   const handleLoadDiagnosisList = () => {
     if (!diagnosisList.length)
       axe
-        .get("student/diagnosis")
+        .get('student/diagnosis')
         .then(response => {
           setDiagnosisList(response.data);
           setLoading(false);
         })
         .catch(err => console.log(err));
   };
+
   useEffect(handleLoadDiagnosisList);
 
-  const handleSuccessFinishedCase = () => {};
+  const handleSuccessFinishedCase = ({ wasRight }) => {
+    if (wasRight) {
+      console.log('JE TO NA...', wasRight);
+    } else console.log('hovno :');
+  };
 
   const handleFinishCase = event => {
-    /// have to be finished with new backend - send arr of exams + id of case and string of diagnosis from select
+    setChecking(true);
     event.preventDefault();
-    console.log("Diagno :", id, selectedDiagnosis);
-    const caseToFinish = {
-      diagnosis: selectedDiagnosis,
-      exams: exams.map(exam => exam.id)
-    };
 
-    axe
-      .post(`student/${id}`, JSON.stringify(caseToFinish))
-      .then(response => {
-        // handle success
-        handleSuccessFinishedCase();
-        console.log("JE TO NA...", response);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    if (selectedDiagnosis) {
+      const caseToFinish = {
+        diagnosis: selectedDiagnosis,
+        exams
+      };
+
+      axe
+        .post(`student/${studentID}`, JSON.stringify(caseToFinish))
+        .then(response => {
+          // handle success
+          setTimeout(() => {
+            setChecking(false);
+          }, 1500);
+
+          handleSuccessFinishedCase(response.data);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
   };
 
   const BaseSelect = () => (
@@ -49,7 +62,7 @@ const DiagnosisGuessForm = ({ id, exams }) => {
       name="diagnosis"
       value={selectedDiagnosis}
       onChange={({ target }) => {
-        console.log("target.value", target.value);
+        console.log('target.value', target.value);
         setSelectedDiagnosis(target.value);
       }}
     >
@@ -61,23 +74,39 @@ const DiagnosisGuessForm = ({ id, exams }) => {
       ))}
     </select>
   );
+
   const isLoadingConditionFn = props => props.loading;
 
   const SelectWithLoading = withEither(isLoadingConditionFn, LoadingSpin)(
     BaseSelect
   );
 
-  // return <SelectWithLoading loading={loading} />;
-
-  return (
+  const DiagnosisGuessFormBase = () => (
     <>
-      <Title level={4}>Guess the Diagnosis</Title>
+      <Title level={4}>Vyber o jakou diagnózu se jedná:</Title>
       <form onSubmit={event => handleFinishCase(event)}>
         <SelectWithLoading loading={loading} />
-        <input type="submit" value="Submit diagnosis" disabled={loading} />
+        <input
+          className={'ant-btn ant-btn-primary'}
+          type="submit"
+          disabled={!selectedDiagnosis}
+          value="Ověřit diagnózu"
+          // disabled={loading}
+        />
       </form>
     </>
   );
+
+  const isCheckingConditionFn = props => props.checking;
+
+  const DiagnosisGuessFormWithChecking = withEither(
+    isCheckingConditionFn,
+    LoadingSpin
+  )(DiagnosisGuessFormBase);
+
+  // return <SelectWithLoading loading={loading} />;
+
+  return <DiagnosisGuessFormWithChecking checking={checking} />;
 };
 
 export default DiagnosisGuessForm;
