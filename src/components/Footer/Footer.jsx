@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 
 const FooterCredits = props => (
-  <>Created by Vojtech Bezpalec, David Supik and not so Daniel Grim</>
+  <>Vytvořil Vojtěch Bezpalec, David Šupík a Daniel Grim</>
 );
 
 export default FooterCredits;

@@ -154,8 +154,13 @@ const Exam = ({ exam, handleShowExam }) => {
 
   const isLoadingConditionFn = props => props.examining;
   const ExaminingModal = () => (
-    <Modal visible={true} footer={null} closable={false}>
-      Vyšetřuji pacienta...
+    <Modal
+      visible={true}
+      footer={null}
+      closable={false}
+      style={{ textAlign: "center" }}
+    >
+      Vyšetřuji pacienta
       <LoadingSpin />
     </Modal>
   );
