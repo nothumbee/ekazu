@@ -1,18 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Card } from "antd";
+
+import "./Form.css";
 
 import { STUDENT, ADMIN } from "../../constants/routes";
 
 const RoleDecisionForm = () => {
   return (
-    <Card>
-      Jste učitel nebo student?
-      <br />
-      <Link to={STUDENT}>STUDENT >></Link>
-      <br />
-      <Link to={ADMIN}>ADMIN >></Link>
-    </Card>
+    <>
+      <div className="title">Jste učitel nebo student?</div>
+      <div className="item">
+        <Link to={STUDENT}>Student</Link>
+      </div>
+      <div className="item">
+        <Link to={ADMIN}>Učitel</Link>
+      </div>
+    </>
   );
 };
 

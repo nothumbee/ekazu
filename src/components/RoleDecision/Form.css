@@ -1,0 +1,8 @@
+.item {
+  border-radius: 40px;
+  width: 290px;
+  height: 339px;
+  background: #fff;
+  display: inline-block;
+  text-align: center;
+}
