@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { OPTIONAL_FIELDS } from "../../../../constants/fields";
+import React, { useState } from 'react';
+import { OPTIONAL_FIELDS } from '../../../../../constants/fields';
 
 const AddCustomFieldForm = ({ handleSubmit }) => {
-  const [type, setType] = useState("");
+  const [type, setType] = useState('');
   return (
     <div className="customFieldsBar">
       <form onSubmit={event => handleSubmit(event, type)}>
