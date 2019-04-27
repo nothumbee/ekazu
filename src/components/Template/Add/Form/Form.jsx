@@ -26,10 +26,8 @@ const INITIAL_STATE = {
   customFields: { exams: [], ranges: [], symptoms: [] }
 };
 
-// there is a sligh t issue with backing up form to localstorage, because values are not binded with state
-// data saves to state, but not the other way
-
 // validation is missing
+// data is now binded with state, but needs to be saved to localStorage
 // and also imageGroup needs to be refactored because single image description is missing
 class TemplateAddForm extends React.Component {
   state = { ...INITIAL_STATE };
@@ -91,12 +89,8 @@ class TemplateAddForm extends React.Component {
   };
 
   handleChangeCustomField = (id, newItem, type) => {
-    // contains pretty WET code, DRY it , wackily erasable turf
-    console.log('newITem', newItem);
-    console.log('newITem ID', id, type);
-
     this.setState(prevState => ({
-      ...prevState,
+      // ...prevState,
       [type]: {
         ...prevState[type],
         data: { ...prevState[type].data, [id]: newItem }
@@ -113,7 +107,7 @@ class TemplateAddForm extends React.Component {
 
     if (type !== '') {
       this.setState(prevState => ({
-        ...prevState,
+        // ...prevState,
         customFields: {
           ...prevState.customFields,
           [type]: [
@@ -122,7 +116,53 @@ class TemplateAddForm extends React.Component {
           ]
         }
       }));
+
+      this.handleAddCustomFieldDefaultData(type);
     }
+  };
+
+  handleAddCustomFieldDefaultData = type => {
+    const defaultData = () => {
+      switch (type) {
+        case 'exams':
+          return {
+            title: '',
+            exam: true,
+            price: '',
+            malus: '',
+            bonus: '',
+            textGroup: {},
+            imageGroup: {
+              title: '',
+              images: {}
+            }
+          };
+        case 'ranges':
+          return {
+            min: '',
+            max: '',
+            title: ''
+          };
+        case 'symptoms':
+          return {
+            title: '',
+            textGroup: {}
+          };
+
+        default:
+          return null;
+      }
+    };
+
+    this.setState(prevState => ({
+      [type]: {
+        ...prevState[type],
+        data: {
+          ...prevState[type].data,
+          [prevState.customFields[type].length - 1]: defaultData()
+        }
+      }
+    }));
   };
 
   render() {

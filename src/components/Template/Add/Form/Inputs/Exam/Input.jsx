@@ -13,7 +13,6 @@ const ExamInput = ({ onChange, id, data = {} }) => {
     bonus: '',
     textGroup: {},
     imageGroup: {
-      // error undefined
       title: '',
       images: {}
     }
@@ -25,25 +24,29 @@ const ExamInput = ({ onChange, id, data = {} }) => {
     const { name, value } = event.target;
     const newItem = { [name]: value };
 
-    console.log('cNEW fddddds', newItem);
+    const newExam = {
+      ...exam,
+      ...newItem
+    };
 
-    setExam({ ...exam, ...newItem });
-    onChange(id, exam, 'exams');
+    setExam(newExam);
+    onChange(id, newExam, 'exams');
   };
 
-  const handleGroupChange = (item, type) => {
-    let newItem;
+  const handleGroupChange = (group, type) => {
+    let newGroup;
     if (type === 'imageGroup') {
-      console.log('NEW ITEM IN IMAGE GROUP EXAM INPUT', item);
-
-      newItem = { imageGroup: { ...exam.imageGroup, ...item } };
+      newGroup = { imageGroup: group };
     } else if (type === 'textGroup') {
-      newItem = { textGroup: { ...exam.textGroup, ...item } };
+      newGroup = { textGroup: group };
     }
 
-    console.log('cNEW ASHDUIAHSDUIHASIUDHAISUDH', newItem);
-    setExam({ ...exam, ...newItem });
-    onChange(id, exam, 'exams');
+    const newExam = {
+      ...exam,
+      ...newGroup
+    };
+    setExam(newExam);
+    onChange(id, newExam, 'exams');
   };
 
   return (

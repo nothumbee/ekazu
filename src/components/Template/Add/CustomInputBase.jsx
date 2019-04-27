@@ -4,7 +4,6 @@ import SymptomInput from './Form/Inputs/Symptom/Input';
 import RangeInput from './Form/Inputs/Range/Input';
 
 const CustomInputBase = ({ type, onChange, id, data }) => {
-  console.log('KUNDODDDDD', data);
   switch (type) {
     case 'exams':
       return <ExamInput onChange={onChange} id={id} data={data} />;

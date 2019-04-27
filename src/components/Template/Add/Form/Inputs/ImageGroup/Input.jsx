@@ -5,7 +5,11 @@ import { Button, Icon } from 'antd';
 const ImageGroupInput = ({ onChange, data = {} }) => {
   const [items, setItems] = useState([1]);
   const [count, setCount] = useState(1);
-  const [images, setImages] = useState([]);
+
+  const [imagesGroup, setImagesGroup] = useState({
+    title: '',
+    images: { image1: '' }
+  });
 
   const handleAddItem = event => {
     event.preventDefault();
@@ -16,16 +20,20 @@ const ImageGroupInput = ({ onChange, data = {} }) => {
 
   const handleChange = event => {
     const { name, value, type } = event.target;
+    let newImagesGroup;
 
     if (type === 'file') {
       const newImage = { [name]: value };
-      setImages([...images, newImage]);
-      onChange({ images: { ...images } }, 'imageGroup');
-      console.log('NEW U+IMAGE', newImage);
+      newImagesGroup = {
+        ...imagesGroup,
+        images: { ...imagesGroup.images, ...newImage }
+      };
     } else {
       const newItem = { [name]: value };
-      onChange(newItem, 'imageGroup');
+      newImagesGroup = { ...imagesGroup, ...newItem };
     }
+    setImagesGroup(newImagesGroup);
+    onChange(newImagesGroup, 'imageGroup');
   };
 
   return (

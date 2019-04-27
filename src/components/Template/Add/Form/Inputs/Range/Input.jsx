@@ -2,16 +2,20 @@ import React, { useState } from 'react';
 import { TitleInput, MinInput, MaxInput } from '../helpers';
 import { Row, Col } from 'antd';
 
-const RangeInput = ({ onChange, id }) => {
-  const [range, setRange] = useState({});
-  // input onchange -> store the value in higher component > send to parent comp
+const RangeInput = ({ onChange, id, data = {} }) => {
+  const defaultRange = {
+    min: '',
+    max: '',
+    title: ''
+  };
+  const [range, setRange] = useState(defaultRange);
+
   const handleChange = event => {
     const { name, value } = event.target;
     const newRange = { ...range, [name]: value };
 
     setRange(newRange);
     onChange(id, newRange, 'ranges');
-    // and send to onChange handler with id of group and save to state
   };
 
   return (
@@ -20,13 +24,13 @@ const RangeInput = ({ onChange, id }) => {
 
       <Row gutter={16}>
         <Col span={8}>
-          <TitleInput onChange={handleChange} />
+          <TitleInput onChange={handleChange} value={data.title} />
         </Col>
         <Col span={8}>
-          <MinInput onChange={handleChange} />
+          <MinInput onChange={handleChange} value={data.min} />
         </Col>
         <Col span={8}>
-          <MaxInput onChange={handleChange} />
+          <MaxInput onChange={handleChange} value={data.max} />
         </Col>
       </Row>
     </div>
