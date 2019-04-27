@@ -1,8 +1,34 @@
-.item {
+.RoleDecisionForm {
+  text-align: center;
+}
+
+.RoleDecisionForm .item {
   border-radius: 40px;
   width: 290px;
   height: 339px;
   background: #fff;
   display: inline-block;
   text-align: center;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  transition: all 300ms;
+  margin: 0 20px;
+}
+
+.RoleDecisionForm .text {
+  font-size: 22px;
+  color: #001529;
+  padding-top: 20px;
+}
+
+.RoleDecisionForm .item:hover {
+  -webkit-box-shadow: 0px 20px 20px 0px rgba(0, 0, 0, 0.14);
+  -moz-box-shadow: 0px 20px 20px 0px rgba(0, 0, 0, 0.14);
+  box-shadow: 0px 20px 20px 0px rgba(0, 0, 0, 0.14);
+  transition: all 300ms;
+}
+
+.RoleDecisionForm .title {
+  font-size: 30px;
+  margin: 30px 0;
 }
