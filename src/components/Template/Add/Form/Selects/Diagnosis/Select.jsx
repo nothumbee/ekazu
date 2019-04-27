@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import axe from '../../../../Axios';
-import withEither from '../../../../HOC/withEither';
-import { LoadingSpin } from '../../../../Loading';
+import axe from '../../../../../Axios';
+import withEither from '../../../../../HOC/withEither';
+import { LoadingSpin } from '../../../../../Loading';
 
-const SelectDiagnosis = () => {
+const DiagnosisSelect = ({ diagnosis }) => {
   const [loading, setLoading] = useState(true);
   const [diagnosisList, setDiagnosisList] = useState([]);
-  const [selectedDiagnosisID, setSelectedDiagnosisID] = useState('');
+  const [selectedDiagnosisID, setSelectedDiagnosisID] = useState(diagnosis);
 
   const handleLoadDiagnosis = () => {
     if (!diagnosisList.length)
@@ -44,7 +44,11 @@ const SelectDiagnosis = () => {
     Select
   );
 
-  return <SelectWithLoading loading={loading} />;
+  return (
+    <>
+      Diagnóza <SelectWithLoading loading={loading} />
+    </>
+  );
 };
 
-export default SelectDiagnosis;
+export default DiagnosisSelect;

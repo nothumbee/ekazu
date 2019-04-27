@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { TitleInput, MinInput, MaxInput } from "./helpers";
-import { Row, Col } from "antd";
+import React, { useState } from 'react';
+import { TitleInput, MinInput, MaxInput } from '../helpers';
+import { Row, Col } from 'antd';
 
 const RangeInput = ({ onChange, id }) => {
   const [range, setRange] = useState({});
@@ -10,7 +10,7 @@ const RangeInput = ({ onChange, id }) => {
     const newRange = { ...range, [name]: value };
 
     setRange(newRange);
-    onChange(id, newRange, "ranges");
+    onChange(id, newRange, 'ranges');
     // and send to onChange handler with id of group and save to state
   };
 
