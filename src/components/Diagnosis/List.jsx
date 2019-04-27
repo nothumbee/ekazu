@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import axe from '../Axios';
+import React, { useEffect, useState } from "react";
+import axe from "../Axios";
 
-import { Table } from 'antd';
-import Title from 'antd/lib/typography/Title';
+import { Table, Card } from "antd";
+import Title from "antd/lib/typography/Title";
 
 const DiagnosisList = () => {
   const [diagnosisList, setDiagnosisList] = useState([]);
@@ -10,7 +10,7 @@ const DiagnosisList = () => {
   const loadDiagnosisList = () => {
     if (!diagnosisList.length)
       axe
-        .get('/admin/codelist/diagnosis')
+        .get("/admin/codelist/diagnosis")
         .then(result => {
           setDiagnosisList(result.data);
         })
@@ -22,7 +22,7 @@ const DiagnosisList = () => {
   useEffect(loadDiagnosisList, [diagnosisList]);
 
   const dataSource = diagnosisList.map((diagnosis, index) => {
-    console.log('diagnosis', diagnosis);
+    console.log("diagnosis", diagnosis);
     return {
       key: index,
       ...diagnosis
@@ -37,13 +37,15 @@ const DiagnosisList = () => {
     })
   );
 
-  console.log('dataSource :', dataSource);
+  console.log("dataSource :", dataSource);
 
   return (
-    <div>
+    <>
       <Title level={2}>Seznam diagnóz</Title>
-      <Table dataSource={dataSource} columns={columns} />
-    </div>
+      <Card>
+        <Table dataSource={dataSource} columns={columns} />
+      </Card>
+    </>
   );
 };
 

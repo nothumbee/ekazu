@@ -28,7 +28,7 @@ const ScreensRoot = props => {
           </Header>
 
           <Content>
-            <div style={{ background: "#fff", padding: 24, minHeight: 280 }}>
+            <div style={{ background: "#f9f9f9", padding: 24, minHeight: 280 }}>
               <div className="inside">
                 <Switch>
                   <Route exact path={ROUTES.LANDING} component={LandingPage} />
