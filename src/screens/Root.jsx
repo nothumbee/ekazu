@@ -28,7 +28,7 @@ const ScreensRoot = props => {
           </Header>
 
           <Content>
-            <div style={{ background: "#fff", padding: 24, minHeight: 280 }}>
+            <div style={{ background: "#f4f4f4", padding: 24, minHeight: 280 }}>
               <div className="inside">
                 <Switch>
                   <Route exact path={ROUTES.LANDING} component={LandingPage} />
@@ -55,7 +55,7 @@ const ScreensRoot = props => {
               </div>
             </div>
           </Content>
-          <Footer style={{ textAlign: "center" }}>
+          <Footer style={{ textAlign: "center", background: "#fff" }}>
             <FooterCredits />
           </Footer>
         </Layout>

@@ -1,0 +1,63 @@
+.RoleDecisionForm {
+  text-align: center;
+}
+
+.RoleDecisionForm .item {
+  border-radius: 40px;
+  width: 290px;
+  height: 339px;
+  background: #fff;
+  display: inline-block;
+  text-align: center;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  transition: all 300ms;
+  margin: 0 20px;
+  animation: flyIn 1s;
+}
+
+.RoleDecisionForm .text {
+  font-size: 22px;
+  color: #001529;
+  padding-top: 20px;
+}
+
+.RoleDecisionForm .item:hover {
+  -webkit-box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.1);
+  transition: all 300ms;
+}
+
+.RoleDecisionForm .title {
+  font-size: 30px;
+  margin: 30px 0;
+}
+
+@keyframes flyIn {
+  0% {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+.illustration,
+.up {
+  transform: scale(1);
+  transition: all 300ms;
+}
+
+.item:hover .illustration {
+  transform: scale(1.05);
+  transition: all 300ms;
+}
+
+.item:hover .up {
+  transform: translateY(-5px);
+  transition: all 300ms;
+}
