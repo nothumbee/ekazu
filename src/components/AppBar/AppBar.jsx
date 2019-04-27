@@ -7,6 +7,7 @@ import { Menu, Icon } from 'antd';
 import * as ROUTES from '../../constants/routes';
 import 'antd/dist/antd.css';
 import './AppBar.css';
+import { ReactComponent as Logo } from './logo.svg';
 
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
@@ -14,7 +15,6 @@ const MenuItemGroup = Menu.ItemGroup;
 const logoStyles = {
   width: '120px',
   height: '31px',
-  background: 'rgba(255,255,255,.2)',
   margin: '16px 24px 16px 0',
   float: 'left'
 };
@@ -31,7 +31,11 @@ const AppBar = props => {
 
   return (
     <div className="inside">
-      <div className="logo" style={logoStyles} />
+      <Link to={ROUTES.LANDING}>
+        <Logo style={logoStyles} />
+        {/* <img src={logo} alt="eKazu logo" style={logoStyles} className="logo" /> */}
+      </Link>
+      {/* <div className="logo" style={logoStyles} /> */}
 
       <Menu
         onClick={handleClick}

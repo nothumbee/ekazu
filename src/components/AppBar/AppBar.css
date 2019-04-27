@@ -3,3 +3,62 @@
   margin: 0 auto;
   width: 96%;
 }
+
+.lettero {
+  animation: heartbeat 1s ease infinite;
+  transform-origin: 10% center;
+}
+
+.kazu {
+  animation: flyIn 1s ease;
+}
+
+@keyframes heartbeat {
+  0% {
+    transform: scale(.85);
+    opacity: 0.7;
+
+  }
+
+  20% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  40% {
+    transform: scale(.85);
+    opacity: 0.7;
+
+  }
+
+  60% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  80% {
+    transform: scale(.85);
+    opacity: 0.7;
+
+  }
+
+  100% {
+    transform: scale(.85);
+    opacity: 0.7;
+
+  }
+}
+
+@keyframes flyIn {
+  0% {
+    transform: translate(1000px);
+  }
+
+  50% {
+    transform: translate(100px);
+  }
+
+  100% {
+    transform: translate(0px);
+  }
+}
