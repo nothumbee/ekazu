@@ -6,7 +6,8 @@ import React from 'react';
 import AddCustomFieldForm from './CustomFields/AddCustomFieldForm';
 import SelectDiagnosis from './Selects/Diagnosis/Select';
 
-import { Affix, Typography } from 'antd';
+
+import { Row, Col, Affix, Typography, Card } from 'antd';
 import './Form.css';
 import CustomFields from './CustomFields/CustomFields';
 import RequiredFields from './RequiredFields/RequiredFields';
@@ -195,7 +196,7 @@ class TemplateAddForm extends React.Component {
           />
         </Affix>
 
-        <div className="addTemplateform">
+        <Card>
           <h2>Šablona</h2>
 
           <form onSubmit={this.handleSubmit}>
@@ -211,7 +212,7 @@ class TemplateAddForm extends React.Component {
             />
             <input type="submit" value="Přidat template" />
           </form>
-        </div>
+        </Card>
       </>
     );
   }
