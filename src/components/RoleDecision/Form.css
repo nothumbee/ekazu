@@ -1,5 +1,6 @@
 .RoleDecisionForm {
   text-align: center;
+  overflow: hidden;
 }
 
 .RoleDecisionForm .item {
@@ -13,7 +14,7 @@
   box-sizing: border-box;
   transition: all 300ms;
   margin: 0 20px;
-  animation: flyIn 1s;
+  animation: flyIn 1s ease;
 }
 
 .RoleDecisionForm .text {

@@ -6,8 +6,7 @@ import React from 'react';
 import AddCustomFieldForm from './CustomFields/AddCustomFieldForm';
 import SelectDiagnosis from './Selects/Diagnosis/Select';
 
-
-import { Row, Col, Affix, Typography, Card } from 'antd';
+import { Affix, Typography, Card } from 'antd';
 import './Form.css';
 import CustomFields from './CustomFields/CustomFields';
 import RequiredFields from './RequiredFields/RequiredFields';

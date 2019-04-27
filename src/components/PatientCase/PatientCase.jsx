@@ -1,12 +1,12 @@
-import React, { Component, useState } from "react";
-import { Typography } from "antd";
-import { Button, List, Modal, Row, Col, Card } from "antd";
+import React, { Component, useState } from 'react';
+import { Typography } from 'antd';
+import { Button, List, Modal, Row, Col, Card } from 'antd';
 
-import axe from "../Axios";
-import DiagnosisGuessForm from "../Diagnosis/Guess";
-import Properties from "./Properties";
-import withEither from "../HOC/withEither";
-import { LoadingSpin } from "../Loading";
+import axe from '../Axios';
+import DiagnosisGuessForm from '../Diagnosis/Guess';
+import Properties from './Properties';
+import withEither from '../HOC/withEither';
+import { LoadingSpin } from '../Loading';
 
 const { Title, Text } = Typography;
 
@@ -14,7 +14,7 @@ const { Title, Text } = Typography;
 class PatientCase extends Component {
   state = {
     properties: [],
-    caseID: "",
+    caseID: '',
     exams: { hidden: [], visible: [] },
     loading: true,
     visibleExamsIDs: []
@@ -25,14 +25,13 @@ class PatientCase extends Component {
     // const currentCaseID = localStorage.getItem('currentCaseID');
 
     // if (!currentCaseID)
-    axe.get("student").then(response => {
-      // handle success
+    axe.get('student').then(response => {
       const { properties, id, templateId } = response.data;
 
       const exams = properties.filter(property => !!property.exam);
       const symptoms = properties.filter(property => !property.exam);
 
-      localStorage.setItem("currentCaseID", id);
+      localStorage.setItem('currentCaseID', id);
       this.setState({
         caseID: id,
         exams: { visible: [], hidden: exams },
@@ -41,7 +40,7 @@ class PatientCase extends Component {
 
       setTimeout(() => {
         this.setState({ loading: false });
-      }, 200);
+      }, 2500);
     });
   }
 
@@ -81,12 +80,12 @@ const Exams = ({ exams, handleShowExam }) => {
       <Title level={2}>Vyšetření</Title>
       <Row>
         <List
-          style={{ marginBottom: 20, textAlign: "Center" }}
+          style={{ marginBottom: 20, textAlign: 'Center' }}
           dataSource={exams}
           renderItem={exam => (
             <Col sm={24} md={12}>
-              <Card style={{ width: "99%", margin: "5px auto" }}>
-                <List.Item style={{ display: "block", padding: 0 }}>
+              <Card style={{ width: '99%', margin: '5px auto' }}>
+                <List.Item style={{ display: 'block', padding: 0 }}>
                   <Exam exam={exam} handleShowExam={handleShowExam} />
                 </List.Item>
               </Card>
@@ -121,9 +120,9 @@ const Exam = ({ exam, handleShowExam }) => {
         key={index}
         style={{
           width: 120,
-          height: "auto",
-          backgroundColor: "blue",
-          color: "white",
+          height: 'auto',
+          backgroundColor: 'blue',
+          color: 'white',
           margin: 10,
           padding: 10
         }}
@@ -158,7 +157,7 @@ const Exam = ({ exam, handleShowExam }) => {
       visible={true}
       footer={null}
       closable={false}
-      style={{ textAlign: "center" }}
+      style={{ textAlign: 'center' }}
     >
       Vyšetřuji pacienta
       <LoadingSpin />
@@ -177,30 +176,3 @@ const Exam = ({ exam, handleShowExam }) => {
 };
 
 export default PatientCase;
-
-// const Exams = ({ exams, handleShowNextExam }) => {
-//   console.log(exams);
-//   return (
-//     <>
-//       <Title level={4}>Vyšetření</Title>
-//       {exams.map((exam, index) =>
-//         !exam.imageGroup ? (
-//           <div key={index}>
-//             <Title level={4}>{exam.title}</Title>
-//             <Text>{exam.text}</Text>
-//           </div>
-//         ) : (
-//           <ExamWithImageGroup
-//             key={index}
-//             title={exam.title}
-//             text={exam.text}
-//             imageGroup={exam.imageGroup}
-//           />
-//         )
-//       )}
-//       <Button type="primary" onClick={event => handleShowNextExam(event)}>
-//         Show Another Exam
-//       </Button>
-//     </>
-//   );
-// };
