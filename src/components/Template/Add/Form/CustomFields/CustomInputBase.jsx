@@ -1,7 +1,7 @@
 import React from 'react';
-import ExamInput from './Form/Inputs/Exam/Input';
-import SymptomInput from './Form/Inputs/Symptom/Input';
-import RangeInput from './Form/Inputs/Range/Input';
+import ExamInput from '../Inputs/Exam/Input';
+import SymptomInput from '../Inputs/Symptom/Input';
+import RangeInput from '../Inputs/Range/Input';
 
 const CustomInputBase = ({ type, onChange, id, data }) => {
   switch (type) {

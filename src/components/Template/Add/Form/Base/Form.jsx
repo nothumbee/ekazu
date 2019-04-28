@@ -1,15 +1,11 @@
-/* TADY BUDE STACIT JEDEN FORMULAR SE VSEMI MOZNOSTMI - atribut exam znamena, 
-ze bude zprvu schovany, takze neni treba delit na tri typy pri nacteni,
- ale pri odeslani je to fajn pro lepsi UX */
-
 import React from 'react';
-import SelectDiagnosis from './Selects/Diagnosis/Select';
-
 import { Affix, Typography, Card } from 'antd';
-import './Form.css';
+
+import SelectDiagnosis from './Selects/Diagnosis/Select';
 import CustomFields from './CustomFields/CustomFields';
 import RequiredFields from './RequiredFields/RequiredFields';
 import CustomFieldAddForm from './CustomFields/AddForm';
+import './Form.css';
 
 const { Title } = Typography;
 
@@ -29,8 +25,8 @@ const INITIAL_STATE = {
 // validation is missing
 // data is now binded with state, but needs to be saved to localStorage
 // and also imageGroup needs to be refactored because single image description is missing
-class TemplateAddForm extends React.Component {
-  state = { ...INITIAL_STATE };
+class TemplateAddFormBase extends React.Component {
+  state = this.props.data ? { ...this.props.data } : { ...INITIAL_STATE };
 
   handleSubmit = event => {
     // event.preventDefault();
@@ -97,10 +93,6 @@ class TemplateAddForm extends React.Component {
       }
     }));
   };
-
-  componentDidUpdate() {
-    console.log(this.state);
-  }
 
   handleAddCustomField = (event, type) => {
     event.preventDefault();
@@ -217,4 +209,4 @@ class TemplateAddForm extends React.Component {
   }
 }
 
-export default TemplateAddForm;
+export default TemplateAddFormBase;

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import axe from "../Axios";
+import React, { useEffect, useState } from 'react';
+import axe from '../../Axios';
 
-import { Collapse, Button, List, Typography, Card } from "antd";
+import { Collapse, Button, List, Typography, Card } from 'antd';
 
-import Title from "antd/lib/typography/Title";
+import Title from 'antd/lib/typography/Title';
 
 const Panel = Collapse.Panel;
 
@@ -13,7 +13,7 @@ const TemplateList = () => {
   const loadTemplateList = () => {
     if (!templateList.length)
       axe
-        .get("/admin/template/list")
+        .get('/admin/template/list')
         .then(result => {
           setTemplateList(result.data);
         })
@@ -25,11 +25,11 @@ const TemplateList = () => {
   useEffect(loadTemplateList);
 
   const customPanelStyle = {
-    background: "rgba(3, 169, 244, 0.42)",
+    background: 'rgba(3, 169, 244, 0.42)',
     borderRadius: 4,
     marginBottom: 24,
-    border: "1px solid rgba(3, 169, 244, 0.42)",
-    overflow: "hidden"
+    border: '1px solid rgba(3, 169, 244, 0.42)',
+    overflow: 'hidden'
   };
 
   return (
@@ -38,7 +38,7 @@ const TemplateList = () => {
       <Card>
         <Collapse
           accordion
-          style={{ backgroundColor: "transparent", border: 0 }}
+          style={{ backgroundColor: 'transparent', border: 0 }}
         >
           {templateList.map(template => (
             <Panel header={template.diagnosis} style={customPanelStyle}>
@@ -53,14 +53,14 @@ const TemplateList = () => {
               {template.generators.map((generator, index) => (
                 <>
                   <Title level={4}> {generator.title}</Title>
-                  {console.log("generator.text :", generator.text)}
+                  {console.log('generator.text :', generator.text)}
 
                   {generator.text && (
                     <List
                       bordered
                       dataSource={generator.text}
                       renderItem={item => <List.Item>{item}</List.Item>}
-                      style={{ marginBottom: "1.5em" }}
+                      style={{ marginBottom: '1.5em' }}
                     />
                   )}
 

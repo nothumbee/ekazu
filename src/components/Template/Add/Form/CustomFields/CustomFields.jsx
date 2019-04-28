@@ -1,5 +1,5 @@
 import React from 'react';
-import CustomInputBase from '../../CustomInputBase';
+import CustomInputBase from './CustomInputBase';
 
 const CustomFields = ({ fields, handleChange, data = {} }) => {
   // first convert fields

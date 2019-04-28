@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { OPTIONAL_FIELDS } from '../../../../../constants/fields';
 
-const AddCustomFieldForm = ({ handleSubmit }) => {
+const CustomFieldAddForm = ({ handleSubmit }) => {
   const [type, setType] = useState('');
   return (
     <div className="customFieldsBar">
@@ -34,4 +34,4 @@ const SelectType = ({ types, handleChange, selected }) => {
   );
 };
 
-export default AddCustomFieldForm;
+export default CustomFieldAddForm;
