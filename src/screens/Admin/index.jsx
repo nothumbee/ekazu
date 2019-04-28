@@ -9,6 +9,8 @@ import TemplateAddForm from '../../components/Template/Add/Form/Form';
 import TemplateList from '../../components/Template/List';
 import DiagnosisList from '../../components/Diagnosis/List';
 import DiagnosisAddForm from '../../components/Diagnosis/Add/Form';
+import TemplateEditForm from '../../components/Template/Edit/Form';
+import AdminHome from '../../components/Admin';
 
 const AdminPageBase = props => {
   return <ActionDecision location={props.location.pathname} />;
@@ -18,7 +20,7 @@ const ActionDecision = ({ location }) => {
   console.log(location);
   switch (location) {
     case ROUTES.ADMIN:
-      return <div>This is admin area only for authenticated access.</div>;
+      return <AdminHome />;
 
     case ROUTES.ADMIN_CREATE_TEMPLATE:
       return <TemplateAddForm />;
@@ -33,7 +35,7 @@ const ActionDecision = ({ location }) => {
       return <DiagnosisList />;
 
     case ROUTES.ADMIN_EDIT_TEMPLATE:
-      return <DiagnosisList />;
+      return <TemplateEditForm />;
     // edit, delete template, insert as copy of existing template
     default:
       return null;

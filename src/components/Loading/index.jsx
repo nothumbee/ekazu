@@ -13,11 +13,11 @@ export const LoadingSpin = () => {
 
 export const LoadingHeartBeat = () => {
   return (
-    <div class="cover">
-      <div class="heartbeatloader">
+    <div className="cover">
+      <div className="heartbeatloader">
         <HeartBeat />
-        <div class="innercircle" />
-        <div class="outercircle" />
+        <div className="innercircle" />
+        <div className="outercircle" />
       </div>
     </div>
   );

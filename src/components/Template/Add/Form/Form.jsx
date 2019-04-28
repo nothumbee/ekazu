@@ -10,6 +10,7 @@ import { Affix, Typography, Card } from 'antd';
 import './Form.css';
 import CustomFields from './CustomFields/CustomFields';
 import RequiredFields from './RequiredFields/RequiredFields';
+import axe from '../../../Axios';
 
 const { Title } = Typography;
 
@@ -31,6 +32,12 @@ const INITIAL_STATE = {
 // and also imageGroup needs to be refactored because single image description is missing
 class TemplateAddForm extends React.Component {
   state = { ...INITIAL_STATE };
+
+  componentDidMount() {
+    if (this.props.id) {
+      // axe get template with id and set it to state
+    }
+  }
 
   handleSubmit = event => {
     // event.preventDefault();

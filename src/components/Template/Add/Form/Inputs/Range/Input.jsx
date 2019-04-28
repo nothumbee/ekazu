@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TitleInput, MinInput, MaxInput } from '../helpers';
 import { Row, Col } from 'antd';
+import Title from 'antd/lib/typography/Title';
 
 const RangeInput = ({ onChange, id, data = {} }) => {
   const defaultRange = {
@@ -20,7 +21,7 @@ const RangeInput = ({ onChange, id, data = {} }) => {
 
   return (
     <div className="range">
-      <h3>Přidat rozmezí</h3>
+      <Title level={4}>Přidat rozmezí</Title>
 
       <Row gutter={16}>
         <Col span={8}>
