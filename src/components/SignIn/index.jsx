@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
-import "antd/dist/antd.css";
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import 'antd/dist/antd.css';
 // import { compose } from 'recompose';
 // import { SignUpLink } from '../SignUp';
 // import { withFirebase } from '../Firebase';
 // import { PasswordForgetLink } from '../Password/Forget';
-import * as ROUTES from "../../constants/routes";
-import { Alert } from "antd";
+import * as ROUTES from '../../constants/routes';
+import { Alert } from 'antd';
 
 const SignInPage = () => (
   <div>
@@ -18,8 +18,8 @@ const SignInPage = () => (
 );
 
 const INITIAL_STATE = {
-  email: "",
-  password: "",
+  email: '',
+  password: '',
   error: null,
   message: null
 };
@@ -31,9 +31,9 @@ class SignInFormBase extends Component {
   }
 
   componentDidMount() {
-    if (this.props.location.search === "?loginfirst") {
+    if (this.props.location.search === '?loginfirst') {
       this.setState({
-        message: "You have to sign in to access this protected area of website."
+        message: 'You have to sign in to access this protected area of website.'
       });
     } else {
       this.setState({
@@ -46,16 +46,16 @@ class SignInFormBase extends Component {
         message: null
       });
     });
-    console.log("Helllooo", this.props);
+    console.log('Helllooo', this.props);
   }
 
   onSubmit = event => {
     event.preventDefault();
-    const { email, password } = this.state;
+    // const { email, password } = this.state;
 
-    sessionStorage.setItem("authUser", true);
+    sessionStorage.setItem('authUser', true);
 
-    console.log(sessionStorage.getItem("authUser"));
+    console.log(sessionStorage.getItem('authUser'));
     // this.props.firebase
     //   .doSignInWithEmailAndPassword(email, password)
     //   .then(() => {
@@ -82,7 +82,7 @@ class SignInFormBase extends Component {
             type="warning"
             message={message}
             showIcon
-            style={{ width: "50%", margin: "0.8em" }}
+            style={{ width: '50%', margin: '0.8em' }}
           />
         )}
         <form onSubmit={this.onSubmit}>

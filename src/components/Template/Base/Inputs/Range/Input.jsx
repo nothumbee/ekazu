@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TitleInput, MinInput, MaxInput } from '../helpers';
+import { TitleInput, CustomNumberInput } from '../helpers';
 import { Row, Col } from 'antd';
 import Title from 'antd/lib/typography/Title';
 
@@ -9,7 +9,7 @@ const RangeInput = ({ onChange, id, data = {} }) => {
     max: '',
     title: ''
   };
-  const [range, setRange] = useState(defaultRange);
+  const [range, setRange] = useState(data || defaultRange);
 
   const handleChange = event => {
     const { name, value } = event.target;
@@ -19,19 +19,32 @@ const RangeInput = ({ onChange, id, data = {} }) => {
     onChange(id, newRange, 'ranges');
   };
 
+  const rangeNumberInputs = [
+    { name: 'min', title: 'Minimum', value: data.min },
+    { name: 'max', title: 'Maximum', value: data.max }
+  ];
+
+  const ExamNumberInputs = () =>
+    rangeNumberInputs.map((input, index) => (
+      <Col span={8} key={index}>
+        <CustomNumberInput
+          name={input.name}
+          onChange={handleChange}
+          value={input.value}
+        >
+          {input.title}
+        </CustomNumberInput>
+      </Col>
+    ));
+
   return (
     <div className="range">
       <Title level={4}>Přidat rozmezí</Title>
 
       <Row gutter={16}>
+        <ExamNumberInputs />
         <Col span={8}>
           <TitleInput onChange={handleChange} value={data.title} />
-        </Col>
-        <Col span={8}>
-          <MinInput onChange={handleChange} value={data.min} />
-        </Col>
-        <Col span={8}>
-          <MaxInput onChange={handleChange} value={data.max} />
         </Col>
       </Row>
     </div>

@@ -26,8 +26,8 @@ class PatientCase extends Component {
 
     // if (!currentCaseID)
     axe.get('student').then(response => {
-      const { properties, id, templateId } = response.data;
-
+      const { properties, id } = response.data;
+      // templateId
       const exams = properties.filter(property => !!property.exam);
       const symptoms = properties.filter(property => !property.exam);
 

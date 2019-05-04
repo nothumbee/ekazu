@@ -3,7 +3,7 @@ import { withAuthorization } from '../../components/Session';
 
 // import { compose } from 'recompose';
 
-import { withRouter } from 'react-router';
+// import { withRouter } from 'react-router';
 import * as ROUTES from '../../constants/routes';
 import TemplateAddForm from '../../components/Template/Add/Form/Form';
 import TemplateList from '../../components/Template/List/List';

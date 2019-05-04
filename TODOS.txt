@@ -1,0 +1,8 @@
+TODOS:
+
+Form validation - positive numbers, non-empty strings
+Take care of null values in Edit form
+
+Add submit methods in forms
+
+Remake the addForm

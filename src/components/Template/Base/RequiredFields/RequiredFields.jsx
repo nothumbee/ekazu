@@ -1,17 +1,31 @@
 import React from 'react';
-import { REQUIRED_FIELDS } from '../../../../../constants/fields';
 import { Row, Col } from 'antd';
+import { CustomNumberInput } from '../Inputs/helpers';
 
-const RequiredFields = ({ onChange, data }) => {
+const REQUIRED_FIELDS = [
+  {
+    name: 'minBonus',
+    title: 'minBonus'
+  },
+  {
+    name: 'maxMalus',
+    title: 'maxMalus'
+  },
+  {
+    name: 'maxPrice',
+    title: 'maxPrice'
+  }
+];
+
+const RequiredFields = ({ onChange, data = {} }) => {
   return (
     <Row gutter={16}>
       {REQUIRED_FIELDS.map((field, index) => (
         <Col span={8} key={index}>
-          {field.title}
-          <input
+          {field.name}
+          <CustomNumberInput
             onChange={onChange}
             name={field.name}
-            type={field.type}
             value={data[field.name]}
           />
         </Col>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { OPTIONAL_FIELDS } from '../../../../../constants/fields';
+import { OPTIONAL_FIELDS } from '../../../../constants/fields';
 
 const CustomFieldAddForm = ({ handleSubmit }) => {
   const [type, setType] = useState('');
@@ -23,6 +23,7 @@ const SelectType = ({ types, handleChange, selected }) => {
       name="type"
       onChange={e => handleChange(e.target.value)}
       value={selected}
+      required
     >
       <option value="">Vyber typ</option>
       {types.map((type, index) => (

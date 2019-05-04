@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axe from '../../Axios';
 
-import { Collapse, Button, List, Typography, Card } from 'antd';
+import { Collapse, Button, List, Card } from 'antd';
 
 import Title from 'antd/lib/typography/Title';
 

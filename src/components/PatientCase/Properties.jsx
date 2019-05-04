@@ -2,9 +2,9 @@ import React from 'react';
 import withEither from '../HOC/withEither';
 
 import { Typography, List } from 'antd';
-import { LoadingSkeleton, LoadingHeartBeat } from '../Loading';
+import { LoadingHeartBeat } from '../Loading';
 
-const { Title, Text } = Typography;
+const { Title } = Typography;
 
 const PropertiesWithLoading = ({ properties }) => (
   <List
