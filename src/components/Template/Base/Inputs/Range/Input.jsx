@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TitleInput, CustomNumberInput } from '../helpers';
+import { TitleInput, CustomNumberInput, IsExamCheckbox } from '../helpers';
 import { Row, Col } from 'antd';
 import Title from 'antd/lib/typography/Title';
 
@@ -7,6 +7,7 @@ const RangeInput = ({ onChange, id, data = {} }) => {
   const defaultRange = {
     min: '',
     max: '',
+    exam: false,
     title: ''
   };
   const [range, setRange] = useState(data || defaultRange);
@@ -41,6 +42,7 @@ const RangeInput = ({ onChange, id, data = {} }) => {
     <div className="range">
       <Title level={4}>Přidat rozmezí</Title>
 
+      <IsExamCheckbox checked={data.exam} onChange={handleChange} />
       <Row gutter={16}>
         <ExamNumberInputs />
         <Col span={8}>

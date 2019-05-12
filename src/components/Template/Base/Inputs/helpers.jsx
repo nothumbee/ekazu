@@ -29,3 +29,18 @@ export const TitleInput = ({ onChange, value = '' }) => {
     </div>
   );
 };
+
+export const IsExamCheckbox = ({ checked = false, onChange }) => {
+  return (
+    <div>
+      Považovat za skryté vyšetření:{'  '}
+      <input
+        type="checkbox"
+        name="exam"
+        value={checked}
+        checked={checked}
+        onChange={() => onChange({ target: { name: 'exam', value: !checked } })}
+      />
+    </div>
+  );
+};

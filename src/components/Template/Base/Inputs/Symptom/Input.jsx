@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
-import { TitleInput } from '../helpers';
+import { TitleInput, IsExamCheckbox } from '../helpers';
 import ItemsInput from '../Items/Input';
 import Title from 'antd/lib/typography/Title';
 
 const SymptomInput = ({ onChange, id, data = {} }) => {
   const defaultSymptom = {
     title: '',
+    exam: false,
     text: []
   };
 
   const [symptom, setSymptom] = useState(data || defaultSymptom);
 
-  const handleChangeTitle = event => {
-    const { value } = event.target;
-    const newSymptom = { ...symptom, title: value };
+  const handleChange = event => {
+    const { name, value } = event.target;
+    const newSymptom = { ...symptom, [name]: value };
 
     setSymptom(newSymptom);
     onChange(id, newSymptom, 'symptoms');
@@ -29,7 +30,9 @@ const SymptomInput = ({ onChange, id, data = {} }) => {
   return (
     <div className="symptom">
       <Title level={4}>Přidat symptom nebo text</Title>
-      <TitleInput onChange={handleChangeTitle} value={data.title} />
+
+      <IsExamCheckbox checked={data.exam} onChange={handleChange} />
+      <TitleInput onChange={handleChange} value={data.title} />
       <ItemsInput
         onChange={handleTextGroupChange}
         symptom={symptom.textGroup}

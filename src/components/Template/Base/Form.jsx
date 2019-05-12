@@ -84,16 +84,38 @@ class TemplateBaseForm extends React.Component {
   // };
   handleSubmit = event => {
     event.preventDefault();
-    this.props.handleSubmit(this.state);
+
+    const { diagnosis, requiredFieldsData, generators } = this.state;
+
+    // need to remove type property from each generator if exists
+    const generatorsWithoutTypes = generators.map(generator => {
+      const { type, ...generatorWithoutType } = generator;
+      return generatorWithoutType;
+    });
+
+    const template = {
+      diagnosis: diagnosis,
+      ...requiredFieldsData,
+      generators: generatorsWithoutTypes
+    };
+
+    this.props.handleSubmit(template);
   };
 
   handleChange = event => {
-    const newItem = { [event.target.name]: event.target.value };
-
-    this.setState(prevState => ({
-      ...prevState,
-      requiredFieldsData: { ...prevState.requiredFieldsData, ...newItem }
-    }));
+    const name = event.target.name;
+    const newItem = { [name]: event.target.value };
+    console.log('NEWEOEM', newItem);
+    if (name === 'diagnosis') {
+      this.setState(prevState => ({
+        ...prevState,
+        ...newItem
+      }));
+    } else
+      this.setState(prevState => ({
+        ...prevState,
+        requiredFieldsData: { ...prevState.requiredFieldsData, ...newItem }
+      }));
   };
 
   handleChangeCustomField = (id, newItem, type) => {

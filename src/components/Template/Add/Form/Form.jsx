@@ -21,13 +21,7 @@ class TemplateAddForm extends React.Component {
   handleSubmit = data => {
     // axios.post();
 
-    const template = {
-      diagnosis: data.diagnosis,
-      ...data.requiredFieldsData,
-      generators: data.generators
-    };
-
-    console.log('template', template);
+    console.log('template', data);
   };
 
   render() {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Row, Col, Typography } from 'antd';
-import { TitleInput, CustomNumberInput } from '../helpers';
+import { TitleInput, CustomNumberInput, IsExamCheckbox } from '../helpers';
 // import ImageGroupInput from '../ImageGroup/Input';
 import ItemsInput from '../Items/Input';
 
@@ -9,7 +9,7 @@ const { Title } = Typography;
 const ExamInput = ({ onChange, id, data = {} }) => {
   const defaultExam = {
     title: '',
-    exam: true,
+    exam: false,
     price: '',
     malus: '',
     bonus: '',
@@ -25,6 +25,7 @@ const ExamInput = ({ onChange, id, data = {} }) => {
   const handleChange = event => {
     const { name, value } = event.target;
     const newItem = { [name]: value };
+    console.log('NEW ITEMOOO', newItem);
 
     const newExam = {
       ...exam,
@@ -76,6 +77,7 @@ const ExamInput = ({ onChange, id, data = {} }) => {
 
       <TitleInput onChange={handleChange} value={data.title} />
 
+      <IsExamCheckbox checked={data.exam} onChange={handleChange} />
       <Row gutter={16}>
         <ExamNumberInputs />
 
