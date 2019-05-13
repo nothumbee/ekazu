@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { OPTIONAL_FIELDS } from '../../../../../constants/fields';
+import { OPTIONAL_FIELDS } from '../../../../constants/fields';
 
-const AddCustomFieldForm = ({ handleSubmit }) => {
+const CustomFieldAddForm = ({ handleSubmit }) => {
   const [type, setType] = useState('');
   return (
     <div className="customFieldsBar">
@@ -23,6 +23,7 @@ const SelectType = ({ types, handleChange, selected }) => {
       name="type"
       onChange={e => handleChange(e.target.value)}
       value={selected}
+      required
     >
       <option value="">Vyber typ</option>
       {types.map((type, index) => (
@@ -34,4 +35,4 @@ const SelectType = ({ types, handleChange, selected }) => {
   );
 };
 
-export default AddCustomFieldForm;
+export default CustomFieldAddForm;

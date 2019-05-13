@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import axe from '../../../../../Axios';
-import withEither from '../../../../../HOC/withEither';
-import { LoadingSpin } from '../../../../../Loading';
+import axe from '../../../../Axios';
+import withEither from '../../../../HOC/withEither';
+import { LoadingSpin } from '../../../../Loading';
 
-const DiagnosisSelect = ({ diagnosis }) => {
+const DiagnosisSelect = ({ diagnosis, handleChange }) => {
   const [loading, setLoading] = useState(true);
   const [diagnosisList, setDiagnosisList] = useState([]);
-  const [selectedDiagnosisID, setSelectedDiagnosisID] = useState(diagnosis);
 
   const handleLoadDiagnosis = () => {
     if (!diagnosisList.length)
@@ -25,13 +24,11 @@ const DiagnosisSelect = ({ diagnosis }) => {
   useEffect(handleLoadDiagnosis);
 
   const Select = () => (
-    <select
-      name="diagnosis"
-      value={selectedDiagnosisID}
-      onChange={event => setSelectedDiagnosisID(event.target.value)}
-    >
+    <select name="diagnosis" onChange={handleChange} value={diagnosis} required>
+      <option value={''}>Vyber diagnózu</option>
+
       {diagnosisList.map((diagnosis, index) => (
-        <option key={index} value={diagnosis.id}>
+        <option key={index} value={diagnosis.definition}>
           {diagnosis.definition}
         </option>
       ))}

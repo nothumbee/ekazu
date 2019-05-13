@@ -1,0 +1,15 @@
+TODOS:
+
+Form validation - positive numbers, non-empty strings
+Take care of null values in Edit form
+
+Add submit methods in form
+{DONE} and also remove the TYPE from generator fields
+
+
+
+{DONE} Add checkbox to every input // exam, symptom and so on
+
+{DONE} Remake the addForm
+
+

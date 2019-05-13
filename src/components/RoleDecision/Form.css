@@ -1,6 +1,6 @@
 .RoleDecisionForm {
   text-align: center;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .RoleDecisionForm .item {

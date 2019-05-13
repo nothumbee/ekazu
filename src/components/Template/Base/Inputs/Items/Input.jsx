@@ -1,44 +1,35 @@
 import React, { useState } from 'react';
 import { Button } from 'antd';
 
-export const ItemsInput = ({ onChange, data = {} }) => {
-  const [itemsGroup, setItemsGroup] = useState({ item1: '' });
-
-  const [items, setItems] = useState([1]);
-  const [count, setCount] = useState(1);
+export const ItemsInput = ({ onChange, data = [''] }) => {
+  const [itemsGroup, setItemsGroup] = useState(data ? data : ['']);
 
   const handleAddItem = event => {
     event.preventDefault();
 
-    const newCount = count + 1;
-    setCount(newCount);
-
-    setItems([...items, newCount]);
+    setItemsGroup([...itemsGroup, '']);
   };
 
   const handleChange = event => {
     const { name, value } = event.target;
-    const newItem = { [name]: value };
 
-    const newItemsGroup = {
-      ...itemsGroup,
-      ...newItem
-    };
+    const newItemsGroup = [...itemsGroup];
+    newItemsGroup[name] = value;
+
     setItemsGroup(newItemsGroup);
-
     onChange(newItemsGroup, 'textGroup');
   };
 
   return (
     <div>
       Text:
-      {items.map(item => (
+      {itemsGroup.map((item, index) => (
         <input
           type="text"
-          name={`item${item}`}
-          key={item}
+          name={index}
+          key={index}
           onChange={handleChange}
-          value={data[`item${item}`]}
+          value={item}
         />
       ))}
       <Button

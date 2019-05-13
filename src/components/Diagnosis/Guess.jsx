@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axe from '../Axios';
 import Title from 'antd/lib/typography/Title';
-import { Modal, Button } from 'antd';
+// import { Modal, Button } from 'antd';
 
 import { LoadingSpin } from '../Loading';
 import withEither from '../HOC/withEither';

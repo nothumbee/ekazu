@@ -11,25 +11,7 @@ export const OPTIONAL_FIELDS = [
   },
   { name: 'symptoms', title: 'Text', type: 'text' }
 ];
-
-export const REQUIRED_FIELDS = [
-
-  {
-    name: 'minBonus',
-    title: 'minBonus',
-    type: 'number'
-  },
-  {
-    name: 'maxMalus',
-    title: 'maxMalus',
-    type: 'number'
-  },
-  {
-    name: 'maxPrice',
-    title: 'maxPrice',
-    type: 'number'
-  }
-];
+ 
 
 // ATOMS
 
