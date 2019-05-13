@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 // import LoadPatient from '../Load/LoadPatient';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter } from "react-router-dom";
 
-import { Menu, Icon } from 'antd';
+import { Menu, Icon } from "antd";
 
-import * as ROUTES from '../../constants/routes';
-import 'antd/dist/antd.css';
-import './AppBar.css';
-import { ReactComponent as Logo } from './logo.svg';
+import * as ROUTES from "../../constants/routes";
+import "antd/dist/antd.css";
+import "./AppBar.less";
+import { ReactComponent as Logo } from "./logo.svg";
 
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
 const logoStyles = {
-  width: '120px',
-  height: '31px',
-  margin: '16px 24px 16px 0',
-  float: 'left'
+  width: "120px",
+  height: "31px",
+  margin: "16px 24px 16px 0",
+  float: "left"
 };
 
 const AppBar = props => {
@@ -25,7 +25,7 @@ const AppBar = props => {
   props.history.listen(location => setCurrent(location.pathname));
 
   const handleClick = e => {
-    console.log('click ', e);
+    console.log("click ", e);
     // setCurrent(e.key);
   };
 
@@ -42,13 +42,13 @@ const AppBar = props => {
         selectedKeys={[current]}
         mode="horizontal"
         theme="dark"
-        style={{ lineHeight: '64px', float: 'right' }}
+        style={{ lineHeight: "64px", float: "right" }}
       >
         <Menu.Item key={ROUTES.LANDING}>
           <Link to={ROUTES.LANDING}>Úvod</Link>
         </Menu.Item>
 
-        <SubMenu title={'Učitel'}>
+        <SubMenu title={"Učitel"}>
           <MenuItemGroup
             title={<span className="submenu-title-wrapper">Vytvořit</span>}
           >

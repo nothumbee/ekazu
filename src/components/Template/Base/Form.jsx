@@ -1,11 +1,11 @@
-import React from 'react';
-import { Affix, Typography, Card } from 'antd';
+import React from "react";
+import { Affix, Typography, Card } from "antd";
 
-import SelectDiagnosis from './Selects/Diagnosis/Select';
-import RequiredFields from './RequiredFields/RequiredFields';
-import './Form.css';
-import CustomFieldAddForm from './CustomFields/AddForm';
-import CustomInputBase from './CustomFields/CustomInputBase';
+import SelectDiagnosis from "./Selects/Diagnosis/Select";
+import RequiredFields from "./RequiredFields/RequiredFields";
+import "./Form.less";
+import CustomFieldAddForm from "./CustomFields/AddForm";
+import CustomInputBase from "./CustomFields/CustomInputBase";
 
 const { Title } = Typography;
 
@@ -25,12 +25,12 @@ class TemplateBaseForm extends React.Component {
   state = {};
 
   componentDidMount() {
-    console.log('this.props.data', this.props.data);
+    console.log("this.props.data", this.props.data);
     this.setState({ ...this.props.data });
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('FORMSTATE', this.state);
+    console.log("FORMSTATE", this.state);
   }
 
   // handleSubmit = event => {
@@ -105,8 +105,8 @@ class TemplateBaseForm extends React.Component {
   handleChange = event => {
     const name = event.target.name;
     const newItem = { [name]: event.target.value };
-    console.log('NEWEOEM', newItem);
-    if (name === 'diagnosis') {
+    console.log("NEWEOEM", newItem);
+    if (name === "diagnosis") {
       this.setState(prevState => ({
         ...prevState,
         ...newItem
@@ -130,7 +130,7 @@ class TemplateBaseForm extends React.Component {
   handleAddCustomField = (event, type) => {
     event.preventDefault();
 
-    if (type !== '') {
+    if (type !== "") {
       this.setState(prevState => ({
         ...prevState,
         generators: [...prevState.generators, { ...defaultItem, type: type }]
@@ -181,10 +181,10 @@ const CustomFields = ({ handleChange, data = [] }) => {
     if (field.type) {
       fieldType = field.type;
     } else if (field.min && field.max) {
-      fieldType = 'ranges';
+      fieldType = "ranges";
     } else if (field.imageGroup) {
-      fieldType = 'exams';
-    } else fieldType = 'symptoms';
+      fieldType = "exams";
+    } else fieldType = "symptoms";
 
     return (
       <React.Fragment key={index}>

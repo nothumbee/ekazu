@@ -7,20 +7,20 @@
 .lettero {
   animation: heartbeat 1s ease infinite;
   transform-origin: 10% center;
-  color: #f5222d;
+  color: @primary-color;
 }
 
 .kazu {
   animation: flyIn 1s ease;
   transform: scale(0.9);
   transform-origin: 20% 65%;
+  color: #fff;
 }
 
 @keyframes heartbeat {
   0% {
-    transform: scale(.85);
+    transform: scale(0.85);
     opacity: 0.85;
-
   }
 
   20% {
@@ -29,9 +29,8 @@
   }
 
   40% {
-    transform: scale(.85);
+    transform: scale(0.85);
     opacity: 0.85;
-
   }
 
   60% {
@@ -40,15 +39,13 @@
   }
 
   80% {
-    transform: scale(.85);
+    transform: scale(0.85);
     opacity: 0.85;
-
   }
 
   100% {
-    transform: scale(.85);
+    transform: scale(0.85);
     opacity: 0.85;
-
   }
 }
 
