@@ -40,7 +40,7 @@ class PatientCase extends Component {
 
       setTimeout(() => {
         this.setState({ loading: false });
-      }, 2500);
+      }, 2000);
     });
   }
 

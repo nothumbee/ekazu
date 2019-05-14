@@ -1,25 +1,56 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
-import 'antd/dist/antd.css';
+import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
+import "antd/dist/antd.css";
+import "./index.less";
 // import { compose } from 'recompose';
 // import { SignUpLink } from '../SignUp';
 // import { withFirebase } from '../Firebase';
 // import { PasswordForgetLink } from '../Password/Forget';
-import * as ROUTES from '../../constants/routes';
-import { Alert } from 'antd';
+import * as ROUTES from "../../constants/routes";
+import { Alert } from "antd";
+import { ReactComponent as Blood } from "./blood.svg";
+
+import anime from "animejs";
+
+function randomValues() {
+  anime({
+    targets: ".blood",
+    skew: function() {
+      return anime.random(-5, 5);
+    },
+
+    rotate: function() {
+      return anime.random(-5, 5);
+    },
+
+    translate: function() {
+      return anime.random(-5, 5);
+    },
+
+    easing: "cubicBezier(0.590, 0.550, 0.610, 0.585)",
+    duration: 2000,
+    complete: randomValues
+  });
+}
+
+randomValues();
 
 const SignInPage = () => (
   <div>
-    <h1>Přihlášení</h1>
-    <SignInForm />
-    {/* <PasswordForgetLink />
+    <Blood className="blood" />
+
+    <div id="vh">
+      <h1 className="title">Přihlášení</h1>
+      <SignInForm />
+      {/* <PasswordForgetLink />
     <SignUpLink /> */}
+    </div>
   </div>
 );
 
 const INITIAL_STATE = {
-  email: '',
-  password: '',
+  email: "",
+  password: "",
   error: null,
   message: null
 };
@@ -31,9 +62,9 @@ class SignInFormBase extends Component {
   }
 
   componentDidMount() {
-    if (this.props.location.search === '?loginfirst') {
+    if (this.props.location.search === "?loginfirst") {
       this.setState({
-        message: 'You have to sign in to access this protected area of website.'
+        message: "Pro přístup do této sekce se musíte přihlásit"
       });
     } else {
       this.setState({
@@ -46,16 +77,16 @@ class SignInFormBase extends Component {
         message: null
       });
     });
-    console.log('Helllooo', this.props);
+    console.log("Helllooo", this.props);
   }
 
   onSubmit = event => {
     event.preventDefault();
     // const { email, password } = this.state;
 
-    sessionStorage.setItem('authUser', true);
+    sessionStorage.setItem("authUser", true);
 
-    console.log(sessionStorage.getItem('authUser'));
+    console.log(sessionStorage.getItem("authUser"));
     // this.props.firebase
     //   .doSignInWithEmailAndPassword(email, password)
     //   .then(() => {
@@ -77,14 +108,6 @@ class SignInFormBase extends Component {
 
     return (
       <>
-        {message && (
-          <Alert
-            type="warning"
-            message={message}
-            showIcon
-            style={{ width: '50%', margin: '0.8em' }}
-          />
-        )}
         <form onSubmit={this.onSubmit}>
           <input
             name="email"
@@ -109,6 +132,14 @@ class SignInFormBase extends Component {
           </button>
           {error && <p>{error.message}</p>}
         </form>
+        {message && (
+          <Alert
+            type="warning"
+            message={message}
+            showIcon
+            style={{ width: "100%", margin: "0.8em 0" }}
+          />
+        )}
       </>
     );
   }

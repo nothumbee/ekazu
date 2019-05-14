@@ -145,7 +145,7 @@ class TemplateBaseForm extends React.Component {
       <>
         <Title level={2}>Přidání šablony</Title>
 
-        <Affix offsetTop={0}>
+        <Affix offsetTop={64}>
           <CustomFieldAddForm handleSubmit={this.handleAddCustomField} />
         </Affix>
 
