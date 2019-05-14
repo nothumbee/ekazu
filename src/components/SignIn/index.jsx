@@ -12,28 +12,33 @@ import { ReactComponent as Blood } from "./blood.svg";
 
 import anime from "animejs";
 
-function randomValues() {
+/*function randomValues() {
   anime({
     targets: ".blood",
     skew: function() {
-      return anime.random(-5, 5);
+      return anime.random(Math.random(0, 10), Math.random(0, 30));
     },
 
     rotate: function() {
-      return anime.random(-5, 5);
+      return anime.random(Math.random(0, 10), Math.random(0, 30));
     },
 
     translate: function() {
-      return anime.random(-5, 5);
+      return anime.random(Math.random(0, 10), Math.random(0, 30));
     },
 
     easing: "cubicBezier(0.590, 0.550, 0.610, 0.585)",
     duration: 2000,
-    complete: randomValues
+    complete: randomValues,
+    direction: "alternate",
+    loop: "true"
   });
 }
 
+
 randomValues();
+
+*/
 
 const SignInPage = () => (
   <div>
