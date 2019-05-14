@@ -10,7 +10,10 @@ const TabPane = Tabs.TabPane;
 const AdminHome = () => {
   return (
     <div>
-      <Title level={2}>Učitel</Title>
+      <Title level={2}>Učitelská administrace</Title>
+      <p>
+        Vítejte v učitelské administraci kde můžete spravovat šablony a diagnózy
+      </p>
       <Tabs defaultActiveKey="1">
         <TabPane tab="Šablony" key="1">
           <div>

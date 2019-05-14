@@ -49,16 +49,18 @@
   }
 }
 
-@keyframes flyIn {
+@keyframes flyMenu {
   0% {
-    transform: translate(1000px);
-  }
-
-  50% {
-    transform: translate(100px);
+    opacity: 0;
+    transform: translateY(-100px);
   }
 
   100% {
-    transform: translate(0px);
+    opacity: 1;
+    transform: translateY(0px);
   }
+}
+
+.nav {
+  animation: flyMenu 1s;
 }

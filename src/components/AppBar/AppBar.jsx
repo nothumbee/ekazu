@@ -43,7 +43,7 @@ const AppBar = props => {
   };
 
   return (
-    <div className="inside">
+    <div className="inside nav">
       <Link to={ROUTES.LANDING}>
         <Logo class="logo" style={logoStyles} />
         {/* <img src={logo} alt="eKazu logo" style={logoStyles} className="logo" /> */}

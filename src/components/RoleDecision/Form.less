@@ -1,6 +1,14 @@
 .RoleDecisionForm {
   text-align: center;
   overflow: visible;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 700px;
+  height: 450px;
 }
 
 .RoleDecisionForm .item {
@@ -20,21 +28,16 @@
 .RoleDecisionForm .text {
   font-size: 22px;
   color: #001529;
-  padding-top: 20px;
-}
 
-.RoleDecisionForm .item:hover {
-  -webkit-box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.1);
-  box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.1);
-  transition: all 300ms;
+  font-weight: 300;
 }
 
 .RoleDecisionForm .title {
   font-size: 30px;
-  margin: 30px 0;
+  margin: 0 0 30px 0;
   color: #333;
-  font-weight: 300;
+  font-weight: 400;
+  animation: opacity 2s;
 }
 
 @keyframes fly {
@@ -55,12 +58,64 @@
   transition: all 300ms;
 }
 
-.item:hover .illustration {
-  transform: scale(1.05);
+.illustration:hover {
+  transform: scale(1.1);
   transition: all 300ms;
 }
 
-.item:hover .up {
-  transform: translateY(-5px);
+.illustration:hover .up {
+  transform: translateY(-10px);
   transition: all 300ms;
+}
+
+.illustration path {
+  stroke-width: 5px;
+  transition: all 300ms;
+}
+
+.rightVawe {
+  position: absolute;
+  right: 0;
+  animation: flyRightVawe 1s;
+}
+
+.leftVawe {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  animation: flyLeftVawe 1s;
+}
+
+@keyframes flyRightVawe {
+  0% {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+@keyframes flyLeftVawe {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+@keyframes opacity {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }

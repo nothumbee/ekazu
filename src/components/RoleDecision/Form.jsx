@@ -6,10 +6,14 @@ import "./Form.less";
 import { STUDENT, ADMIN } from "../../constants/routes";
 import { ReactComponent as StudentIllustration } from "./student.svg";
 import { ReactComponent as TeacherIllustration } from "./teacher.svg";
+import { ReactComponent as RightVawe } from "./right-vawe.svg";
+import { ReactComponent as LeftVawe } from "./left-vawe.svg";
 
 const RoleDecisionForm = () => {
   return (
     <>
+      <LeftVawe />
+      <RightVawe />
       <div className="RoleDecisionForm">
         <div className="title">Jste učitel nebo student?</div>
 

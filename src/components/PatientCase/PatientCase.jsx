@@ -55,7 +55,7 @@ class PatientCase extends Component {
   render() {
     return (
       <div>
-        <Title level={1}>Karta pacienta</Title>
+        <Title level={2}>Karta pacienta</Title>
         ID: <i>{this.state.caseID}</i>
         <Properties
           properties={this.state.properties}
