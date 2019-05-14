@@ -5,19 +5,32 @@ import { Link, withRouter } from "react-router-dom";
 import { Menu, Icon } from "antd";
 
 import * as ROUTES from "../../constants/routes";
-import "antd/dist/antd.css";
+import "antd/dist/antd.less";
 import "./AppBar.less";
 import { ReactComponent as Logo } from "./logo.svg";
+
+import anime from "animejs";
 
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
 const logoStyles = {
-  width: "120px",
-  height: "31px",
-  margin: "16px 24px 16px 0",
+  height: "41px",
+  margin: "19px 24px 16px 0",
   float: "left"
 };
+
+anime({
+  targets: ".logo path",
+  strokeDashoffset: [anime.setDashoffset, 0],
+  easing: "easeInOutSine",
+  duration: 1500,
+  delay: function(el, i) {
+    return i * 250;
+  },
+  direction: "alternate",
+  loop: true
+});
 
 const AppBar = props => {
   const [current, setCurrent] = useState(props.location.pathname);
@@ -32,7 +45,7 @@ const AppBar = props => {
   return (
     <div className="inside">
       <Link to={ROUTES.LANDING}>
-        <Logo style={logoStyles} />
+        <Logo class="logo" style={logoStyles} />
         {/* <img src={logo} alt="eKazu logo" style={logoStyles} className="logo" /> */}
       </Link>
       {/* <div className="logo" style={logoStyles} /> */}
@@ -41,7 +54,6 @@ const AppBar = props => {
         onClick={handleClick}
         selectedKeys={[current]}
         mode="horizontal"
-        theme="dark"
         style={{ lineHeight: "64px", float: "right" }}
       >
         <Menu.Item key={ROUTES.LANDING}>

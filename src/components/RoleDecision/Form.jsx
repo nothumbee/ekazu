@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import "./Form.css";
+import "./Form.less";
 
 import { STUDENT, ADMIN } from "../../constants/routes";
 import { ReactComponent as StudentIllustration } from "./student.svg";
@@ -12,6 +12,7 @@ const RoleDecisionForm = () => {
     <>
       <div className="RoleDecisionForm">
         <div className="title">Jste učitel nebo student?</div>
+
         <Link to={STUDENT}>
           <div className="item">
             <StudentIllustration />

@@ -9,10 +9,10 @@ import SignInPage from "../components/SignIn";
 
 import * as ROUTES from "../constants/routes";
 
-import { Layout } from "antd";
+import { Layout, Affix } from "antd";
 import AppBar from "../components/AppBar";
 import FooterCredits from "../components/Footer/Footer";
-import "./Root.css";
+import "./Root.less";
 
 const { Header, Footer, Content } = Layout;
 
@@ -23,12 +23,13 @@ const ScreensRoot = props => {
         <div>{props.children}</div>
 
         <Layout style={{ minHeight: "100vh" }}>
-          <Header>
-            <AppBar />
-          </Header>
-
-          <Content>
-            <div style={{ background: "#f4f4f4", padding: 24, minHeight: 280 }}>
+          <Affix style={{ zIndex: "999" }}>
+            <Header className="shadow">
+              <AppBar />
+            </Header>
+          </Affix>
+          <Content className="content">
+            <div style={{ background: "#fff", padding: 24, minHeight: 280 }}>
               <div className="inside">
                 <Switch>
                   <Route exact path={ROUTES.LANDING} component={LandingPage} />
