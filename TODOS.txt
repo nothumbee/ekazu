@@ -4,9 +4,17 @@ Form validation - positive numbers, non-empty strings
 Take care of null values in Edit form
 
 Add submit methods in form
-{DONE} and also remove the TYPE from generator fields
+Remake form to Ant Design form
+If exam true add malus, bonus, price as input
+
+TEMPLATE
+Add Custom title
+Add Duplicate template func
+Add Delete row and input func
 
 
+
+{DONE} and also remove the TYPE from generator field
 
 {DONE} Add checkbox to every input // exam, symptom and so on
 
