@@ -1,7 +1,7 @@
 import React from 'react';
 import { Affix, Typography, Card } from 'antd';
 
-import SelectDiagnosis from './Selects/Diagnosis/Select';
+import DiagnosisSelect from './Selects/Diagnosis/Select';
 import RequiredFields from './RequiredFields/RequiredFields';
 import './Form.less';
 import CustomFieldAddForm from './CustomFields/AddForm';
@@ -153,9 +153,9 @@ class TemplateBaseForm extends React.Component {
           <Title level={2}>Šablona</Title>
 
           <form onSubmit={this.handleSubmit}>
-            <SelectDiagnosis
-              diagnosis={diagnosis}
-              handleChange={this.handleChange}
+            <DiagnosisSelect
+            // diagnosis={diagnosis}
+            // handleChange={this.handleChange}
             />
             <RequiredFields
               onChange={this.handleChange}

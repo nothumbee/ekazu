@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { TitleInput, CustomNumberInput, IsExamCheckbox } from '../helpers';
-import { Row, Col } from 'antd';
+import { Row, Col, Input } from 'antd';
 import Title from 'antd/lib/typography/Title';
+
+const InputGroup = Input.Group;
 
 const RangeInput = ({ onChange, id, data = {} }) => {
   const defaultRange = {
@@ -39,7 +41,7 @@ const RangeInput = ({ onChange, id, data = {} }) => {
     ));
 
   return (
-    <div className="range">
+    <InputGroup className="range">
       <Title level={4}>Přidat rozmezí</Title>
 
       <IsExamCheckbox checked={data.exam} onChange={handleChange} />
@@ -49,7 +51,7 @@ const RangeInput = ({ onChange, id, data = {} }) => {
           <TitleInput onChange={handleChange} value={data.title} />
         </Col>
       </Row>
-    </div>
+    </InputGroup>
   );
 };
 
