@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from 'antd';
+import { Button, Input, Form } from 'antd';
 
 export const ItemsInput = ({ onChange, data = [''] }) => {
   const [itemsGroup, setItemsGroup] = useState(data ? data : ['']);
@@ -10,6 +10,8 @@ export const ItemsInput = ({ onChange, data = [''] }) => {
     setItemsGroup([...itemsGroup, '']);
   };
 
+  const removeItem = () => { };
+  
   const handleChange = event => {
     const { name, value } = event.target;
 
@@ -20,28 +22,11 @@ export const ItemsInput = ({ onChange, data = [''] }) => {
     onChange(newItemsGroup, 'textGroup');
   };
 
-  return (
-    <div>
-      Text:
-      {itemsGroup.map((item, index) => (
-        <input
-          type="text"
-          name={index}
-          key={index}
-          onChange={handleChange}
-          value={item}
-        />
-      ))}
-      <Button
-        icon="plus"
-        type="primary"
-        shape="circle"
-        onClick={event => {
-          handleAddItem(event);
-        }}
-      />
-    </div>
-  );
+  return itemsGroup.map((item, index) => (
+    <Form.Item label={'Text:'}>
+      <Input />
+    </Form.Item>
+  ));
 };
 
 export default ItemsInput;

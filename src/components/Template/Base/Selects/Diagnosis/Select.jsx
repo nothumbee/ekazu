@@ -3,6 +3,10 @@ import axe from '../../../../Axios';
 import withEither from '../../../../HOC/withEither';
 import { LoadingSpin } from '../../../../Loading';
 
+import { Form, Select } from 'antd';
+
+const Option = Select.Option;
+
 const DiagnosisSelect = ({ diagnosis, handleChange }) => {
   const [loading, setLoading] = useState(true);
   const [diagnosisList, setDiagnosisList] = useState([]);
@@ -21,31 +25,29 @@ const DiagnosisSelect = ({ diagnosis, handleChange }) => {
         .catch(err => console.log(err));
   };
 
-  useEffect(handleLoadDiagnosis);
+  // useEffect(handleLoadDiagnosis);
 
   const Select = () => (
-    <select name="diagnosis" onChange={handleChange} value={diagnosis} required>
-      <option value={''}>Vyber diagnózu</option>
-
-      {diagnosisList.map((diagnosis, index) => (
-        <option key={index} value={diagnosis.definition}>
-          {diagnosis.definition}
-        </option>
-      ))}
-    </select>
+    // <Form.Item label={'Vyber diagnózu'}>
+    <Select>
+      <Option value="lucy">Lucy</Option>
+      {/* {diagnosisList.map((diagnosis, index) => (
+          <Option key={index} value={diagnosis.definition}>
+            {diagnosis.definition}
+          </Option>
+        ))} */}
+    </Select>
+    // </Form.Item>
   );
 
   const isLoadingConditionFn = props => props.loading;
 
+  // eslint-disable-next-line no-unused-vars
   const SelectWithLoading = withEither(isLoadingConditionFn, LoadingSpin)(
     Select
   );
 
-  return (
-    <>
-      Diagnóza <SelectWithLoading loading={loading} />
-    </>
-  );
+  return <SelectWithLoading loading={false} />;
 };
 
 export default DiagnosisSelect;

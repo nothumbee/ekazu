@@ -1,37 +1,19 @@
-import React, { useState } from 'react';
-import { OPTIONAL_FIELDS } from '../../../../constants/fields';
+import React from 'react';
+import { Button } from 'antd';
 
 const CustomFieldAddForm = ({ handleSubmit }) => {
-  const [type, setType] = useState('');
   return (
     <div className="customFieldsBar">
-      <form onSubmit={event => handleSubmit(event, type)}>
-        <SelectType
-          types={OPTIONAL_FIELDS}
-          handleChange={setType}
-          selected={type}
-        />
-        <input type="submit" value="Přidat vlastní pole" />
-      </form>
+      <Button type="primary" onClick={event => handleSubmit(event, 'symptoms')}>
+        Přidej text input
+      </Button>
+      <Button type="primary" onClick={event => handleSubmit(event, 'exams')}>
+        Přidej exam input
+      </Button>
+      <Button type="primary" onClick={event => handleSubmit(event, 'ranges')}>
+        Přidej range input
+      </Button>
     </div>
-  );
-};
-
-const SelectType = ({ types, handleChange, selected }) => {
-  return (
-    <select
-      name="type"
-      onChange={e => handleChange(e.target.value)}
-      value={selected}
-      required
-    >
-      <option value="">Vyber typ</option>
-      {types.map((type, index) => (
-        <option value={type.name} key={index}>
-          {type.title}
-        </option>
-      ))}
-    </select>
   );
 };
 

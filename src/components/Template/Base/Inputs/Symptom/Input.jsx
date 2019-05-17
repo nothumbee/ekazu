@@ -3,6 +3,10 @@ import { TitleInput, IsExamCheckbox } from '../helpers';
 import ItemsInput from '../Items/Input';
 import Title from 'antd/lib/typography/Title';
 
+import { Input } from 'antd';
+
+const InputGroup = Input.Group;
+
 const SymptomInput = ({ onChange, id, data = {} }) => {
   const defaultSymptom = {
     title: '',
@@ -28,7 +32,7 @@ const SymptomInput = ({ onChange, id, data = {} }) => {
   };
 
   return (
-    <div className="symptom">
+    <InputGroup className="symptom">
       <Title level={4}>Přidat symptom nebo text</Title>
 
       <IsExamCheckbox checked={data.exam} onChange={handleChange} />
@@ -38,7 +42,7 @@ const SymptomInput = ({ onChange, id, data = {} }) => {
         symptom={symptom.textGroup}
         data={symptom.text}
       />
-    </div>
+    </InputGroup>
   );
 };
 

@@ -4,6 +4,10 @@ import { TitleInput, CustomNumberInput, IsExamCheckbox } from '../helpers';
 // import ImageGroupInput from '../ImageGroup/Input';
 import ItemsInput from '../Items/Input';
 
+import { Form, Input, Icon, Button } from 'antd';
+
+const InputGroup = Input.Group;
+
 const { Title } = Typography;
 
 const ExamInput = ({ onChange, id, data = {} }) => {
@@ -72,7 +76,7 @@ const ExamInput = ({ onChange, id, data = {} }) => {
     ));
 
   return (
-    <div className={'exam'}>
+    <InputGroup className={'exam'}>
       <Title level={4}>Přidání vyšetření</Title>
 
       <TitleInput onChange={handleChange} value={data.title} />
@@ -84,7 +88,7 @@ const ExamInput = ({ onChange, id, data = {} }) => {
         <ItemsInput onChange={handleGroupChange} data={data.text} />
         {/* <ImageGroupInput onChange={handleGroupChange} data={data.imageGroup} /> */}
       </Row>
-    </div>
+    </InputGroup>
   );
 };
 
