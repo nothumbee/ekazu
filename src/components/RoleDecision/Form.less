@@ -119,3 +119,18 @@
     opacity: 1;
   }
 }
+
+.eye {
+  animation: 1s blink infinite;
+  transform-origin: center center;
+}
+
+@keyframes blink {
+  from {
+    transform: scaleY(1);
+  }
+
+  to {
+    transform: scaleY(0.5);
+  }
+}
