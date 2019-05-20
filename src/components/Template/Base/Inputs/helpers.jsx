@@ -9,44 +9,38 @@ export const CustomNumberInput = ({ children, name, value }) => {
 
   return (
     <Form.Item label={children} required={true}>
-      {/* <InputNumber /> */}
       {getFieldDecorator(name, {
         // trigger: 'onBlur',
         // valuePropName: 'defaultValue',
-        // initialValue: user.lastName,
+        // initialValue: value,
         rules: [{ required: true, message: 'Please input your username!' }]
       })(<InputNumber />)}
-      ;
     </Form.Item>
   );
 };
 
 export const TitleInput = props => {
+  const { getFieldDecorator } = useContext(FormContext);
+
   return (
     <Form.Item label={'Název'} required={true}>
-      <FormContext.Consumer>
-        {({ getFieldDecorator }) => {
-          return getFieldDecorator('title', {
-            // trigger: 'onBlur',
-            rules: [{ required: true, message: 'Please input your username!' }]
-          })(<Input />);
-        }}
-      </FormContext.Consumer>
+      {getFieldDecorator('title', {
+        // trigger: 'onBlur',
+        rules: [{ required: true, message: 'Please input your username!' }]
+      })(<Input />)}
     </Form.Item>
   );
 };
 
 export const IsExamCheckbox = props => {
+  const { getFieldDecorator } = useContext(FormContext);
+
   return (
     <Form.Item label={'Považovat za skryté vyšetření:'}>
-      <FormContext.Consumer>
-        {({ getFieldDecorator }) => {
-          return getFieldDecorator('isExam', {
-            trigger: 'onBlur',
-            rules: [{ message: 'Please input your username!' }]
-          })(<Checkbox />);
-        }}
-      </FormContext.Consumer>
+      {getFieldDecorator('isExam', {
+        // trigger: 'onBlur',
+        rules: [{ message: 'Please input your username!' }]
+      })(<Checkbox />)}
     </Form.Item>
   );
 };
