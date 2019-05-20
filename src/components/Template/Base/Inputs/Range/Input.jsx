@@ -46,10 +46,10 @@ const RangeInput = ({ onChange, id, data = {} }) => {
 
       <IsExamCheckbox checked={data.exam} onChange={handleChange} />
       <Row gutter={16}>
-        <ExamNumberInputs />
         <Col span={8}>
           <TitleInput onChange={handleChange} value={data.title} />
         </Col>
+        <ExamNumberInputs />
       </Row>
     </InputGroup>
   );

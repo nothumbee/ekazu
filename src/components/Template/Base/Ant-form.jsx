@@ -1,128 +1,65 @@
 import React from 'react';
 
-import { Form, Input, Icon, Button } from 'antd';
+import { Form, Icon, Input, Button, Checkbox } from 'antd';
 
-const InputGroup = Input.Group;
-
-let id = 0;
-
-class DynamicFieldSet extends React.Component {
-  remove = k => {
-    const { form } = this.props;
-    // can use data-binding to get
-    const keys = form.getFieldValue('keys');
-    // We need at least one passenger
-    if (keys.length === 1) {
-      return;
-    }
-
-    // can use data-binding to set
-    form.setFieldsValue({
-      keys: keys.filter(key => key !== k)
-    });
-  };
-
-  add = () => {
-    const { form } = this.props;
-    // can use data-binding to get
-    const keys = form.getFieldValue('keys');
-    const nextKeys = keys.concat(id++);
-    // can use data-binding to set
-    // important! notify form to detect changes
-    form.setFieldsValue({
-      keys: nextKeys
-    });
-  };
-
-  reorder = () => {};
-
+class NormalLoginForm extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        const { keys, names } = values;
         console.log('Received values of form: ', values);
-        console.log('Merged values:', keys.map(key => names[key]));
       }
     });
   };
 
   render() {
-    const { getFieldDecorator, getFieldValue } = this.props.form;
-    const formItemLayout = {
-      labelCol: {
-        xs: { span: 24 },
-        sm: { span: 4 }
-      },
-      wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 20 }
-      }
-    };
-    const formItemLayoutWithOutLabel = {
-      wrapperCol: {
-        xs: { span: 24, offset: 0 },
-        sm: { span: 20, offset: 4 }
-      }
-    };
-
-    getFieldDecorator('keys', { initialValue: [] });
-
-    const keys = getFieldValue('keys');
-
-    const formItems = keys.map((k, index) => (
-      <InputGroup>
-        <Form.Item
-          {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
-          label={index === 0 ? 'Passengers' : ''}
-          required={false}
-          key={k}
-        >
-          {getFieldDecorator(`names[${k}]`, {
-            validateTrigger: ['onChange', 'onBlur'],
-            rules: [
-              {
-                required: true,
-                whitespace: true,
-                message: "Please input passenger's name or delete this field."
-              }
-            ]
+    const { getFieldDecorator } = this.props.form;
+    return (
+      <Form onSubmit={this.handleSubmit} className="login-form">
+        <Form.Item>
+          {getFieldDecorator('username', {
+            rules: [{ required: true, message: 'Please input your username!' }]
           })(
             <Input
-              placeholder="passenger name"
-              style={{ width: '60%', marginRight: 8 }}
+              prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+              placeholder="Username"
             />
           )}
-          {keys.length > 1 ? (
-            <Icon
-              className="dynamic-delete-button"
-              type="minus-circle-o"
-              onClick={() => this.remove(k)}
+        </Form.Item>
+        <Form.Item>
+          {getFieldDecorator('password', {
+            rules: [{ required: true, message: 'Please input your Password!' }]
+          })(
+            <Input
+              prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+              type="password"
+              placeholder="Password"
             />
-          ) : null}
+          )}
         </Form.Item>
-      </InputGroup>
-    ));
-    return (
-      <Form onSubmit={this.handleSubmit}>
-        {formItems}
-        <Form.Item {...formItemLayoutWithOutLabel}>
-          <Button type="dashed" onClick={this.add} style={{ width: '60%' }}>
-            <Icon type="plus" /> Add field
+        <Form.Item>
+          {getFieldDecorator('remember', {
+            valuePropName: 'checked',
+            initialValue: true
+          })(<Checkbox>Remember me</Checkbox>)}
+          <a className="login-form-forgot" href="">
+            Forgot password
+          </a>
+          <Button
+            type="primary"
+            htmlType="submit"
+            className="login-form-button"
+          >
+            Log in
           </Button>
-        </Form.Item>
-        <Form.Item {...formItemLayoutWithOutLabel}>
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
+          Or <a href="">register now!</a>
         </Form.Item>
       </Form>
     );
   }
 }
 
-const WrappedDynamicFieldSet = Form.create({ name: 'dynamic_form_item' })(
-  DynamicFieldSet
+const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(
+  NormalLoginForm
 );
-
-export default WrappedDynamicFieldSet;
+export default WrappedNormalLoginForm;

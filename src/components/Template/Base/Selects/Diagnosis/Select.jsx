@@ -4,10 +4,11 @@ import withEither from '../../../../HOC/withEither';
 import { LoadingSpin } from '../../../../Loading';
 
 import { Form, Select, Input } from 'antd';
+import FormContext from '../../../context';
 
 const Option = Select.Option;
 
-const DiagnosisSelect = ({ diagnosis, handleChange }) => {
+const DiagnosisSelect = ({ diagnosis }) => {
   const [loading, setLoading] = useState(true);
   const [diagnosisList, setDiagnosisList] = useState([]);
 
@@ -30,14 +31,23 @@ const DiagnosisSelect = ({ diagnosis, handleChange }) => {
   return (
     <Input.Group>
       <Form.Item label={'Vyber diagnózu'} defaultValue={'lucy'} required={true}>
-        <Select style={{ width: 220 }}>
-          {/* <Option value="lucy">Lucy</Option> */}
-          {diagnosisList.map((diagnosis, index) => (
-            <Option key={index} value={diagnosis.definition}>
-              {diagnosis.definition}
-            </Option>
-          ))}
-        </Select>
+        <FormContext.Consumer>
+          {({ getFieldDecorator }) => {
+            return getFieldDecorator('diagnosis', {
+              rules: [
+                { required: true, message: 'Please input your username!' }
+              ]
+            })(
+              <Select style={{ width: 220 }}>
+                {diagnosisList.map((diagnosis, index) => (
+                  <Option key={index} value={diagnosis.definition}>
+                    {diagnosis.definition}
+                  </Option>
+                ))}
+              </Select>
+            );
+          }}
+        </FormContext.Consumer>
       </Form.Item>
     </Input.Group>
   );

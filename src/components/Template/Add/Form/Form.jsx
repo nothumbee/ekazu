@@ -4,7 +4,6 @@ ze bude zprvu schovany, takze neni treba delit na tri typy pri nacteni,
 
 import React from 'react';
 import TemplateBaseForm from '../../Base/Form';
-import WrappedDynamicFieldSet from '../../Base/Ant-form';
 
 const INITIAL_STATE = {
   diagnosis: '',
@@ -28,7 +27,6 @@ class TemplateAddForm extends React.Component {
   render() {
     return (
       <>
-        <WrappedDynamicFieldSet />
         <TemplateBaseForm
           handleSubmit={this.handleSubmit}
           data={INITIAL_STATE}

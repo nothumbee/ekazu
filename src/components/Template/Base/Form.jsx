@@ -1,11 +1,13 @@
 import React from 'react';
-import { Affix, Typography, Card } from 'antd';
+import { Affix, Typography, Card, Form } from 'antd';
 
 import DiagnosisSelect from './Selects/Diagnosis/Select';
 import RequiredFields from './RequiredFields/RequiredFields';
 import './Form.less';
 import CustomFieldAddForm from './CustomFields/AddForm';
 import CustomInputBase from './CustomFields/CustomInputBase';
+
+import FormContext from '../context';
 
 const { Title } = Typography;
 
@@ -33,55 +35,6 @@ class TemplateBaseForm extends React.Component {
     console.log('FORMSTATE', this.state);
   }
 
-  // handleSubmit = event => {
-  //   // event.preventDefault();
-  //   // axios.post();
-
-  //   const {
-  //     ranges,
-  //     exams,
-  //     symptoms,
-  //     diagnosis,
-  //     minBonus,
-  //     maxMalus,
-  //     maxPrice
-  //   } = this.state;
-
-  //   const rRanges = Object.values(ranges.data);
-
-  //   const rSymptoms = Object.values(symptoms.data).map(
-  //     ({ title, textGroup }) => ({
-  //       title: title,
-  //       text: Object.values(textGroup || {})
-  //     })
-  //   );
-
-  //   const rExams = Object.values(exams.data).map(exam => ({
-  //     title: exam.title,
-  //     exam: true,
-  //     show: exam.show,
-  //     price: exam.price,
-  //     malus: exam.malus,
-  //     bonus: exam.bonus,
-  //     text: Object.values(exam.textGroup || {}),
-  //     imageGroup: [
-  //       {
-  //         // error undefined
-  //         title: exam.imageGroup ? exam.imageGroup.title : '',
-  //         images: exam.imageGroup ? Object.values(exam.imageGroup.images) : []
-  //       }
-  //     ]
-  //   }));
-
-  //   const template = {
-  //     diagnosis,
-  //     minBonus,
-  //     maxMalus,
-  //     maxPrice,
-  //     generators: [...rExams, ...rRanges, ...rSymptoms] // contains only self-contained objects
-  //   };
-  //   console.log('template', template);
-  // };
   handleSubmit = event => {
     event.preventDefault();
 
@@ -105,7 +58,6 @@ class TemplateBaseForm extends React.Component {
   handleChange = event => {
     const name = event.target.name;
     const newItem = { [name]: event.target.value };
-    console.log('NEWEOEM', newItem);
     if (name === 'diagnosis') {
       this.setState(prevState => ({
         ...prevState,
@@ -140,19 +92,19 @@ class TemplateBaseForm extends React.Component {
 
   render() {
     const { diagnosis, generators, requiredFieldsData } = this.state;
+    const Formik = props => {
+      const handleSubmit = event => {
+        event.preventDefault();
 
-    return (
-      <>
-        <Title level={2}>Přidání šablony</Title>
+        const values = props.form.getFieldsValue();
+        console.log('values', values);
+      };
+      const { getFieldDecorator } = props.form;
+      const form = props.form;
 
-        <Affix offsetTop={64}>
-          <CustomFieldAddForm handleSubmit={this.handleAddCustomField} />
-        </Affix>
-
-        <Card>
-          <Title level={2}>Šablona</Title>
-
-          <form onSubmit={this.handleSubmit}>
+      return (
+        <FormContext.Provider value={form}>
+          <Form onSubmit={handleSubmit}>
             <DiagnosisSelect
             // diagnosis={diagnosis}
             // handleChange={this.handleChange}
@@ -167,14 +119,32 @@ class TemplateBaseForm extends React.Component {
               handleChange={this.handleChangeCustomField}
             />
             <input type="submit" value="Přidat template" />
-          </form>
+          </Form>
+        </FormContext.Provider>
+      );
+    };
+    const WrappedDynamicFieldSet = Form.create({ name: 'dynamic_form_item' })(
+      Formik
+    );
+    return (
+      <>
+        <Title level={2}>Přidání šablony</Title>
+
+        <Affix offsetTop={64}>
+          <CustomFieldAddForm handleSubmit={this.handleAddCustomField} />
+        </Affix>
+
+        <Card>
+          <Title level={2}>Šablona</Title>
+
+          <WrappedDynamicFieldSet />
         </Card>
       </>
     );
   }
 }
 
-const CustomFields = ({ handleChange, data = [] }) => {
+const CustomFields = ({ handleChange, data = [], getFieldDecorator }) => {
   return data.map((field, index) => {
     let fieldType;
 
@@ -189,6 +159,7 @@ const CustomFields = ({ handleChange, data = [] }) => {
     return (
       <React.Fragment key={index}>
         <CustomInputBase
+          getFieldDecorator={getFieldDecorator}
           id={index}
           type={fieldType}
           onChange={handleChange}
@@ -200,47 +171,3 @@ const CustomFields = ({ handleChange, data = [] }) => {
 };
 
 export default TemplateBaseForm;
-
-// handleAddCustomFieldDefaultData = type => {
-//   const defaultData = () => {
-//     switch (type) {
-//       case 'exams':
-//         return {
-//           title: '',
-//           exam: true,
-//           price: '',
-//           malus: '',
-//           bonus: '',
-//           textGroup: {},
-//           imageGroup: {
-//             title: '',
-//             images: {}
-//           }
-//         };
-//       case 'ranges':
-//         return {
-//           min: '',
-//           max: '',
-//           title: ''
-//         };
-//       case 'symptoms':
-//         return {
-//           title: '',
-//           textGroup: {}
-//         };
-
-//       default:
-//         return null;
-//     }
-//   };
-
-//   this.setState(prevState => ({
-//     [type]: {
-//       ...prevState[type],
-//       data: {
-//         ...prevState[type].data,
-//         [prevState.customFields[type].length - 1]: defaultData()
-//       }
-//     }
-//   }));
-// };

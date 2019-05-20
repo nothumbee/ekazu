@@ -17,17 +17,13 @@ const REQUIRED_FIELDS = [
   }
 ];
 
-const RequiredFields = ({ onChange, data = {} }) => {
+const RequiredFields = ({ data = {} }) => {
   return (
     <Row gutter={16}>
       <Input.Group>
         {REQUIRED_FIELDS.map((field, index) => (
           <Col span={8} key={index}>
-            <CustomNumberInput
-              onChange={onChange}
-              name={field.name}
-              value={data[field.name]}
-            >
+            <CustomNumberInput name={field.name} value={data[field.name]}>
               {field.name}
             </CustomNumberInput>
           </Col>
