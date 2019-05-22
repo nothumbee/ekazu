@@ -1,14 +1,14 @@
-import React, { useState, useContext } from 'react';
-import { Affix, Typography, Card, Form, Button, Row, Icon } from 'antd';
+import React, { useContext } from "react";
+import { Affix, Typography, Card, Form, Button, Icon, Collapse } from "antd";
 
-import DiagnosisSelect from './Selects/Diagnosis/Select';
-import RequiredFields from './RequiredFields/RequiredFields';
-import './Form.less';
-import CustomFieldAddForm from './CustomFields/AddForm';
-import CustomInputBase from './CustomFields/CustomInputBase';
+import DiagnosisSelect from "./Selects/Diagnosis/Select";
+import RequiredFields from "./RequiredFields/RequiredFields";
+import "./Form.less";
+import CustomFieldAddForm from "./CustomFields/AddForm";
+import CustomInputBase from "./CustomFields/CustomInputBase";
 
-import FormContext from '../context';
-import { TitleInput } from './Inputs/helpers';
+import FormContext from "../context";
+import { TitleInput } from "./Inputs/helpers";
 
 const { Title } = Typography;
 
@@ -28,12 +28,12 @@ class TemplateBaseForm extends React.Component {
   state = {};
 
   componentDidMount() {
-    console.log('this.props.data', this.props.data);
+    console.log("this.props.data", this.props.data);
     this.setState({ ...this.props.data });
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('FORMSTATE', this.state);
+    console.log("FORMSTATE", this.state);
   }
 
   handleSubmit = event => {
@@ -83,7 +83,7 @@ class TemplateBaseForm extends React.Component {
   handleAddCustomField = (event, type) => {
     event.preventDefault();
 
-    if (type !== '') {
+    if (type !== "") {
       this.setState(prevState => ({
         ...prevState,
         generators: [...prevState.generators, { ...defaultItem, type: type }]
@@ -98,7 +98,7 @@ class TemplateBaseForm extends React.Component {
         event.preventDefault();
 
         const values = props.form.getFieldsValue();
-        console.log('values', values);
+        console.log("values", values);
       };
       const form = props.form;
 
@@ -119,7 +119,7 @@ class TemplateBaseForm extends React.Component {
         </FormContext.Provider>
       );
     };
-    const WrappedDynamicFieldSet = Form.create({ name: 'dynamic_form_item' })(
+    const WrappedDynamicFieldSet = Form.create({ name: "dynamic_form_item" })(
       Formik
     );
     return (
@@ -140,7 +140,7 @@ const CustomFields = ({ handleChange }) => {
   const { getFieldDecorator, getFieldValue, setFieldsValue } = context;
 
   const handleAddField = (event, type) => {
-    const fields = getFieldValue('fields');
+    const fields = getFieldValue("fields");
     const count = fields.length;
     const lastItem = fields[count - 1];
     const lastItemId = lastItem ? fields[count - 1].id : -1;
@@ -156,7 +156,7 @@ const CustomFields = ({ handleChange }) => {
 
   const handleRemoveItem = item => {
     // can use data-binding to get
-    const fields = getFieldValue('fields');
+    const fields = getFieldValue("fields");
     // We need at least one passenger
     // if (fields.length === 1) {
     //   return;
@@ -168,8 +168,8 @@ const CustomFields = ({ handleChange }) => {
     });
   };
 
-  getFieldDecorator('fields', { initialValue: [] });
-  const fields = getFieldValue('fields');
+  getFieldDecorator("fields", { initialValue: [] });
+  const fields = getFieldValue("fields");
 
   return (
     <div>
@@ -177,22 +177,25 @@ const CustomFields = ({ handleChange }) => {
         <CustomFieldAddForm handleSubmit={handleAddField} />
       </Affix>
 
-      {fields.map((field, index) => (
-        <React.Fragment key={index}>
-          <CustomInputBase
-            id={`${field.type}[${field.id}]`}
-            type={field.type}
-            onChange={handleChange}
-            data={field}
-          />
-
-          <Icon
-            className="dynamic-delete-button"
-            type="minus-circle-o"
-            onClick={() => handleRemoveItem(field)}
-          />
-        </React.Fragment>
-      ))}
+      <Collapse>
+        {fields.map((field, index) => (
+          <React.Fragment key={index}>
+            <CustomInputBase
+              id={`${field.type}[${field.id}]`}
+              type={field.type}
+              onChange={handleChange}
+              data={field}
+              deleteButton={
+                <Icon
+                  className="dynamic-delete-button"
+                  type="minus-circle-o"
+                  onClick={() => handleRemoveItem(field)}
+                />
+              }
+            />
+          </React.Fragment>
+        ))}
+      </Collapse>
     </div>
   );
 };

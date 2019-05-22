@@ -1,20 +1,22 @@
-import React, { useState, useContext } from 'react';
-import { TitleInput, CustomNumberInput, IsExamCheckbox } from '../helpers';
-import { Row, Col, Input } from 'antd';
-import Title from 'antd/lib/typography/Title';
-import withInjected from '../../../../HOC/withInjected';
-import FormContext from '../../../context';
-import ExamNumberInputs from '../ExamNumberInputs';
+import React, { useContext } from "react";
+import { TitleInput, CustomNumberInput, IsExamCheckbox } from "../helpers";
+import { Row, Col, Input, Collapse } from "antd";
+import Title from "antd/lib/typography/Title";
+import withInjected from "../../../../HOC/withInjected";
+import FormContext from "../../../context";
+import ExamNumberInputs from "../ExamNumberInputs";
+
+const Panel = Collapse.Panel;
 
 const InputGroup = Input.Group;
 
-const RangeInput = ({ id }) => {
+const RangeInput = ({ id, deleteButton }) => {
   const context = useContext(FormContext);
   const { getFieldValue } = context;
 
   const rangeNumberInputs = [
-    { name: 'min', title: 'Minimum' },
-    { name: 'max', title: 'Maximum' }
+    { name: "min", title: "Minimum" },
+    { name: "max", title: "Maximum" }
   ];
   const RangeNumberInputs = () =>
     rangeNumberInputs.map((input, index) => (
@@ -26,17 +28,19 @@ const RangeInput = ({ id }) => {
     ));
 
   const RangeInputBase = props => (
-    <InputGroup className="range">
-      <Title level={4}>Přidat rozmezí</Title>
-      <IsExamCheckbox id={id} />
-      {props.children}
-      <Row gutter={16}>
-        <Col span={8}>
-          <TitleInput id={id} />
-        </Col>
-        <RangeNumberInputs />
-      </Row>
-    </InputGroup>
+    <Panel header="Rozmezí">
+      <InputGroup className="range">
+        <IsExamCheckbox id={id} />
+        {props.children}
+        <Row gutter={16}>
+          <Col span={8}>
+            <TitleInput id={id} />
+          </Col>
+          <RangeNumberInputs />
+        </Row>
+      </InputGroup>
+      {props.deleteButton}
+    </Panel>
   );
 
   const isExamConditionFn = props => props.isExam;
@@ -48,7 +52,13 @@ const RangeInput = ({ id }) => {
 
   const isExam = getFieldValue(`${id}.isExam`);
 
-  return <RangeInputWithInjected isExam={isExam} id={id} />;
+  return (
+    <RangeInputWithInjected
+      isExam={isExam}
+      id={id}
+      deleteButton={deleteButton}
+    />
+  );
 };
 
 export default RangeInput;

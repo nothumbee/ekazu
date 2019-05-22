@@ -1,7 +1,7 @@
-import React, { useState, useContext } from 'react';
-import { Button, Input, Form, Icon } from 'antd';
+import React, { useContext } from "react";
+import { Button, Input, Form, Icon } from "antd";
 
-import FormContext from '../../../context';
+import FormContext from "../../../context";
 
 const InputGroup = Input.Group;
 
@@ -49,10 +49,10 @@ export const ItemsInput = ({ id }) => {
   const formItems = keys.map((item, index) => (
     <Form.Item key={item} label={`Text ${item}`}>
       {getFieldDecorator(`${id}.text[${item}]`, {
-        trigger: 'onBlur',
-        valuePropName: 'defaultValue',
-        rules: [{ required: true, message: 'Please input your username!' }]
-      })(<Input style={{ width: '60%', marginRight: 8 }} />)}
+        trigger: "onBlur",
+        valuePropName: "defaultValue",
+        rules: [{ required: true, message: "Please input your username!" }]
+      })(<Input style={{ width: "60%", marginRight: 8 }} />)}
 
       {keys.length > 1 ? (
         <Icon
