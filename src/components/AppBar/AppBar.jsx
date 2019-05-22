@@ -1,34 +1,34 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 // import LoadPatient from '../Load/LoadPatient';
-import { Link, withRouter } from "react-router-dom";
+import { Link, withRouter } from 'react-router-dom';
 
-import { Menu, Icon } from "antd";
+import { Menu, Icon } from 'antd';
 
-import * as ROUTES from "../../constants/routes";
-import "antd/dist/antd.less";
-import "./AppBar.less";
-import { ReactComponent as Logo } from "./logo.svg";
+import * as ROUTES from '../../constants/routes';
+import 'antd/dist/antd.less';
+import './AppBar.less';
+import { ReactComponent as Logo } from './logo.svg';
 
-import anime from "animejs";
+import anime from 'animejs';
 
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
 const logoStyles = {
-  height: "41px",
-  margin: "19px 24px 16px 0",
-  float: "left"
+  height: '41px',
+  margin: '19px 24px 16px 0',
+  float: 'left'
 };
 
 anime({
-  targets: ".logo path",
+  targets: '.logo path',
   strokeDashoffset: [anime.setDashoffset, 0],
-  easing: "easeInOutSine",
+  easing: 'easeInOutSine',
   duration: 1500,
   delay: function(el, i) {
     return i * 250;
   },
-  direction: "alternate",
+  direction: 'alternate',
   loop: true
 });
 
@@ -38,14 +38,14 @@ const AppBar = props => {
   props.history.listen(location => setCurrent(location.pathname));
 
   const handleClick = e => {
-    console.log("click ", e);
+    console.log('click ', e);
     // setCurrent(e.key);
   };
 
   return (
     <div className="inside nav">
       <Link to={ROUTES.LANDING}>
-        <Logo class="logo" style={logoStyles} />
+        <Logo className="logo" style={logoStyles} />
         {/* <img src={logo} alt="eKazu logo" style={logoStyles} className="logo" /> */}
       </Link>
       {/* <div className="logo" style={logoStyles} /> */}
@@ -54,13 +54,13 @@ const AppBar = props => {
         onClick={handleClick}
         selectedKeys={[current]}
         mode="horizontal"
-        style={{ lineHeight: "64px", float: "right" }}
+        style={{ lineHeight: '64px', float: 'right' }}
       >
         <Menu.Item key={ROUTES.LANDING}>
           <Link to={ROUTES.LANDING}>Úvod</Link>
         </Menu.Item>
 
-        <SubMenu title={"Učitel"}>
+        <SubMenu title={'Učitel'}>
           <MenuItemGroup
             title={<span className="submenu-title-wrapper">Vytvořit</span>}
           >

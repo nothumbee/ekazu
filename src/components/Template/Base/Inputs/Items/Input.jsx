@@ -1,46 +1,77 @@
-import React, { useState } from 'react';
-import { Button } from 'antd';
+import React, { useState, useContext } from 'react';
+import { Button, Input, Form, Icon } from 'antd';
 
-export const ItemsInput = ({ onChange, data = [''] }) => {
-  const [itemsGroup, setItemsGroup] = useState(data ? data : ['']);
+import FormContext from '../../../context';
+
+const InputGroup = Input.Group;
+
+export const ItemsInput = ({ id }) => {
+  const context = useContext(FormContext);
+
+  const { getFieldDecorator, getFieldValue, setFieldsValue } = context;
+
+  const itemsField = `${id}.keys`;
+
+  // const [itemsCount, setItemsCount] = useState(
+  //   getFieldValue(itemsField) ? getFieldValue(itemsField).length - 1 : 0
+  // );
 
   const handleAddItem = event => {
-    event.preventDefault();
+    // can use data-binding to get
+    const keys = getFieldValue(itemsField);
+    const count = keys.length;
+    const newItemId = keys[count - 1] + 1;
+    const nextKeys = keys.concat(newItemId);
 
-    setItemsGroup([...itemsGroup, '']);
+    // can use data-binding to set
+    // important! notify form to detect changes
+    setFieldsValue({
+      [itemsField]: nextKeys
+    });
   };
 
-  const handleChange = event => {
-    const { name, value } = event.target;
+  const handleRemoveItem = item => {
+    // can use data-binding to get
+    const keys = getFieldValue(itemsField);
+    // We need at least one passenger
+    if (keys.length === 1) {
+      return;
+    }
 
-    const newItemsGroup = [...itemsGroup];
-    newItemsGroup[name] = value;
-
-    setItemsGroup(newItemsGroup);
-    onChange(newItemsGroup, 'textGroup');
+    // can use data-binding to set
+    setFieldsValue({
+      [itemsField]: keys.filter(key => key !== item)
+    });
   };
+
+  getFieldDecorator(itemsField, { initialValue: [0] });
+  const keys = getFieldValue(itemsField);
+  const formItems = keys.map((item, index) => (
+    <Form.Item key={item} label={`Text ${item}`}>
+      {getFieldDecorator(`${id}.text[${item}]`, {
+        trigger: 'onBlur',
+        valuePropName: 'defaultValue',
+        rules: [{ required: true, message: 'Please input your username!' }]
+      })(<Input style={{ width: '60%', marginRight: 8 }} />)}
+
+      {keys.length > 1 ? (
+        <Icon
+          className="dynamic-delete-button"
+          type="minus-circle-o"
+          onClick={() => handleRemoveItem(item)}
+        />
+      ) : null}
+    </Form.Item>
+  ));
 
   return (
-    <div>
-      Text:
-      {itemsGroup.map((item, index) => (
-        <input
-          type="text"
-          name={index}
-          key={index}
-          onChange={handleChange}
-          value={item}
-        />
-      ))}
-      <Button
-        icon="plus"
-        type="primary"
-        shape="circle"
-        onClick={event => {
-          handleAddItem(event);
-        }}
-      />
-    </div>
+    <InputGroup>
+      {formItems}
+
+      <Button type="dashed" onClick={handleAddItem}>
+        <Icon type="plus" /> Add field
+      </Button>
+    </InputGroup>
   );
 };
 

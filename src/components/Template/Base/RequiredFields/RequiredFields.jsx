@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col } from 'antd';
+import { Row, Col, Input } from 'antd';
 import { CustomNumberInput } from '../Inputs/helpers';
 
 const REQUIRED_FIELDS = [
@@ -17,19 +17,18 @@ const REQUIRED_FIELDS = [
   }
 ];
 
-const RequiredFields = ({ onChange, data = {} }) => {
+const RequiredFields = ({ data = {} }) => {
   return (
     <Row gutter={16}>
-      {REQUIRED_FIELDS.map((field, index) => (
-        <Col span={8} key={index}>
-          {field.name}
-          <CustomNumberInput
-            onChange={onChange}
-            name={field.name}
-            value={data[field.name]}
-          />
-        </Col>
-      ))}
+      <Input.Group>
+        {REQUIRED_FIELDS.map((field, index) => (
+          <Col span={8} key={index}>
+            <CustomNumberInput name={field.name} value={data[field.name]}>
+              {field.name}
+            </CustomNumberInput>
+          </Col>
+        ))}
+      </Input.Group>
     </Row>
   );
 };

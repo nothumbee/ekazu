@@ -1,56 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { TitleInput, CustomNumberInput, IsExamCheckbox } from '../helpers';
-import { Row, Col } from 'antd';
+import { Row, Col, Input } from 'antd';
 import Title from 'antd/lib/typography/Title';
+import withInjected from '../../../../HOC/withInjected';
+import FormContext from '../../../context';
+import ExamNumberInputs from '../ExamNumberInputs';
 
-const RangeInput = ({ onChange, id, data = {} }) => {
-  const defaultRange = {
-    min: '',
-    max: '',
-    exam: false,
-    title: ''
-  };
-  const [range, setRange] = useState(data || defaultRange);
+const InputGroup = Input.Group;
 
-  const handleChange = event => {
-    const { name, value } = event.target;
-    const newRange = { ...range, [name]: value };
-
-    setRange(newRange);
-    onChange(id, newRange, 'ranges');
-  };
+const RangeInput = ({ id }) => {
+  const context = useContext(FormContext);
+  const { getFieldValue } = context;
 
   const rangeNumberInputs = [
-    { name: 'min', title: 'Minimum', value: data.min },
-    { name: 'max', title: 'Maximum', value: data.max }
+    { name: 'min', title: 'Minimum' },
+    { name: 'max', title: 'Maximum' }
   ];
-
-  const ExamNumberInputs = () =>
+  const RangeNumberInputs = () =>
     rangeNumberInputs.map((input, index) => (
       <Col span={8} key={index}>
-        <CustomNumberInput
-          name={input.name}
-          onChange={handleChange}
-          value={input.value}
-        >
+        <CustomNumberInput id={id} name={input.name}>
           {input.title}
         </CustomNumberInput>
       </Col>
     ));
 
-  return (
-    <div className="range">
+  const RangeInputBase = props => (
+    <InputGroup className="range">
       <Title level={4}>Přidat rozmezí</Title>
-
-      <IsExamCheckbox checked={data.exam} onChange={handleChange} />
+      <IsExamCheckbox id={id} />
+      {props.children}
       <Row gutter={16}>
-        <ExamNumberInputs />
         <Col span={8}>
-          <TitleInput onChange={handleChange} value={data.title} />
+          <TitleInput id={id} />
         </Col>
+        <RangeNumberInputs />
       </Row>
-    </div>
+    </InputGroup>
   );
+
+  const isExamConditionFn = props => props.isExam;
+
+  const RangeInputWithInjected = withInjected(
+    isExamConditionFn,
+    ExamNumberInputs
+  )(RangeInputBase);
+
+  const isExam = getFieldValue(`${id}.isExam`);
+
+  return <RangeInputWithInjected isExam={isExam} id={id} />;
 };
 
 export default RangeInput;
