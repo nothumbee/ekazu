@@ -5,31 +5,34 @@ import FormContext from '../../../context';
 
 const InputGroup = Input.Group;
 
-let id = 1;
-
-export const ItemsInput = ({ onChange, data = [''] }) => {
+export const ItemsInput = ({ id }) => {
   const context = useContext(FormContext);
 
   const { getFieldDecorator, getFieldValue, setFieldsValue } = context;
 
-  const [itemsGroup, setItemsGroup] = useState(data ? data : ['']);
+  const itemsField = `${id}.keys`;
+
+  // const [itemsCount, setItemsCount] = useState(
+  //   getFieldValue(itemsField) ? getFieldValue(itemsField).length - 1 : 0
+  // );
 
   const handleAddItem = event => {
     // can use data-binding to get
-    const keys = getFieldValue('keys');
-    const nextKeys = keys.concat(id++);
-    console.log('keys :', keys);
-    console.log('nextKeys :', nextKeys);
+    const keys = getFieldValue(itemsField);
+    const count = keys.length;
+    const newItemId = keys[count - 1] + 1;
+    const nextKeys = keys.concat(newItemId);
+
     // can use data-binding to set
     // important! notify form to detect changes
     setFieldsValue({
-      keys: nextKeys
+      [itemsField]: nextKeys
     });
   };
 
   const handleRemoveItem = item => {
     // can use data-binding to get
-    const keys = getFieldValue('keys');
+    const keys = getFieldValue(itemsField);
     // We need at least one passenger
     if (keys.length === 1) {
       return;
@@ -37,25 +40,17 @@ export const ItemsInput = ({ onChange, data = [''] }) => {
 
     // can use data-binding to set
     setFieldsValue({
-      keys: keys.filter(key => key !== item)
+      [itemsField]: keys.filter(key => key !== item)
     });
   };
 
-  const handleChange = event => {
-    const { name, value } = event.target;
-
-    const newItemsGroup = [...itemsGroup];
-    newItemsGroup[name] = value;
-
-    setItemsGroup(newItemsGroup);
-    onChange(newItemsGroup, 'textGroup');
-  };
-
-  getFieldDecorator('keys', { initialValue: [0] });
-  const keys = getFieldValue('keys');
+  getFieldDecorator(itemsField, { initialValue: [0] });
+  const keys = getFieldValue(itemsField);
   const formItems = keys.map((item, index) => (
     <Form.Item key={item} label={`Text ${item}`}>
-      {getFieldDecorator(`text${item}`, {
+      {getFieldDecorator(`${id}.text[${item}]`, {
+        trigger: 'onBlur',
+        valuePropName: 'defaultValue',
         rules: [{ required: true, message: 'Please input your username!' }]
       })(<Input style={{ width: '60%', marginRight: 8 }} />)}
 

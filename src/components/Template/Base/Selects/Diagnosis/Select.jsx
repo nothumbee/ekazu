@@ -8,15 +8,12 @@ import FormContext from '../../../context';
 
 const Option = Select.Option;
 
-const DiagnosisSelect = ({ diagnosis }) => {
+const DiagnosisSelect = props => {
   const [loading, setLoading] = useState(true);
   const [diagnosisList, setDiagnosisList] = useState([]);
 
-  const context = useContext(FormContext);
-
-  const { getFieldDecorator } = context;
-
   const handleLoadDiagnosis = () => {
+    console.log('LOADING :');
     if (!diagnosisList.length)
       axe
         .get('admin/codelist/diagnosis')
@@ -30,11 +27,15 @@ const DiagnosisSelect = ({ diagnosis }) => {
         .catch(err => console.log(err));
   };
 
-  useEffect(handleLoadDiagnosis);
+  useEffect(handleLoadDiagnosis, []);
 
-  return (
+  const context = useContext(FormContext);
+
+  const { getFieldDecorator } = context;
+
+  const SelectBase = () => (
     <Input.Group>
-      <Form.Item label={'Vyber diagnózu'} defaultValue={'lucy'} required={true}>
+      <Form.Item label={'Vyber diagnózu'} defaultValue={''} required={true}>
         {getFieldDecorator('diagnosis', {
           rules: [{ required: true, message: 'Please input your username!' }]
         })(
@@ -50,13 +51,13 @@ const DiagnosisSelect = ({ diagnosis }) => {
     </Input.Group>
   );
 
-  // const isLoadingConditionFn = props => props.loading;
+  const isLoadingConditionFn = props => props.loading;
 
-  // const SelectWithLoading = withEither(isLoadingConditionFn, LoadingSpin)(
-  //   Select
-  // );
+  const SelectWithLoading = withEither(isLoadingConditionFn, LoadingSpin)(
+    SelectBase
+  );
 
-  // return Select;
+  return <SelectWithLoading loading={loading} />;
 };
 
 export default DiagnosisSelect;

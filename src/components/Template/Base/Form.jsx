@@ -1,5 +1,5 @@
-import React from 'react';
-import { Affix, Typography, Card, Form } from 'antd';
+import React, { useState, useContext } from 'react';
+import { Affix, Typography, Card, Form, Button, Row, Icon } from 'antd';
 
 import DiagnosisSelect from './Selects/Diagnosis/Select';
 import RequiredFields from './RequiredFields/RequiredFields';
@@ -8,6 +8,7 @@ import CustomFieldAddForm from './CustomFields/AddForm';
 import CustomInputBase from './CustomFields/CustomInputBase';
 
 import FormContext from '../context';
+import { TitleInput } from './Inputs/helpers';
 
 const { Title } = Typography;
 
@@ -55,29 +56,29 @@ class TemplateBaseForm extends React.Component {
     this.props.handleSubmit(template);
   };
 
-  handleChange = event => {
-    const name = event.target.name;
-    const newItem = { [name]: event.target.value };
-    if (name === 'diagnosis') {
-      this.setState(prevState => ({
-        ...prevState,
-        ...newItem
-      }));
-    } else
-      this.setState(prevState => ({
-        ...prevState,
-        requiredFieldsData: { ...prevState.requiredFieldsData, ...newItem }
-      }));
-  };
+  // handleChange = event => {
+  //   const name = event.target.name;
+  //   const newItem = { [name]: event.target.value };
+  //   if (name === 'diagnosis') {
+  //     this.setState(prevState => ({
+  //       ...prevState,
+  //       ...newItem
+  //     }));
+  //   } else
+  //     this.setState(prevState => ({
+  //       ...prevState,
+  //       requiredFieldsData: { ...prevState.requiredFieldsData, ...newItem }
+  //     }));
+  // };
 
-  handleChangeCustomField = (id, newItem, type) => {
-    const newGenerators = [...this.state.generators];
-    newGenerators[id] = { ...newGenerators[id], ...newItem };
-    this.setState(prevState => ({
-      ...prevState,
-      generators: newGenerators
-    }));
-  };
+  // handleChangeCustomField = (id, newItem, type) => {
+  //   const newGenerators = [...this.state.generators];
+  //   newGenerators[id] = { ...newGenerators[id], ...newItem };
+  //   this.setState(prevState => ({
+  //     ...prevState,
+  //     generators: newGenerators
+  //   }));
+  // };
 
   handleAddCustomField = (event, type) => {
     event.preventDefault();
@@ -91,7 +92,7 @@ class TemplateBaseForm extends React.Component {
   };
 
   render() {
-    const { diagnosis, generators, requiredFieldsData } = this.state;
+    const { generators, requiredFieldsData } = this.state;
     const Formik = props => {
       const handleSubmit = event => {
         event.preventDefault();
@@ -99,26 +100,21 @@ class TemplateBaseForm extends React.Component {
         const values = props.form.getFieldsValue();
         console.log('values', values);
       };
-      const { getFieldDecorator } = props.form;
       const form = props.form;
 
       return (
         <FormContext.Provider value={form}>
           <Form onSubmit={handleSubmit}>
-            <DiagnosisSelect
-            // diagnosis={diagnosis}
-            // handleChange={this.handleChange}
-            />
-            <RequiredFields
-              onChange={this.handleChange}
-              data={requiredFieldsData}
-            />
-            <CustomFields
-              data={generators}
-              // fields={this.state.customFields}
-              handleChange={this.handleChangeCustomField}
-            />
-            <input type="submit" value="Přidat template" />
+            <TitleInput />
+
+            <DiagnosisSelect />
+            <RequiredFields data={requiredFieldsData} />
+            <CustomFields data={generators} />
+            <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
+              <Button type="primary" htmlType="submit">
+                Přidej šablonu
+              </Button>
+            </Form.Item>
           </Form>
         </FormContext.Provider>
       );
@@ -130,13 +126,7 @@ class TemplateBaseForm extends React.Component {
       <>
         <Title level={2}>Přidání šablony</Title>
 
-        <Affix offsetTop={64}>
-          <CustomFieldAddForm handleSubmit={this.handleAddCustomField} />
-        </Affix>
-
         <Card>
-          <Title level={2}>Šablona</Title>
-
           <WrappedDynamicFieldSet />
         </Card>
       </>
@@ -144,30 +134,67 @@ class TemplateBaseForm extends React.Component {
   }
 }
 
-const CustomFields = ({ handleChange, data = [], getFieldDecorator }) => {
-  return data.map((field, index) => {
-    let fieldType;
+const CustomFields = ({ handleChange }) => {
+  const context = useContext(FormContext);
 
-    if (field.type) {
-      fieldType = field.type;
-    } else if (field.min && field.max) {
-      fieldType = 'ranges';
-    } else if (field.imageGroup) {
-      fieldType = 'exams';
-    } else fieldType = 'symptoms';
+  const { getFieldDecorator, getFieldValue, setFieldsValue } = context;
 
-    return (
-      <React.Fragment key={index}>
-        <CustomInputBase
-          getFieldDecorator={getFieldDecorator}
-          id={index}
-          type={fieldType}
-          onChange={handleChange}
-          data={field}
-        />
-      </React.Fragment>
-    );
-  });
+  const handleAddField = (event, type) => {
+    const fields = getFieldValue('fields');
+    const count = fields.length;
+    const lastItem = fields[count - 1];
+    const lastItemId = lastItem ? fields[count - 1].id : -1;
+    const newItemId = lastItemId + 1;
+    const nextFields = fields.concat({ id: newItemId, type });
+
+    // can use data-binding to set
+    // important! notify form to detect changes
+    setFieldsValue({
+      fields: nextFields
+    });
+  };
+
+  const handleRemoveItem = item => {
+    // can use data-binding to get
+    const fields = getFieldValue('fields');
+    // We need at least one passenger
+    // if (fields.length === 1) {
+    //   return;
+    // }
+
+    // can use data-binding to set
+    setFieldsValue({
+      fields: fields.filter(({ id }) => id !== item.id)
+    });
+  };
+
+  getFieldDecorator('fields', { initialValue: [] });
+  const fields = getFieldValue('fields');
+
+  return (
+    <div>
+      <Affix offsetTop={64}>
+        <CustomFieldAddForm handleSubmit={handleAddField} />
+      </Affix>
+
+      {fields.map((field, index) => (
+        <React.Fragment key={index}>
+          <CustomInputBase
+            id={`${field.type}[${field.id}]`}
+            type={field.type}
+            onChange={handleChange}
+            data={field}
+          />
+
+          <Icon
+            className="dynamic-delete-button"
+            type="minus-circle-o"
+            onClick={() => handleRemoveItem(field)}
+          />
+        </React.Fragment>
+      ))}
+    </div>
+  );
 };
 
 export default TemplateBaseForm;

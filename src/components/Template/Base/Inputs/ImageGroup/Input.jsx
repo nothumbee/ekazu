@@ -1,138 +1,44 @@
-import React, { useState } from 'react';
-import { TitleInput } from '../helpers';
-import { Button, Icon } from 'antd';
+import React, { useContext } from 'react';
+import { Icon, Upload, Form } from 'antd';
+import FormContext from '../../../context';
 
-const ImageGroupInput = ({ onChange, data = {} }) => {
-  const [items, setItems] = useState(data ? data : [1]);
-  const [count, setCount] = useState(1);
+const ImageGroupInput = ({ id }) => {
+  const context = useContext(FormContext);
+  const { getFieldDecorator } = context;
 
-  const [imagesGroup, setImagesGroup] = useState({
-    title: '',
-    images: { image1: '' }
-  });
-
-  const handleAddItem = event => {
-    event.preventDefault();
-    const newCount = count + 1;
-    setCount(newCount);
-    setItems([...items, newCount]);
-  };
-
-  const handleChange = event => {
-    const { name, value, type } = event.target;
-    let newImagesGroup;
-
-    if (type === 'file') {
-      const newImage = { [name]: value };
-      newImagesGroup = {
-        ...imagesGroup,
-        images: { ...imagesGroup.images, ...newImage }
-      };
-    } else {
-      const newItem = { [name]: value };
-      newImagesGroup = { ...imagesGroup, ...newItem };
+  const normFile = e => {
+    console.log('Upload event:', e);
+    if (Array.isArray(e)) {
+      return e;
     }
-    setImagesGroup(newImagesGroup);
-    onChange(newImagesGroup, 'imageGroup');
+    return e && e.fileList;
   };
 
   return (
     <div>
       <b>Přidat fotky:</b> <br />
-      {items.map((group, index) => (
-        <React.Fragment key={index}>
-          <TitleInput onChange={handleChange} value={group.title} />
-          Fotografie{' '}
-          <input
-            // value={group.images ? group.images[0].filename : ''}
-            type="file"
-            name={0}
-            onChange={handleChange}
-          />
-          <br />
-        </React.Fragment>
-      ))}
-      <Button
-        type="primary"
-        onClick={event => {
-          handleAddItem(event);
-        }}
-      >
-        <Icon type="plus" />
-        Přidat další fotografii
-      </Button>
+      <Form.Item label="Fotky">
+        <div className="dropbox">
+          {getFieldDecorator(`${id}.imageGroup`, {
+            valuePropName: 'fileList',
+            getValueFromEvent: normFile
+          })(
+            <Upload.Dragger name="files" action="/upload.do">
+              <p className="ant-upload-drag-icon">
+                <Icon type="inbox" />
+              </p>
+              <p className="ant-upload-text">
+                Click or drag file to this area to upload
+              </p>
+              <p className="ant-upload-hint">
+                Support for a single or bulk upload.
+              </p>
+            </Upload.Dragger>
+          )}
+        </div>
+      </Form.Item>
     </div>
   );
 };
 
 export default ImageGroupInput;
-
-// import React, { useState } from 'react';
-// import { TitleInput } from '../helpers';
-// import { Button, Icon } from 'antd';
-
-// const ImageGroupInput = ({ onChange, data = {} }) => {
-//   const [items, setItems] = useState([1]);
-//   const [count, setCount] = useState(1);
-
-//   const [imagesGroup, setImagesGroup] = useState({
-//     title: '',
-//     images: { image1: '' }
-//   });
-
-//   const handleAddItem = event => {
-//     event.preventDefault();
-//     const newCount = count + 1;
-//     setCount(newCount);
-//     setItems([...items, newCount]);
-//   };
-
-//   const handleChange = event => {
-//     const { name, value, type } = event.target;
-//     let newImagesGroup;
-
-//     if (type === 'file') {
-//       const newImage = { [name]: value };
-//       newImagesGroup = {
-//         ...imagesGroup,
-//         images: { ...imagesGroup.images, ...newImage }
-//       };
-//     } else {
-//       const newItem = { [name]: value };
-//       newImagesGroup = { ...imagesGroup, ...newItem };
-//     }
-//     setImagesGroup(newImagesGroup);
-//     onChange(newImagesGroup, 'imageGroup');
-//   };
-
-//   return (
-//     <div>
-//       <b>Přidat fotky:</b> <br />
-//       <TitleInput onChange={handleChange} value={data.title} />
-//       {items.map(item => (
-//         <React.Fragment key={item}>
-//           Fotografie{' '}
-//           <input
-//             value={data.images ? data.images[`image${item}`] : ''}
-//             type="file"
-//             name={`image${item}`}
-//             key={item}
-//             onChange={handleChange}
-//           />
-//           <br />
-//         </React.Fragment>
-//       ))}
-//       <Button
-//         type="primary"
-//         onClick={event => {
-//           handleAddItem(event);
-//         }}
-//       >
-//         <Icon type="plus" />
-//         Přidat další fotografii
-//       </Button>
-//     </div>
-//   );
-// };
-
-// export default ImageGroupInput;

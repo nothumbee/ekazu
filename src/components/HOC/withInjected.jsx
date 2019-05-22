@@ -5,7 +5,7 @@ const withInjected = (
   InjectedComponent
 ) => Component => props => (
   <Component {...props}>
-    {conditionalRenderingFn(props) ? <InjectedComponent /> : null}
+    {conditionalRenderingFn(props) ? <InjectedComponent {...props} /> : null}
   </Component>
 );
 
