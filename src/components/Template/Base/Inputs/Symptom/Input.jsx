@@ -1,14 +1,12 @@
-import React, { useContext } from "react";
-import { TitleInput, IsExamCheckbox } from "../helpers";
-import ItemsInput from "../Items/Input";
-import Title from "antd/lib/typography/Title";
+import React, { useContext } from 'react';
+import { TitleInput, IsExamCheckbox } from '../helpers';
+import ItemsInput from '../Items/Input';
+import Title from 'antd/lib/typography/Title';
 
-import { Input, Collapse } from "antd";
-import FormContext from "../../../context";
-import ExamNumberInputs from "../ExamNumberInputs";
-import withInjected from "../../../../HOC/withInjected";
-
-const Panel = Collapse.Panel;
+import { Input, Collapse } from 'antd';
+import FormContext from '../../../context';
+import ExamNumberInputs from '../ExamNumberInputs';
+import withInjected from '../../../../HOC/withInjected';
 
 const InputGroup = Input.Group;
 
@@ -17,15 +15,13 @@ const SymptomInput = ({ id, deleteButton }) => {
   const { getFieldValue } = context;
 
   const SymptomInputBase = props => (
-    <Panel header="Symptom nebo text">
-      <InputGroup className="symptom">
-        <IsExamCheckbox id={id} />
-        {props.children}
-        <TitleInput id={id} />
-        <ItemsInput id={id} />
-      </InputGroup>
+    <InputGroup className="symptom">
+      <IsExamCheckbox id={id} />
+      {props.children}
+      <TitleInput id={id} />
+      <ItemsInput id={id} />
       {props.deleteButton}
-    </Panel>
+    </InputGroup>
   );
 
   const isExamConditionFn = props => props.isExam;
