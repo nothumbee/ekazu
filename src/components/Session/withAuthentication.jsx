@@ -1,6 +1,9 @@
 import React from 'react';
 
 import AuthUserContext from './context';
+import { withRouter } from 'react-router-dom';
+
+import * as ROUTES from '../../constants/routes';
 // import { withFirebase } from '../Firebase';
 
 const withAuthentication = Component => {
@@ -21,7 +24,9 @@ const withAuthentication = Component => {
             ? this.setState({ authUser })
             : this.setState({ authUser: null });
 
-        console.log(authUser);
+        // if (authUser) {
+        //   this.props.history.push(`${ROUTES.SIGN_IN}?loginfirst`);
+        // }
       };
 
       checkUser();
@@ -47,6 +52,7 @@ const withAuthentication = Component => {
       );
     }
   }
+
   return WithAuthentication;
   // return withFirebase(WithAuthentication);
 };

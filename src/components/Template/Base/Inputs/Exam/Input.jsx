@@ -10,7 +10,7 @@ import ImageGroupInput from '../ImageGroup/Input';
 
 const InputGroup = Input.Group;
 
-const ExamInput = ({ id, deleteButton }) => {
+const ExamInput = ({ id }) => {
   const context = useContext(FormContext);
   const { getFieldValue } = context;
 
@@ -24,7 +24,6 @@ const ExamInput = ({ id, deleteButton }) => {
 
         <ItemsInput id={id} />
         <ImageGroupInput id={id} />
-        {props.deleteButton}
       </Row>
     </InputGroup>
   );
@@ -38,13 +37,7 @@ const ExamInput = ({ id, deleteButton }) => {
 
   const isExam = getFieldValue(`${id}.isExam`);
 
-  return (
-    <ExamInputWithInjected
-      isExam={isExam}
-      id={id}
-      deleteButton={deleteButton}
-    />
-  );
+  return <ExamInputWithInjected isExam={isExam} id={id} />;
 };
 
 export default ExamInput;

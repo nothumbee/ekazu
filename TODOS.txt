@@ -8,7 +8,7 @@ Add submit methods in form
 
 Add Duplicate template func
 
-
+Remake form, template is in Symptom.jsx
 
 
 {GRIM} and also remove the TYPE from generator field

@@ -49,7 +49,6 @@ class SignInFormBase extends Component {
         message: null
       });
     });
-    console.log('Helllooo', this.props);
   }
 
   onSubmit = event => {
@@ -58,7 +57,6 @@ class SignInFormBase extends Component {
 
     sessionStorage.setItem('authUser', true);
 
-    console.log(sessionStorage.getItem('authUser'));
     // this.props.firebase
     //   .doSignInWithEmailAndPassword(email, password)
     //   .then(() => {

@@ -45,7 +45,7 @@ const ActionDecision = ({ location }) => {
 const condition = authUser => !!authUser;
 
 const AdminPage = withAuthorization(condition)(AdminPageBase);
-// npm i recompose
+
 // const AdminPage = compose(
 //   withAuthorization(condition),
 //   withRouter

@@ -41,7 +41,7 @@ const ItemsInput = ({ id }) => {
       {getFieldDecorator(`${id}.text[${item}]`, {
         trigger: 'onBlur',
         valuePropName: 'defaultValue',
-        rules: [{ required: true, message: 'Please input your username!' }]
+        rules: [{ required: true, message: 'Vyplňte prosím toto pole!' }]
       })(<Input style={{ width: '60%', marginRight: 8 }} />)}
 
       {keys.length > 1 ? (

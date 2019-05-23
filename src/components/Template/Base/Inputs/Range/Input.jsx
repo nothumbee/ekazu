@@ -8,7 +8,7 @@ import ExamNumberInputs from '../ExamNumberInputs';
 
 const InputGroup = Input.Group;
 
-const RangeInput = ({ id, deleteButton }) => {
+const RangeInput = ({ id }) => {
   const context = useContext(FormContext);
   const { getFieldValue } = context;
 
@@ -35,7 +35,6 @@ const RangeInput = ({ id, deleteButton }) => {
         </Col>
         <RangeNumberInputs />
       </Row>
-      {props.deleteButton}
     </InputGroup>
   );
 
@@ -48,13 +47,7 @@ const RangeInput = ({ id, deleteButton }) => {
 
   const isExam = getFieldValue(`${id}.isExam`);
 
-  return (
-    <RangeInputWithInjected
-      isExam={isExam}
-      id={id}
-      deleteButton={deleteButton}
-    />
-  );
+  return <RangeInputWithInjected isExam={isExam} id={id} />;
 };
 
 export default RangeInput;

@@ -1,8 +1,5 @@
 import React from 'react';
-
 import { withRouter } from 'react-router-dom';
-// import { compose } from 'recompose';
-
 import AuthUserContext from './context';
 // import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
@@ -17,7 +14,7 @@ const withAuthorization = condition => Component => {
         }
       };
       checkUser();
-      this.listener = setTimeout(() => checkUser, 2000);
+      this.listener = setTimeout(checkUser, 10000);
     }
 
     componentWillUnmount() {
@@ -28,7 +25,6 @@ const withAuthorization = condition => Component => {
       return (
         <AuthUserContext.Consumer>
           {authUser => {
-            console.log('AUTHUSER', authUser);
             return condition(authUser) ? <Component {...this.props} /> : null;
           }}
         </AuthUserContext.Consumer>
