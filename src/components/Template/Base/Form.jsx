@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { Affix, Typography, Card, Form, Button, Icon, Collapse } from 'antd';
 
 import DiagnosisSelect from './Selects/Diagnosis/Select';
@@ -11,88 +11,61 @@ import FormContext from '../context';
 import { TitleInput } from './Inputs/helpers';
 
 const { Title } = Typography;
+const Panel = Collapse.Panel;
 
-const defaultItem = {
-  bonus: null,
-  exam: null,
-  imageGroup: null,
-  malus: null,
-  max: null,
-  min: null,
-  price: null,
-  text: null,
-  title: null
-};
+// const defaultItem = {
+//   bonus: null,
+//   exam: null,
+//   imageGroup: null,
+//   malus: null,
+//   max: null,
+//   min: null,
+//   price: null,
+//   text: null,
+//   title: null
+// };
 
 class TemplateBaseForm extends React.Component {
-  state = {};
+  // state = {};
 
-  componentDidMount() {
-    console.log('this.props.data', this.props.data);
-    this.setState({ ...this.props.data });
-  }
+  // componentDidMount() {
+  //   console.log('this.props.data', this.props.data);
+  //   this.setState({ ...this.props.data });
+  // }
 
-  componentDidUpdate(prevProps, prevState) {
-    console.log('FORMSTATE', this.state);
-  }
+  // handleSubmit = event => {
+  //   event.preventDefault();
 
-  handleSubmit = event => {
-    event.preventDefault();
+  //   const { diagnosis, requiredFieldsData, generators } = this.state;
 
-    const { diagnosis, requiredFieldsData, generators } = this.state;
+  //   // need to remove type property from each generator if exists
+  //   const generatorsWithoutTypes = generators.map(generator => {
+  //     const { type, ...generatorWithoutType } = generator;
+  //     return generatorWithoutType;
+  //   });
 
-    // need to remove type property from each generator if exists
-    const generatorsWithoutTypes = generators.map(generator => {
-      const { type, ...generatorWithoutType } = generator;
-      return generatorWithoutType;
-    });
+  //   const template = {
+  //     diagnosis: diagnosis,
+  //     ...requiredFieldsData,
+  //     generators: generatorsWithoutTypes
+  //   };
 
-    const template = {
-      diagnosis: diagnosis,
-      ...requiredFieldsData,
-      generators: generatorsWithoutTypes
-    };
-
-    this.props.handleSubmit(template);
-  };
-
-  // handleChange = event => {
-  //   const name = event.target.name;
-  //   const newItem = { [name]: event.target.value };
-  //   if (name === 'diagnosis') {
-  //     this.setState(prevState => ({
-  //       ...prevState,
-  //       ...newItem
-  //     }));
-  //   } else
-  //     this.setState(prevState => ({
-  //       ...prevState,
-  //       requiredFieldsData: { ...prevState.requiredFieldsData, ...newItem }
-  //     }));
+  //   this.props.handleSubmit(template);
   // };
 
-  // handleChangeCustomField = (id, newItem, type) => {
-  //   const newGenerators = [...this.state.generators];
-  //   newGenerators[id] = { ...newGenerators[id], ...newItem };
-  //   this.setState(prevState => ({
-  //     ...prevState,
-  //     generators: newGenerators
-  //   }));
+  // handleAddCustomField = (event, type) => {
+  //   event.preventDefault();
+
+  //   if (type !== '') {
+  //     this.setState(prevState => ({
+  //       ...prevState,
+  //       generators: [...prevState.generators, { ...defaultItem, type: type }]
+  //     }));
+  //   }
   // };
-
-  handleAddCustomField = (event, type) => {
-    event.preventDefault();
-
-    if (type !== '') {
-      this.setState(prevState => ({
-        ...prevState,
-        generators: [...prevState.generators, { ...defaultItem, type: type }]
-      }));
-    }
-  };
 
   render() {
-    const { generators, requiredFieldsData } = this.state;
+    // const { generators, requiredFieldsData } = this.state;
     const Formik = props => {
       const handleSubmit = event => {
         event.preventDefault();
@@ -108,8 +81,8 @@ class TemplateBaseForm extends React.Component {
             <TitleInput />
 
             <DiagnosisSelect />
-            <RequiredFields data={requiredFieldsData} />
-            <CustomFields data={generators} />
+            <RequiredFields />
+            <CustomFields />
             <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
               <Button type="primary" htmlType="submit">
                 Přidej šablonu
@@ -134,35 +107,25 @@ class TemplateBaseForm extends React.Component {
   }
 }
 
-const CustomFields = ({ handleChange }) => {
+const CustomFields = () => {
   const context = useContext(FormContext);
+  const id = useRef(0);
+  console.log('id.current :', id.current);
 
   const { getFieldDecorator, getFieldValue, setFieldsValue } = context;
 
   const handleAddField = (event, type) => {
     const fields = getFieldValue('fields');
-    const count = fields.length;
-    const lastItem = fields[count - 1];
-    const lastItemId = lastItem ? fields[count - 1].id : -1;
-    const newItemId = lastItemId + 1;
-    const nextFields = fields.concat({ id: newItemId, type });
+    const nextFields = fields.concat({ id: id.current++, type });
 
-    // can use data-binding to set
-    // important! notify form to detect changes
     setFieldsValue({
       fields: nextFields
     });
   };
 
   const handleRemoveItem = item => {
-    // can use data-binding to get
     const fields = getFieldValue('fields');
-    // We need at least one passenger
-    // if (fields.length === 1) {
-    //   return;
-    // }
 
-    // can use data-binding to set
     setFieldsValue({
       fields: fields.filter(({ id }) => id !== item.id)
     });
@@ -171,21 +134,12 @@ const CustomFields = ({ handleChange }) => {
   getFieldDecorator('fields', { initialValue: [] });
   const fields = getFieldValue('fields');
 
-  const Panel = Collapse.Panel;
-
-  const header = type => {
-    switch (type) {
-      case 'exams':
-        return 'exams';
-      case 'ranges':
-        return 'ranges';
-      case 'symptoms':
-        return 'symptoms';
-
-      default:
-        return 'nevim';
-    }
-  };
+  const header = type =>
+    ({
+      exams: 'exams',
+      ranges: 'ranges',
+      symptoms: 'symptoms'
+    }[type]);
 
   return (
     <div>
@@ -199,8 +153,6 @@ const CustomFields = ({ handleChange }) => {
             <CustomInputBase
               id={`${field.type}[${field.id}]`}
               type={field.type}
-              onChange={handleChange}
-              data={field}
               deleteButton={
                 <Icon
                   className="dynamic-delete-button"

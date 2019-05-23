@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Row, Typography, Input, Collapse } from 'antd';
+import { Row, Input } from 'antd';
 
 import { TitleInput, IsExamCheckbox } from '../helpers';
 import ItemsInput from '../Items/Input';
@@ -9,8 +9,6 @@ import FormContext from '../../../context';
 import ImageGroupInput from '../ImageGroup/Input';
 
 const InputGroup = Input.Group;
-
-const { Title } = Typography;
 
 const ExamInput = ({ id, deleteButton }) => {
   const context = useContext(FormContext);

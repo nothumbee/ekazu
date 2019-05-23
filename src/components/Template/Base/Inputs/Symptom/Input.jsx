@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
 import { TitleInput, IsExamCheckbox } from '../helpers';
 import ItemsInput from '../Items/Input';
-import Title from 'antd/lib/typography/Title';
 
-import { Input, Collapse } from 'antd';
+import { Input } from 'antd';
 import FormContext from '../../../context';
 import ExamNumberInputs from '../ExamNumberInputs';
 import withInjected from '../../../../HOC/withInjected';
