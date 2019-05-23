@@ -1,19 +1,28 @@
-import React from 'react';
-import { Button } from 'antd';
+import React from "react";
+import { Button, Row, Col } from "antd";
 
 const CustomFieldAddForm = ({ handleSubmit }) => {
   return (
-    <div className="customFieldsBar">
-      <Button type="primary" onClick={event => handleSubmit(event, 'symptoms')}>
-        Přidej text input
-      </Button>
-      <Button type="primary" onClick={event => handleSubmit(event, 'exams')}>
-        Přidej exam input
-      </Button>
-      <Button type="primary" onClick={event => handleSubmit(event, 'ranges')}>
-        Přidej range input
-      </Button>
-    </div>
+    <Row gutter={16} className="customFieldsBar">
+      <Col xs={{ span: 5 }} lg={{ span: 6 }}>
+        <Button
+          type="primary"
+          onClick={event => handleSubmit(event, "symptoms")}
+        >
+          Přidej text input
+        </Button>
+      </Col>
+      <Col xs={{ span: 5 }} lg={{ span: 6 }}>
+        <Button type="primary" onClick={event => handleSubmit(event, "exams")}>
+          Přidej exam input
+        </Button>
+      </Col>
+      <Col xs={{ span: 5 }} lg={{ span: 6 }}>
+        <Button type="primary" onClick={event => handleSubmit(event, "ranges")}>
+          Přidej range input
+        </Button>
+      </Col>
+    </Row>
   );
 };
 

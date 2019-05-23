@@ -1,44 +1,11 @@
-import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
-import "antd/dist/antd.css";
-import "./index.less";
-// import { compose } from 'recompose';
-// import { SignUpLink } from '../SignUp';
-// import { withFirebase } from '../Firebase';
-// import { PasswordForgetLink } from '../Password/Forget';
-import * as ROUTES from "../../constants/routes";
-import { Alert } from "antd";
-import { ReactComponent as Blood } from "./blood.svg";
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+// import "antd/dist/antd.css";
+import './index.less';
 
-import anime from "animejs";
-
-/*function randomValues() {
-  anime({
-    targets: ".blood",
-    skew: function() {
-      return anime.random(Math.random(0, 10), Math.random(0, 30));
-    },
-
-    rotate: function() {
-      return anime.random(Math.random(0, 10), Math.random(0, 30));
-    },
-
-    translate: function() {
-      return anime.random(Math.random(0, 10), Math.random(0, 30));
-    },
-
-    easing: "cubicBezier(0.590, 0.550, 0.610, 0.585)",
-    duration: 2000,
-    complete: randomValues,
-    direction: "alternate",
-    loop: "true"
-  });
-}
-
-
-randomValues();
-
-*/
+import * as ROUTES from '../../constants/routes';
+import { Alert } from 'antd';
+import { ReactComponent as Blood } from './blood.svg';
 
 const SignInPage = () => (
   <div>
@@ -54,8 +21,8 @@ const SignInPage = () => (
 );
 
 const INITIAL_STATE = {
-  email: "",
-  password: "",
+  email: '',
+  password: '',
   error: null,
   message: null
 };
@@ -67,9 +34,9 @@ class SignInFormBase extends Component {
   }
 
   componentDidMount() {
-    if (this.props.location.search === "?loginfirst") {
+    if (this.props.location.search === '?loginfirst') {
       this.setState({
-        message: "Pro přístup do této sekce se musíte přihlásit"
+        message: 'Pro přístup do této sekce se musíte přihlásit'
       });
     } else {
       this.setState({
@@ -82,16 +49,14 @@ class SignInFormBase extends Component {
         message: null
       });
     });
-    console.log("Helllooo", this.props);
   }
 
   onSubmit = event => {
     event.preventDefault();
     // const { email, password } = this.state;
 
-    sessionStorage.setItem("authUser", true);
+    sessionStorage.setItem('authUser', true);
 
-    console.log(sessionStorage.getItem("authUser"));
     // this.props.firebase
     //   .doSignInWithEmailAndPassword(email, password)
     //   .then(() => {
@@ -142,7 +107,7 @@ class SignInFormBase extends Component {
             type="warning"
             message={message}
             showIcon
-            style={{ width: "100%", margin: "0.8em 0" }}
+            style={{ width: '100%', margin: '0.8em 0' }}
           />
         )}
       </>

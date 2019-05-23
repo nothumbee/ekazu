@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import { Form, Input, Icon } from 'antd';
+import { Form, Input, Icon } from "antd";
 
 const InputGroup = Input.Group;
 
@@ -8,12 +8,12 @@ const ExamInput = () => (
   <InputGroup>
     <Form.Item
       {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
-      label={index === 0 ? 'Passengers' : ''}
+      label={index === 0 ? "Passengers" : ""}
       required={false}
       key={k}
     >
       {getFieldDecorator(`names[${k}]`, {
-        validateTrigger: ['onChange', 'onBlur'],
+        validateTrigger: ["onChange", "onBlur"],
         rules: [
           {
             required: true,
@@ -24,7 +24,7 @@ const ExamInput = () => (
       })(
         <Input
           placeholder="passenger name"
-          style={{ width: '60%', marginRight: 8 }}
+          style={{ width: "60%", marginRight: 8 }}
         />
       )}
       {keys.length > 1 ? (

@@ -1,7 +1,3 @@
-/* TADY BUDE STACIT JEDEN FORMULAR SE VSEMI MOZNOSTMI - atribut exam znamena, 
-ze bude zprvu schovany, takze neni treba delit na tri typy pri nacteni,
- ale pri odeslani je to fajn pro lepsi UX */
-
 import React from 'react';
 import TemplateBaseForm from '../../Base/Form';
 
@@ -37,10 +33,6 @@ class TemplateAddForm extends React.Component {
 }
 
 export default TemplateAddForm;
-
-/* TADY BUDE STACIT JEDEN FORMULAR SE VSEMI MOZNOSTMI - atribut exam znamena, 
-ze bude zprvu schovany, takze neni treba delit na tri typy pri nacteni,
- ale pri odeslani je to fajn pro lepsi UX */
 
 //  import React from 'react';
 //  import SelectDiagnosis from './Selects/Diagnosis/Select';

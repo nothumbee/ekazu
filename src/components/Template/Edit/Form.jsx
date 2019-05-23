@@ -35,7 +35,7 @@ const TemplateEditForm = ({ location }) => {
       });
   };
 
-  useEffect(handleLoadData);
+  useEffect(handleLoadData, []);
 
   // load data and send it to base form of add template form
   return <div>{data && <TemplateBaseForm data={data} />}</div>;

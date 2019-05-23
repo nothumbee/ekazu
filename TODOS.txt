@@ -1,23 +1,26 @@
 TODOS:
 
+NOT GRIM YET:
+
 Form validation - positive numbers, non-empty strings
-Take care of null values in Edit form
 
 Add submit methods in form
---- Remake form to Ant Design form
-If exam true add malus, bonus, price as input
 
-TEMPLATE
-Add Custom title
 Add Duplicate template func
-Add Delete row and input func
+
+Remake form, template is in Symptom.jsx
 
 
+{GRIM} and also remove the TYPE from generator field
 
-{DONE} and also remove the TYPE from generator field
+{GRIM} Add checkbox to every input // exam, symptom and so on
 
-{DONE} Add checkbox to every input // exam, symptom and so on
+{GRIM} Remake the addForm
 
-{DONE} Remake the addForm
+{GRIM} Remake form to Ant Design form
 
+{GRIM} If exam true add malus, bonus, price as input
 
+{GRIM} Add Custom title to template
+
+{GRIM} Add Delete row and input func

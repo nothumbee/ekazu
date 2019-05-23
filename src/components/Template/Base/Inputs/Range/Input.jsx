@@ -1,7 +1,7 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { TitleInput, CustomNumberInput, IsExamCheckbox } from '../helpers';
 import { Row, Col, Input } from 'antd';
-import Title from 'antd/lib/typography/Title';
+
 import withInjected from '../../../../HOC/withInjected';
 import FormContext from '../../../context';
 import ExamNumberInputs from '../ExamNumberInputs';
@@ -27,7 +27,6 @@ const RangeInput = ({ id }) => {
 
   const RangeInputBase = props => (
     <InputGroup className="range">
-      <Title level={4}>Přidat rozmezí</Title>
       <IsExamCheckbox id={id} />
       {props.children}
       <Row gutter={16}>

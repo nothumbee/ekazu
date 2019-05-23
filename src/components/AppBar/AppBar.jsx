@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-// import LoadPatient from '../Load/LoadPatient';
 import { Link, withRouter } from 'react-router-dom';
-
 import { Menu, Icon } from 'antd';
 
 import * as ROUTES from '../../constants/routes';
-import 'antd/dist/antd.less';
-import './AppBar.less';
 import { ReactComponent as Logo } from './logo.svg';
-
 import anime from 'animejs';
+
+import './AppBar.less';
+import 'antd/dist/antd.less';
+import { withAuthentication } from '../Session';
+import { compose } from 'recompose';
 
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
@@ -33,6 +33,7 @@ anime({
 });
 
 const AppBar = props => {
+  console.log('AUTHORIZED USER', props.authUser);
   const [current, setCurrent] = useState(props.location.pathname);
 
   props.history.listen(location => setCurrent(location.pathname));
@@ -46,9 +47,7 @@ const AppBar = props => {
     <div className="inside nav">
       <Link to={ROUTES.LANDING}>
         <Logo className="logo" style={logoStyles} />
-        {/* <img src={logo} alt="eKazu logo" style={logoStyles} className="logo" /> */}
       </Link>
-      {/* <div className="logo" style={logoStyles} /> */}
 
       <Menu
         onClick={handleClick}
@@ -111,15 +110,28 @@ const AppBar = props => {
           <Link to={ROUTES.STUDENT}>Student</Link>
         </Menu.Item>
 
-        <Menu.Item key={ROUTES.SIGN_IN}>
-          <Link to={ROUTES.SIGN_IN}>
-            <Icon type="login" />
-            Přihlásit se
-          </Link>
-        </Menu.Item>
+        {!props.authUser ? (
+          <Menu.Item key={ROUTES.SIGN_IN}>
+            <Link to={ROUTES.SIGN_IN}>
+              <Icon type="login" />
+              Přihlásit se
+            </Link>
+          </Menu.Item>
+        ) : (
+          <Menu.Item
+            key={'LOGOUT'}
+            onClick={() => sessionStorage.setItem('authUser', false)}
+          >
+            <Icon type="logout" />
+            Odhlásit se
+          </Menu.Item>
+        )}
       </Menu>
     </div>
   );
 };
 
-export default withRouter(AppBar);
+export default compose(
+  withAuthentication,
+  withRouter
+)(AppBar);
