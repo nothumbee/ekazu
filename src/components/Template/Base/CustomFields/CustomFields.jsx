@@ -6,10 +6,11 @@ import CustomInputBase from './CustomInputBase';
 
 const Panel = Collapse.Panel;
 
-const CustomFields = () => {
+const CustomFields = ({ count }) => {
+  console.log('count :', count);
   const id = useRef(0);
 
-  const [fields, setFields] = useState([]);
+  const [fields, setFields] = useState(count || []);
 
   const handleAddField = (event, type) => {
     const nextFields = fields.concat({ id: id.current++, type });
@@ -27,13 +28,14 @@ const CustomFields = () => {
       symptoms: 'Symptom'
     }[type]);
 
+  const openAll = fields.map((field, index) => `${index}`);
   return (
     <div>
       <Affix offsetTop={64}>
         <CustomFieldAddForm handleSubmit={handleAddField} />
       </Affix>
 
-      <Collapse>
+      <Collapse defaultActiveKey={openAll}>
         {fields.map((field, index) => (
           <Panel
             key={index}

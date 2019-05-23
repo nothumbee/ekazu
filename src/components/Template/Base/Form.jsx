@@ -57,18 +57,27 @@ class TemplateBaseForm extends React.Component {
 
   setVals = () => {
     console.log('this.props.data', this.props.data);
+
     if (this.props.data) {
-      const {
-        diagnosis,
-        requiredFieldsData: { maxMalus, maxPrice, minBonus }
-      } = this.props.data;
+      const { count, symptoms, ranges, exams, ...rest } = this.props.data;
+
+      const filterIds = arr => arr.map(({ id, text, ...rest }) => rest);
+      const onlyText = arr => arr.map(({ text }) => ({ text }));
 
       this.props.form.setFieldsValue({
-        diagnosis,
-        maxMalus,
-        maxPrice,
-        minBonus
+        ...rest,
+        symptoms: filterIds(symptoms),
+        ranges: filterIds(ranges),
+        exams: filterIds(exams)
       });
+
+      setTimeout(() => {
+        this.props.form.setFieldsValue({
+          symptoms: onlyText(symptoms),
+          ranges: onlyText(ranges),
+          exams: onlyText(exams)
+        });
+      }, 500);
     }
   };
 
@@ -80,7 +89,10 @@ class TemplateBaseForm extends React.Component {
   };
 
   render() {
-    const { form } = this.props;
+    const {
+      form,
+      data: { count }
+    } = this.props;
     return (
       <Card>
         <Title level={2}>Přidání šablony</Title>
@@ -90,7 +102,7 @@ class TemplateBaseForm extends React.Component {
             <TitleInput />
             <DiagnosisSelect />
             <RequiredFields />
-            <CustomFields />
+            <CustomFields count={count} />
             <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
               <Button type="primary" htmlType="submit">
                 Přidej šablonu
