@@ -64,7 +64,7 @@
 }
 
 .illustration:hover .up {
-  transform: translateY(-10px);
+  transform: translateY(-5px);
   transition: all 300ms;
 }
 
@@ -121,16 +121,25 @@
 }
 
 .eye {
-  animation: 1s blink infinite;
+  animation: blink 3s ease-out 5s infinite;
   transform-origin: center center;
 }
 
+
 @keyframes blink {
-  from {
+  0% {
     transform: scaleY(1);
   }
 
-  to {
+  5% {
     transform: scaleY(0.5);
+  }
+
+  10% {
+    transform: scaleY(1);
+  }
+
+  100% {
+    transform: scaleY(1);
   }
 }

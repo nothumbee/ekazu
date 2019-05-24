@@ -23,12 +23,12 @@ const DiagnosisGuessForm = ({ studentID, exams }) => {
         .catch(err => console.log(err));
   };
 
-  useEffect(handleLoadDiagnosisList);
+  useEffect(handleLoadDiagnosisList, []);
 
   const handleSuccessFinishedCase = ({ wasRight }) => {
     if (wasRight) {
       console.log('JE TO NA...', wasRight);
-    } else console.log('hovno :');
+    } else console.log('Spatne kamo :');
   };
 
   const handleFinishCase = event => {

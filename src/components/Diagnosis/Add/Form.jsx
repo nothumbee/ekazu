@@ -11,7 +11,6 @@ const DiagnosisAddForm = props => {
   const handleSubmit = event => {
     event.preventDefault();
     const objToSend = { definition: diagnosis };
-    console.log('objToSend', objToSend);
     axe
       .post('/admin/codelist/diagnosis', JSON.stringify(objToSend))
       .then(response => console.log('response', response))
