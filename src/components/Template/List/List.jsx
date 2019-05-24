@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import axe from '../../Axios';
 
 import { Collapse, Button, List, Card } from 'antd';
 
 import Title from 'antd/lib/typography/Title';
+import { ADMIN_EDIT_TEMPLATE } from '../../../constants/routes';
 
 const Panel = Collapse.Panel;
 
-const TemplateList = () => {
+const TemplateList = props => {
   const [templateList, setTemplateList] = useState([]);
 
   const loadTemplateList = () => {
@@ -23,6 +25,9 @@ const TemplateList = () => {
   };
 
   useEffect(loadTemplateList, []);
+
+  const editTemplate = id =>
+    props.history.push(`${ADMIN_EDIT_TEMPLATE}?id=${id}`);
 
   const customPanelStyle = {
     borderRadius: 4,
@@ -46,12 +51,13 @@ const TemplateList = () => {
               style={customPanelStyle}
             >
               <Title level={2}>{template.diagnosis}</Title>
-              <Button type="primary">Upravit</Button>
+              <Button onClick={() => editTemplate(template.id)} type="primary">
+                Upravit
+              </Button>
               {template.generators.map((generator, index) => (
                 <React.Fragment key={index}>
                   <Title level={4}> {generator.title}</Title>
-                  {console.log('generator.text :', generator.text)}
-
+                  {generator.exam && `Skryté vyšetření`}
                   {generator.text && (
                     <List
                       bordered
@@ -70,4 +76,4 @@ const TemplateList = () => {
   );
 };
 
-export default TemplateList;
+export default withRouter(TemplateList);

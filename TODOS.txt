@@ -2,7 +2,6 @@ TODOS:
 
 NOT GRIM YET:
 
-Form validation - positive numbers, non-empty strings
 
 Add submit methods in form
 
@@ -10,6 +9,8 @@ Add Duplicate template func
 
 Remake form, template is in Symptom.jsx
 
+
+{GRIM} Form validation - positive numbers, non-empty strings
 
 {GRIM} and also remove the TYPE from generator field
 

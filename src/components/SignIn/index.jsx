@@ -5,11 +5,16 @@ import './index.less';
 
 import * as ROUTES from '../../constants/routes';
 import { Alert } from 'antd';
-import { ReactComponent as Blood } from './blood.svg';
+// import { ReactComponent as Blood } from './blood.svg';
+import { ReactComponent as Shape } from './shape.svg';
+
+import MorphingBG from './animation.js';
 
 const SignInPage = () => (
   <div>
-    <Blood className="blood" />
+    <Shape className="scene" />
+
+    {/* <Blood className="blood" /> */}
 
     <div id="vh">
       <h1 className="title">Přihlášení</h1>
@@ -34,6 +39,8 @@ class SignInFormBase extends Component {
   }
 
   componentDidMount() {
+    new MorphingBG(document.querySelector('.scene'));
+
     if (this.props.location.search === '?loginfirst') {
       this.setState({
         message: 'Pro přístup do této sekce se musíte přihlásit'

@@ -1,18 +1,18 @@
 import React from 'react';
 import TemplateBaseForm from '../../Base/Form';
 
-const INITIAL_STATE = {
-  diagnosis: '',
-  requiredFieldsData: {
-    minBonus: '',
-    maxMalus: '',
-    maxPrice: ''
-  },
-  generators: []
-};
+// const INITIAL_STATE = {
+//   diagnosis: '',
+//   requiredFieldsData: {
+//     minBonus: '',
+//     maxMalus: '',
+//     maxPrice: ''
+//   },
+//   generators: []
+// };
 
 class TemplateAddForm extends React.Component {
-  state = { ...INITIAL_STATE };
+  // state = { ...INITIAL_STATE };
 
   handleSubmit = data => {
     // axios.post();
@@ -23,10 +23,7 @@ class TemplateAddForm extends React.Component {
   render() {
     return (
       <>
-        <TemplateBaseForm
-          handleSubmit={this.handleSubmit}
-          data={INITIAL_STATE}
-        />
+        <TemplateBaseForm handleSubmit={this.handleSubmit} />
       </>
     );
   }

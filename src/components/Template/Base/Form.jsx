@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Typography, Card, Form, Button } from 'antd';
 
 import DiagnosisSelect from './Selects/Diagnosis/Select';
@@ -50,9 +50,10 @@ class TemplateBaseForm extends React.Component {
   //   }
   // };
   componentDidMount() {
-    setTimeout(() => {
-      this.setVals();
-    }, 2000);
+    if (this.props.data)
+      setTimeout(() => {
+        this.setVals();
+      }, 2000);
   }
 
   setVals = () => {
@@ -60,7 +61,7 @@ class TemplateBaseForm extends React.Component {
 
     if (this.props.data) {
       const { count, symptoms, ranges, exams, ...rest } = this.props.data;
-
+      console.log('REST IN PEACE', rest);
       const filterIds = arr => arr.map(({ id, text, ...rest }) => rest);
       const onlyText = arr => arr.map(({ text }) => ({ text }));
 
@@ -83,16 +84,19 @@ class TemplateBaseForm extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-
     const values = this.props.form.getFieldsValue();
     console.log('values', values);
+
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values);
+      }
+    });
   };
 
   render() {
-    const {
-      form,
-      data: { count }
-    } = this.props;
+    const { form } = this.props;
+
     return (
       <Card>
         <Title level={2}>Přidání šablony</Title>
@@ -102,7 +106,7 @@ class TemplateBaseForm extends React.Component {
             <TitleInput />
             <DiagnosisSelect />
             <RequiredFields />
-            <CustomFields count={count} />
+            <CustomFields count={this.props.data && this.props.data.count} />
             <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
               <Button type="primary" htmlType="submit">
                 Přidej šablonu

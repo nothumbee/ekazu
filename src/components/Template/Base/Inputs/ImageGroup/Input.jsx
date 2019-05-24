@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Icon, Upload, Form, message } from 'antd';
+import { Icon, Upload, Form } from 'antd';
 import FormContext from '../../../context';
 
 const ImageGroupInput = ({ id }) => {
