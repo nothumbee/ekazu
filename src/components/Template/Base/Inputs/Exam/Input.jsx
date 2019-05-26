@@ -22,7 +22,7 @@ const ExamInput = ({ id }) => {
       <Row gutter={16}>
         {props.children}
 
-        <ItemsInput id={id} />
+        {/* <ItemsInput id={id} /> */}
         <ImageGroupInput id={id} />
       </Row>
     </InputGroup>

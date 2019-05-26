@@ -33,14 +33,13 @@ const ImageGroupInput = ({ id }) => {
 
   return (
     <div>
-      <b>Přidat fotky:</b> <br />
       <Form.Item label="Fotky">
         <div className="dropbox">
           {getFieldDecorator(`${id}.imageGroup`, {
             valuePropName: 'fileList',
             getValueFromEvent: normFile
           })(
-            <Upload.Dragger name="files" action="/upload.do">
+            <Upload.Dragger action="https://owe-kazu.herokuapp.com/api/rest/admin/upload">
               <p className="ant-upload-drag-icon">
                 <Icon className={'ant-upload-drag-icon'} type="plus" />
               </p>
