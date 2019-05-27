@@ -1,16 +1,17 @@
-import React from 'react';
-import { withAuthorization } from '../../components/Session';
+import React from "react";
+import { withAuthorization } from "../../components/Session";
 
 // import { compose } from 'recompose';
 
 // import { withRouter } from 'react-router';
-import * as ROUTES from '../../constants/routes';
-import TemplateAddForm from '../../components/Template/Add/Form/Form';
-import TemplateList from '../../components/Template/List/List';
-import DiagnosisList from '../../components/Diagnosis/List';
-import DiagnosisAddForm from '../../components/Diagnosis/Add/Form';
-import TemplateEditForm from '../../components/Template/Edit/Form';
-import AdminHome from '../../components/Admin';
+import * as ROUTES from "../../constants/routes";
+import TemplateAddForm from "../../components/Template/Add/Form/Form";
+import TemplateList from "../../components/Template/List/List";
+import DiagnosisList from "../../components/Diagnosis/List";
+import DiagnosisAddForm from "../../components/Diagnosis/Add/Form";
+import TemplateDuplicateForm from "../../components/Template/Duplicate/Form";
+import TemplateEditForm from "../../components/Template/Edit/Form";
+import AdminHome from "../../components/Admin";
 
 const AdminPageBase = props => {
   return <ActionDecision location={props.location.pathname} />;
@@ -36,6 +37,9 @@ const ActionDecision = ({ location }) => {
 
     case ROUTES.ADMIN_EDIT_TEMPLATE:
       return <TemplateEditForm />;
+
+    case ROUTES.ADMIN_DUPLICATE_TEMPLATE:
+      return <TemplateDuplicateForm />;
     // edit, delete template, insert as copy of existing template
     default:
       return null;
