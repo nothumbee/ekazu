@@ -1,9 +1,9 @@
-import React from 'react';
-import { Typography, Card, Form, Button } from 'antd';
+import React from "react";
+import { Typography, Card, Form, Button } from "antd";
 
-import DiagnosisSelect from './Selects/Diagnosis/Select';
-import RequiredFields from './RequiredFields/RequiredFields';
-import './Form.less';
+import DiagnosisSelect from "./Selects/Diagnosis/Select";
+import RequiredFields from "./RequiredFields/RequiredFields";
+import "./Form.less";
 
 import { TitleInput } from './Inputs/helpers';
 import CustomFields from './CustomFields/CustomFields';
@@ -31,11 +31,10 @@ class TemplateBaseForm extends React.Component {
   }
 
   setVals = () => {
-    console.log('this.props.data', this.props.data);
+    console.log("this.props.data", this.props.data);
 
     if (this.props.data) {
       const { first, after } = this.props.data;
-
       this.props.form.setFieldsValue({
         ...first
       });
@@ -49,7 +48,7 @@ class TemplateBaseForm extends React.Component {
   handleSubmit = event => {
     event.preventDefault();
     const values = this.props.form.getFieldsValue();
-    console.log('values', values);
+    console.log("values", values);
 
     this.props.form.validateFields((err, values) => {
       if (!err) {
@@ -76,7 +75,7 @@ class TemplateBaseForm extends React.Component {
             <DiagnosisSelect diagnosisList={this.state.diagnosisList} />
             <RequiredFields />
             <CustomFields count={this.props.data && this.props.data.count} />
-            <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
+            <Form.Item wrapperCol={{ span: 12 }}>
               <Button type="primary" htmlType="submit">
                 Přidej šablonu
               </Button>
@@ -88,4 +87,4 @@ class TemplateBaseForm extends React.Component {
   }
 }
 
-export default Form.create({ name: 'template_base_form' })(TemplateBaseForm);
+export default Form.create({ name: "template_base_form" })(TemplateBaseForm);

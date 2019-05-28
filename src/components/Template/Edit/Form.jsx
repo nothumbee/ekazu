@@ -7,7 +7,7 @@ import validateOutcomingData from '../Validate/Outcoming';
 
 const TemplateEditForm = ({ location }) => {
   const [data, setData] = useState(null);
-  const id = location.search.split('?id=').pop();
+  const id = location.search.split("?id=").pop();
 
   const handleLoadData = () => {
     if (!data)

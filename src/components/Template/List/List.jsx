@@ -8,6 +8,8 @@ import Title from 'antd/lib/typography/Title';
 import { ADMIN_EDIT_TEMPLATE } from '../../../constants/routes';
 import { ADMIN_DUPLICATE_TEMPLATE } from '../../../constants/routes';
 
+import "./List.less";
+
 const Panel = Collapse.Panel;
 
 const TemplateList = props => {
@@ -55,20 +57,21 @@ const TemplateList = props => {
               // header={template.title}
               style={customPanelStyle}
               extra={
-                <>
+                <div className="exxxtra">
+                  <Button
+                    onClick={() => duplicateTemplate(template.id)}
+                    type="primary"
+                    site="small"
+                  >
+                    Zkopírovat
+                  </Button>
                   <Button
                     onClick={() => editTemplate(template.id)}
                     type="primary"
                   >
                     Upravit
                   </Button>
-                  <Button
-                    onClick={() => duplicateTemplate(template.id)}
-                    type="primary"
-                  >
-                    Zkopírovat
-                  </Button>
-                </>
+                </div>
               }
             >
               <Title level={2}>{template.diagnosis}</Title>

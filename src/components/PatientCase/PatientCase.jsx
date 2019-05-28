@@ -80,16 +80,13 @@ const Exams = ({ exams, handleShowExam }) => {
       <Title level={2}>Vyšetření</Title>
       <Row>
         <List
-          style={{ marginBottom: 20, textAlign: "Center" }}
+          size="small"
+          bordered
           dataSource={exams}
           renderItem={exam => (
-            <Col sm={24} md={12}>
-              <Card style={{ width: "99%", margin: "5px auto" }}>
-                <List.Item style={{ display: "block", padding: 0 }}>
-                  <Exam exam={exam} handleShowExam={handleShowExam} />
-                </List.Item>
-              </Card>
-            </Col>
+            <List.Item>
+              <Exam exam={exam} handleShowExam={handleShowExam} />
+            </List.Item>
           )}
         />
       </Row>
@@ -143,7 +140,7 @@ const Exam = ({ exam, handleShowExam }) => {
           </>
         )}
         {!visible && (
-          <Button onClick={handlePerformExam}>
+          <Button type="primary" onClick={handlePerformExam}>
             Poslat pacienta na vyšetření
           </Button>
         )}
