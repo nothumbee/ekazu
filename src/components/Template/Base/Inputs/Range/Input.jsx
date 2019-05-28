@@ -10,7 +10,7 @@ const InputGroup = Input.Group;
 
 const RangeInput = ({ id }) => {
   const context = useContext(FormContext);
-  const { getFieldValue } = context;
+  const { getFieldValue, getFieldDecorator } = context;
 
   const rangeNumberInputs = [
     { name: 'min', title: 'Minimum' },
@@ -25,6 +25,7 @@ const RangeInput = ({ id }) => {
       </Col>
     ));
 
+  getFieldDecorator(`${id}.id`, { initialValue: '' });
   const RangeInputBase = props => (
     <InputGroup className="range">
       <IsExamCheckbox id={id} />

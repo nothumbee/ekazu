@@ -10,9 +10,6 @@ export const CustomNumberInput = ({ id, name, children }) => {
   return (
     <Form.Item label={children} required={true}>
       {getFieldDecorator(id ? `${id}.${name}` : name, {
-        trigger: 'onBlur',
-        // valuePropName: 'defaultValue',
-        // initialValue: 0,
         rules: [
           {
             required: true,

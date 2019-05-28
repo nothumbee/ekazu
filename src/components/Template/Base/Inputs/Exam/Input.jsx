@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Row, Input } from 'antd';
 
 import { TitleInput, IsExamCheckbox } from '../helpers';
-import ItemsInput from '../Items/Input';
+// import ItemsInput from '../Items/Input';
 import withInjected from '../../../../HOC/withInjected';
 import ExamNumberInputs from '../ExamNumberInputs';
 import FormContext from '../../../context';
@@ -12,7 +12,9 @@ const InputGroup = Input.Group;
 
 const ExamInput = ({ id }) => {
   const context = useContext(FormContext);
-  const { getFieldValue } = context;
+  const { getFieldValue, getFieldDecorator } = context;
+
+  getFieldDecorator(`${id}.id`, { initialValue: '' });
 
   const ExamInputBase = props => (
     <InputGroup className={'exam'}>
