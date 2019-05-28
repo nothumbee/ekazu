@@ -1,45 +1,45 @@
-import React, { useState } from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import { Menu, Icon } from 'antd';
+import React, { useState } from "react";
+import { Link, withRouter } from "react-router-dom";
+import { Menu, Icon } from "antd";
 
-import * as ROUTES from '../../constants/routes';
-import { ReactComponent as Logo } from './logo.svg';
-import anime from 'animejs';
+import * as ROUTES from "../../constants/routes";
+import { ReactComponent as Logo } from "./logo.svg";
+import anime from "animejs";
 
-import './AppBar.less';
-import 'antd/dist/antd.less';
-import { withAuthentication } from '../Session';
-import { compose } from 'recompose';
+import "./AppBar.less";
+import "antd/dist/antd.less";
+import { withAuthentication } from "../Session";
+import { compose } from "recompose";
 
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 
 const logoStyles = {
-  height: '41px',
-  margin: '19px 24px 16px 0',
-  float: 'left'
+  height: "41px",
+  margin: "19px 24px 16px 0",
+  float: "left"
 };
 
 anime({
-  targets: '.logo path',
+  targets: ".logo path",
   strokeDashoffset: [anime.setDashoffset, 0],
-  easing: 'easeInOutSine',
+  easing: "easeInOutSine",
   duration: 1500,
   delay: function(el, i) {
     return i * 250;
   },
-  direction: 'alternate',
+  direction: "alternate",
   loop: true
 });
 
 const AppBar = props => {
-  console.log('AUTHORIZED USER', props.authUser);
+  console.log("AUTHORIZED USER", props.authUser);
   const [current, setCurrent] = useState(props.location.pathname);
 
   props.history.listen(location => setCurrent(location.pathname));
 
   const handleClick = e => {
-    console.log('click ', e);
+    console.log("click ", e);
     // setCurrent(e.key);
   };
 
@@ -53,13 +53,13 @@ const AppBar = props => {
         onClick={handleClick}
         selectedKeys={[current]}
         mode="horizontal"
-        style={{ lineHeight: '64px', float: 'right' }}
+        style={{ lineHeight: "64px", float: "right" }}
       >
         <Menu.Item key={ROUTES.LANDING}>
           <Link to={ROUTES.LANDING}>Úvod</Link>
         </Menu.Item>
 
-        <SubMenu title={'Učitel'}>
+        <SubMenu title={"Učitel"}>
           <MenuItemGroup
             title={<span className="submenu-title-wrapper">Vytvořit</span>}
           >
@@ -119,8 +119,8 @@ const AppBar = props => {
           </Menu.Item>
         ) : (
           <Menu.Item
-            key={'LOGOUT'}
-            onClick={() => sessionStorage.setItem('authUser', false)}
+            key={"LOGOUT"}
+            onClick={() => sessionStorage.setItem("authUser", false)}
           >
             <Icon type="logout" />
             Odhlásit se

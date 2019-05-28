@@ -1,8 +1,8 @@
-import React, { useContext } from 'react';
-import { Form, Input, Switch, InputNumber } from 'antd';
-import FormContext from '../../context';
+import React, { useContext } from "react";
+import { Form, Input, Switch, InputNumber } from "antd";
+import FormContext from "../../context";
 
-import './helpers.less';
+import "./helpers.less";
 
 export const CustomNumberInput = ({ id, name, children }) => {
   const { getFieldDecorator } = useContext(FormContext);
@@ -10,13 +10,10 @@ export const CustomNumberInput = ({ id, name, children }) => {
   return (
     <Form.Item label={children} required={true}>
       {getFieldDecorator(id ? `${id}.${name}` : name, {
-        trigger: 'onBlur',
-        // valuePropName: 'defaultValue',
-        // initialValue: 0,
         rules: [
           {
             required: true,
-            message: 'Vyplňte prosím toto pole!'
+            message: "Vyplňte prosím toto pole!"
           }
         ]
       })(<InputNumber min={0} />)}
@@ -28,11 +25,11 @@ export const TitleInput = ({ id }) => {
   const { getFieldDecorator } = useContext(FormContext);
 
   return (
-    <Form.Item label={'Název'} required={true}>
-      {getFieldDecorator(id ? `${id}.title` : 'title', {
-        trigger: 'onBlur',
-        valuePropName: 'defaultValue',
-        rules: [{ required: true, message: 'Vyplňtě prosím toto pole!' }]
+    <Form.Item label={"Název"} required={true}>
+      {getFieldDecorator(id ? `${id}.title` : "title", {
+        trigger: "onBlur",
+        valuePropName: "defaultValue",
+        rules: [{ required: true, message: "Vyplňtě prosím toto pole!" }]
       })(<Input />)}
     </Form.Item>
   );
@@ -45,8 +42,8 @@ export const IsExamCheckbox = ({ id }) => {
     <Form.Item>
       <span className="label"> Považovat za skryté vyšetření:</span>
       {getFieldDecorator(`${id}.isExam`, {
-        trigger: 'onChange',
-        valuePropName: 'checked',
+        trigger: "onChange",
+        valuePropName: "checked",
         initialValue: false
       })(<Switch />)}
     </Form.Item>

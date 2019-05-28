@@ -1,10 +1,10 @@
 import React from "react";
-import { Button, Row, Col } from "antd";
+import { Button, Row, Col, Card } from "antd";
 
 const CustomFieldAddForm = ({ handleSubmit }) => {
   return (
-    <Row gutter={16} className="customFieldsBar">
-      <Col xs={{ span: 5 }} lg={{ span: 6 }}>
+    <Row className="customFieldsBar">
+      <Col span={8}>
         <Button
           type="primary"
           onClick={event => handleSubmit(event, "symptoms")}
@@ -12,12 +12,12 @@ const CustomFieldAddForm = ({ handleSubmit }) => {
           Přidej text input
         </Button>
       </Col>
-      <Col xs={{ span: 5 }} lg={{ span: 6 }}>
+      <Col span={8}>
         <Button type="primary" onClick={event => handleSubmit(event, "exams")}>
           Přidej exam input
         </Button>
       </Col>
-      <Col xs={{ span: 5 }} lg={{ span: 6 }}>
+      <Col span={8}>
         <Button type="primary" onClick={event => handleSubmit(event, "ranges")}>
           Přidej range input
         </Button>
