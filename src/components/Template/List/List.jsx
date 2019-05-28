@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { withRouter } from "react-router-dom";
-import axe from "../../Axios";
+import React, { useEffect, useState } from 'react';
+import { withRouter } from 'react-router-dom';
+import axe from '../../Axios';
 
-import { Collapse, Button, List, Card } from "antd";
+import { Collapse, Button, List, Card } from 'antd';
 
-import Title from "antd/lib/typography/Title";
-import { ADMIN_EDIT_TEMPLATE } from "../../../constants/routes";
-import { ADMIN_DUPLICATE_TEMPLATE } from "../../../constants/routes";
+import Title from 'antd/lib/typography/Title';
+import { ADMIN_EDIT_TEMPLATE } from '../../../constants/routes';
+import { ADMIN_DUPLICATE_TEMPLATE } from '../../../constants/routes';
 
 import "./List.less";
 
@@ -18,7 +18,7 @@ const TemplateList = props => {
   const loadTemplateList = () => {
     if (!templateList.length)
       axe
-        .get("/admin/template/list")
+        .get('/admin/template/list')
         .then(result => {
           setTemplateList(result.data);
         })
@@ -31,14 +31,15 @@ const TemplateList = props => {
 
   const editTemplate = id =>
     props.history.push(`${ADMIN_EDIT_TEMPLATE}?id=${id}`);
+
   const duplicateTemplate = id =>
     props.history.push(`${ADMIN_DUPLICATE_TEMPLATE}?id=${id}`);
 
   const customPanelStyle = {
     borderRadius: 4,
     marginBottom: 24,
-    border: "1px solid #e4e4e4",
-    overflow: "hidden"
+    border: '1px solid #e4e4e4',
+    overflow: 'hidden'
   };
 
   return (
@@ -47,12 +48,13 @@ const TemplateList = props => {
       <Card>
         <Collapse
           accordion
-          style={{ backgroundColor: "transparent", border: 0 }}
+          style={{ backgroundColor: 'transparent', border: 0 }}
         >
           {templateList.map((template, index) => (
             <Panel
               key={index}
               header={template.diagnosis}
+              // header={template.title}
               style={customPanelStyle}
               extra={
                 <div className="exxxtra">
@@ -83,7 +85,7 @@ const TemplateList = props => {
                       bordered
                       dataSource={generator.text}
                       renderItem={item => <List.Item>{item}</List.Item>}
-                      style={{ marginBottom: "1.5em" }}
+                      style={{ marginBottom: '1.5em' }}
                     />
                   )}
                 </React.Fragment>

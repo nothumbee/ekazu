@@ -11,8 +11,9 @@ const InputGroup = Input.Group;
 
 const SymptomInput = ({ id }) => {
   const context = useContext(FormContext);
-  const { getFieldValue } = context;
+  const { getFieldValue, getFieldDecorator } = context;
 
+  getFieldDecorator(`${id}.id`, { initialValue: '' });
   const SymptomInputBase = props => (
     <InputGroup className="symptom">
       <IsExamCheckbox id={id} />

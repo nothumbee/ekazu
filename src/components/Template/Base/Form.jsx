@@ -5,80 +5,43 @@ import DiagnosisSelect from "./Selects/Diagnosis/Select";
 import RequiredFields from "./RequiredFields/RequiredFields";
 import "./Form.less";
 
-import { TitleInput } from "./Inputs/helpers";
-import CustomFields from "./CustomFields/CustomFields";
-import FormContext from "../context";
+import { TitleInput } from './Inputs/helpers';
+import CustomFields from './CustomFields/CustomFields';
+import FormContext from '../context';
+import axe from '../../Axios';
+import withMaybe from '../../HOC/withMaybe';
+import { LoadingHeartBeat } from '../../Loading';
 
 const { Title } = Typography;
 
 class TemplateBaseForm extends React.Component {
-  // state = {};
+  state = { loading: true };
 
-  // componentDidMount() {
-  //   console.log('this.props.data', this.props.data);
-  //   this.setState({ ...this.props.data });
-  // }
-
-  // handleSubmit = event => {
-  //   event.preventDefault();
-
-  //   const { diagnosis, requiredFieldsData, generators } = this.state;
-
-  //   // need to remove type property from each generator if exists
-  //   const generatorsWithoutTypes = generators.map(generator => {
-  //     const { type, ...generatorWithoutType } = generator;
-  //     return generatorWithoutType;
-  //   });
-
-  //   const template = {
-  //     diagnosis: diagnosis,
-  //     ...requiredFieldsData,
-  //     generators: generatorsWithoutTypes
-  //   };
-
-  //   this.props.handleSubmit(template);
-  // };
-
-  // handleAddCustomField = (event, type) => {
-  //   event.preventDefault();
-
-  //   if (type !== '') {
-  //     this.setState(prevState => ({
-  //       ...prevState,
-  //       generators: [...prevState.generators, { ...defaultItem, type: type }]
-  //     }));
-  //   }
-  // };
   componentDidMount() {
-    if (this.props.data)
-      setTimeout(() => {
+    console.log('this.props.data', this.props.data);
+    this.setState({ ...this.props.data });
+
+    axe
+      .get('admin/codelist/diagnosis')
+      .then(result => {
+        this.setState({ diagnosisList: result.data, loading: false });
         this.setVals();
-      }, 2000);
+      })
+      .catch(err => console.log(err));
   }
 
   setVals = () => {
     console.log("this.props.data", this.props.data);
 
     if (this.props.data) {
-      const { count, symptoms, ranges, exams, ...rest } = this.props.data;
-      console.log("REST IN PEACE", rest);
-      const filterIds = arr => arr.map(({ id, text, ...rest }) => rest);
-      const onlyText = arr => arr.map(({ text }) => ({ text }));
-
+      const { first, after } = this.props.data;
       this.props.form.setFieldsValue({
-        ...rest,
-        symptoms: filterIds(symptoms),
-        ranges: filterIds(ranges),
-        exams: filterIds(exams)
+        ...first
       });
 
-      setTimeout(() => {
-        this.props.form.setFieldsValue({
-          symptoms: onlyText(symptoms),
-          ranges: onlyText(ranges),
-          exams: onlyText(exams)
-        });
-      }, 500);
+      this.props.form.setFieldsValue({
+        ...(after && after)
+      });
     }
   };
 
@@ -89,7 +52,8 @@ class TemplateBaseForm extends React.Component {
 
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log("Received values of form: ", values);
+        console.log('Received values of form: ', values);
+        this.props.handleSubmit(values);
       }
     });
   };
@@ -97,14 +61,18 @@ class TemplateBaseForm extends React.Component {
   render() {
     const { form } = this.props;
 
+    const isLoadingConditionFn = props => !props.loading;
+    const Loading = withMaybe(isLoadingConditionFn)(LoadingHeartBeat);
+
+    form.getFieldDecorator('uid', { initialValue: '' });
     return (
       <Card>
+        <Loading loading={this.state.loading} />
         <Title level={2}>Přidání šablony</Title>
         <FormContext.Provider value={form}>
           <Form onSubmit={this.handleSubmit}>
-            {form.getFieldDecorator("uid", { initialValue: "" })}
             <TitleInput />
-            <DiagnosisSelect />
+            <DiagnosisSelect diagnosisList={this.state.diagnosisList} />
             <RequiredFields />
             <CustomFields count={this.props.data && this.props.data.count} />
             <Form.Item wrapperCol={{ span: 12 }}>

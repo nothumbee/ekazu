@@ -5,7 +5,13 @@ NOT GRIM YET:
 
 Add submit methods in form
 
-Add Duplicate template func
+Add methods for data validation and restructure and abstract it to another file - incoming, outcoming
+And also divide generators when adding to form (ids must be starting by 1 or 0)
+Add ID fields to generators
+Add ID prop removal from generators - when its duplicate form
+Add logic to decide whether its edit data, duplicate or add data
+
+{ GRIM } Add Duplicate template func
 
 Remake form, template is in Symptom.jsx
 
