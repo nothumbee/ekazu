@@ -1,13 +1,13 @@
-import React from 'react';
-import { Typography, Card, Form, Button } from 'antd';
+import React from "react";
+import { Typography, Card, Form, Button } from "antd";
 
-import DiagnosisSelect from './Selects/Diagnosis/Select';
-import RequiredFields from './RequiredFields/RequiredFields';
-import './Form.less';
+import DiagnosisSelect from "./Selects/Diagnosis/Select";
+import RequiredFields from "./RequiredFields/RequiredFields";
+import "./Form.less";
 
-import { TitleInput } from './Inputs/helpers';
-import CustomFields from './CustomFields/CustomFields';
-import FormContext from '../context';
+import { TitleInput } from "./Inputs/helpers";
+import CustomFields from "./CustomFields/CustomFields";
+import FormContext from "../context";
 
 const { Title } = Typography;
 
@@ -57,11 +57,11 @@ class TemplateBaseForm extends React.Component {
   }
 
   setVals = () => {
-    console.log('this.props.data', this.props.data);
+    console.log("this.props.data", this.props.data);
 
     if (this.props.data) {
       const { count, symptoms, ranges, exams, ...rest } = this.props.data;
-      console.log('REST IN PEACE', rest);
+      console.log("REST IN PEACE", rest);
       const filterIds = arr => arr.map(({ id, text, ...rest }) => rest);
       const onlyText = arr => arr.map(({ text }) => ({ text }));
 
@@ -85,11 +85,11 @@ class TemplateBaseForm extends React.Component {
   handleSubmit = event => {
     event.preventDefault();
     const values = this.props.form.getFieldsValue();
-    console.log('values', values);
+    console.log("values", values);
 
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        console.log("Received values of form: ", values);
       }
     });
   };
@@ -102,12 +102,12 @@ class TemplateBaseForm extends React.Component {
         <Title level={2}>Přidání šablony</Title>
         <FormContext.Provider value={form}>
           <Form onSubmit={this.handleSubmit}>
-            {form.getFieldDecorator('uid', { initialValue: '' })}
+            {form.getFieldDecorator("uid", { initialValue: "" })}
             <TitleInput />
             <DiagnosisSelect />
             <RequiredFields />
             <CustomFields count={this.props.data && this.props.data.count} />
-            <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
+            <Form.Item wrapperCol={{ span: 12 }}>
               <Button type="primary" htmlType="submit">
                 Přidej šablonu
               </Button>
@@ -119,4 +119,4 @@ class TemplateBaseForm extends React.Component {
   }
 }
 
-export default Form.create({ name: 'template_base_form' })(TemplateBaseForm);
+export default Form.create({ name: "template_base_form" })(TemplateBaseForm);

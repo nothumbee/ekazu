@@ -1,19 +1,19 @@
-import React from 'react';
-import { Row, Col, Input } from 'antd';
-import { CustomNumberInput } from '../Inputs/helpers';
+import React from "react";
+import { Row, Col, Input } from "antd";
+import { CustomNumberInput } from "../Inputs/helpers";
 
 const REQUIRED_FIELDS = [
   {
-    name: 'minBonus',
-    title: 'minBonus'
+    name: "minBonus",
+    title: "minBonus"
   },
   {
-    name: 'maxMalus',
-    title: 'maxMalus'
+    name: "maxMalus",
+    title: "maxMalus"
   },
   {
-    name: 'maxPrice',
-    title: 'maxPrice'
+    name: "maxPrice",
+    title: "maxPrice"
   }
 ];
 

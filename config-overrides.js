@@ -29,9 +29,7 @@ module.exports = override(
       "@btn-default-bg": "#DA4546",
       "@btn-default-border": "@border-color-base",
       "@layout-body-background": "#fff",
-      "@font-family": "Roboto",
-      "@primary-5": "#fff",
-      "@primary-6": "#fff"
+      "@font-family": "Roboto"
     }
   })
 );

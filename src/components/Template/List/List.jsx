@@ -8,6 +8,8 @@ import Title from "antd/lib/typography/Title";
 import { ADMIN_EDIT_TEMPLATE } from "../../../constants/routes";
 import { ADMIN_DUPLICATE_TEMPLATE } from "../../../constants/routes";
 
+import "./List.less";
+
 const Panel = Collapse.Panel;
 
 const TemplateList = props => {
@@ -53,20 +55,25 @@ const TemplateList = props => {
               header={template.diagnosis}
               style={customPanelStyle}
               extra={
-                <Button
-                  onClick={() => duplicateTemplate(template.id)}
-                  type="primary"
-                  site="small"
-                >
-                  {" "}
-                  {/* Nějak nastylovat */} Zkopírovat
-                </Button>
+                <div className="exxxtra">
+                  <Button
+                    onClick={() => duplicateTemplate(template.id)}
+                    type="primary"
+                    site="small"
+                  >
+                    Zkopírovat
+                  </Button>
+                  <Button
+                    onClick={() => editTemplate(template.id)}
+                    type="primary"
+                  >
+                    Upravit
+                  </Button>
+                </div>
               }
             >
               <Title level={2}>{template.diagnosis}</Title>
-              <Button onClick={() => editTemplate(template.id)} type="primary">
-                Upravit
-              </Button>
+
               {template.generators.map((generator, index) => (
                 <React.Fragment key={index}>
                   <Title level={4}> {generator.title}</Title>

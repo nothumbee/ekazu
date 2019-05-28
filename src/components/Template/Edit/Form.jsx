@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { withRouter } from 'react-router';
-import TemplateBaseForm from '../Base/Form';
-import axe from '../../Axios';
+import React, { useEffect, useState } from "react";
+import { withRouter } from "react-router";
+import TemplateBaseForm from "../Base/Form";
+import axe from "../../Axios";
 
 const TemplateEditForm = ({ location }) => {
   const [data, setData] = useState(null);
-  const id = location.search.split('?id=').pop();
+  const id = location.search.split("?id=").pop();
 
   const handleLoadData = () => {
     console.log(!data);
@@ -44,10 +44,10 @@ const TemplateEditForm = ({ location }) => {
             }, {});
 
         const newGens = generators.map(generator =>
-          renameProp('exam', 'isExam', generator)
+          renameProp("exam", "isExam", generator)
         );
 
-        console.log('newGens :', newGens);
+        console.log("newGens :", newGens);
 
         const exams = newGens
           .filter(generator => !generator.imageGroup === null)
@@ -68,15 +68,15 @@ const TemplateEditForm = ({ location }) => {
           )
           .map(generator => addKeys(filterNullValues(generator)));
 
-        console.log('symptoms', symptoms);
-        console.log('filterNullValues :', filterNullValues(symptoms[0]));
+        console.log("symptoms", symptoms);
+        console.log("filterNullValues :", filterNullValues(symptoms[0]));
 
         const count = [
-          ...exams.map((exam, index) => ({ id: index, type: 'exams' })),
-          ...ranges.map((ranges, index) => ({ id: index, type: 'ranges' })),
+          ...exams.map((exam, index) => ({ id: index, type: "exams" })),
+          ...ranges.map((ranges, index) => ({ id: index, type: "ranges" })),
           ...symptoms.map((symptoms, index) => ({
             id: index,
-            type: 'symptoms'
+            type: "symptoms"
           }))
         ];
 
@@ -101,14 +101,14 @@ const TemplateEditForm = ({ location }) => {
 
         setData(newData);
 
-        console.log('newData :', newData);
+        console.log("newData :", newData);
       });
   };
 
   useEffect(handleLoadData, []);
 
   // load data and send it to base form of add template form
-  return <div>{data && <TemplateBaseForm data={data} />}</div>;
+  return <>{data && <TemplateBaseForm data={data} />}</>;
 };
 
 export default withRouter(TemplateEditForm);
