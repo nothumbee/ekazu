@@ -2,14 +2,20 @@ TODOS:
 
 NOT GRIM YET:
 
+Submit is not working
+API request fallbacks and error handling needs to  be done - probably the best thing is to do it with HOC, or context API
+Improve gooey effect animation on login
+Improve login and logout 
+Improve maybe the data handling
+Fix edit template form and add template form
 
-Add submit methods in form
+{ GRIM } Add submit methods in form
 
-Add methods for data validation and restructure and abstract it to another file - incoming, outcoming
+{ GRIM } Add methods for data validation and restructure and abstract it to another file - incoming, outcoming
 And also divide generators when adding to form (ids must be starting by 1 or 0)
-Add ID fields to generators
-Add ID prop removal from generators - when its duplicate form
-Add logic to decide whether its edit data, duplicate or add data
+{ GRIM } Add ID fields to generators
+{ GRIM } Add ID prop removal from generators - when its duplicate form
+{ GRIM } Add logic to decide whether its edit data, duplicate or add data
 
 { GRIM } Add Duplicate template func
 
