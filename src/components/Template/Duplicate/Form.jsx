@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { withRouter } from 'react-router';
-import TemplateBaseForm from '../Base/Form';
+import TemplateBaseForm from '../Base/Form/Form';
 import axe from '../../Axios';
 import validateIncomingData from '../Validate/Incoming';
 import validateOutcomingData from '../Validate/Outcoming';

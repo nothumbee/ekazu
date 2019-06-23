@@ -2,6 +2,8 @@ TODOS:
 
 NOT GRIM YET:
 
+Add PropTypes validation !
+
 Submit is not working
 API request fallbacks and error handling needs to  be done - probably the best thing is to do it with HOC, or context API
 Improve gooey effect animation on login

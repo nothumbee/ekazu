@@ -1,5 +1,5 @@
 import React from 'react';
-import TemplateBaseForm from '../../Base/Form';
+import TemplateBaseForm from '../../Base/Form/Form';
 import axe from '../../../Axios';
 import validateOutcomingData from '../../Validate/Outcoming';
 
