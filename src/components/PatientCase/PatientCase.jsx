@@ -1,6 +1,6 @@
 import React, { Component, useState } from "react";
 import { Typography } from "antd";
-import { Button, List, Modal, Row, Col, Card } from "antd";
+import { Button, List, Modal, Row } from "antd";
 
 import axe from "../Axios";
 import DiagnosisGuessForm from "../Diagnosis/Guess";

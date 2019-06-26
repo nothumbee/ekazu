@@ -1,16 +1,16 @@
 import React from "react";
 import { Typography, Card, Form, Button } from "antd";
 
-import DiagnosisSelect from "./Selects/Diagnosis/Select";
-import RequiredFields from "./RequiredFields/RequiredFields";
+import DiagnosisSelect from "../Selects/Diagnosis/Select";
+import RequiredFields from "../RequiredFields/RequiredFields";
 import "./Form.less";
 
-import { TitleInput } from './Inputs/helpers';
-import CustomFields from './CustomFields/CustomFields';
-import FormContext from '../context';
-import axe from '../../Axios';
-import withMaybe from '../../HOC/withMaybe';
-import { LoadingHeartBeat } from '../../Loading';
+import { TitleInput } from '../Inputs/helpers';
+import CustomFields from '../CustomFields/CustomFields';
+import FormContext from '../../context';
+import axe from '../../../Axios';
+import withMaybe from '../../../HOC/withMaybe';
+import { LoadingHeartBeat } from '../../../Loading';
 
 const { Title } = Typography;
 

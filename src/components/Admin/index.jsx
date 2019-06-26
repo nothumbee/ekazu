@@ -50,5 +50,4 @@ const AdminHome = () => {
   );
 };
 
-//nevim ffdfdfd
 export default AdminHome;
