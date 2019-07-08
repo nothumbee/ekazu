@@ -4,7 +4,6 @@ import "./Footer.less";
 
 const FooterCredits = props => (
   <>
-    {" "}
     <Logo />
     Vytvořil Vojtěch Bezpalec, David Šupík a Daniel Grim
   </>

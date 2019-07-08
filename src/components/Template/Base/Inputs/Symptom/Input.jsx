@@ -1,11 +1,12 @@
-import React, { useContext } from 'react';
-import { TitleInput, IsExamCheckbox } from '../helpers';
-import ItemsInput from '../Items/Input';
+import React, { useContext } from "react";
+import TitleInput from "../Helpers/TitleInput";
+import IsExamCheckbox from "../Helpers/IsExamCheckBox";
+import ItemsInput from "../Items/Input";
 
-import { Input } from 'antd';
-import FormContext from '../../../context';
-import ExamNumberInputs from '../ExamNumberInputs';
-import withInjected from '../../../../HOC/withInjected';
+import { Input } from "antd";
+import FormContext from "../../../context";
+import ExamNumberInputs from "../Helpers/ExamNumberInputs";
+import withInjected from "../../../../HOC/withInjected";
 
 const InputGroup = Input.Group;
 
@@ -13,11 +14,13 @@ const SymptomInput = ({ id }) => {
   const context = useContext(FormContext);
   const { getFieldValue, getFieldDecorator } = context;
 
-  getFieldDecorator(`${id}.id`, { initialValue: '' });
-  const SymptomInputBase = props => (
+  getFieldDecorator(`${id}.id`, { initialValue: "" });
+
+  // this all
+  const SymptomInputBase = ({ id, children }) => (
     <InputGroup className="symptom">
       <IsExamCheckbox id={id} />
-      {props.children}
+      {children}
       <TitleInput id={id} />
       <ItemsInput id={id} />
     </InputGroup>
@@ -31,6 +34,7 @@ const SymptomInput = ({ id }) => {
   )(SymptomInputBase);
 
   const isExam = getFieldValue(`${id}.isExam`);
+  // this all should be outside this component, but then the edititing and dup form does not work - data doesnt show when set by setFieldsValue
 
   return <SymptomInputWithInjected isExam={isExam} id={id} />;
 };

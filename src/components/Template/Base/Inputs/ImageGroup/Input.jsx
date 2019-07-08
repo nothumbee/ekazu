@@ -1,17 +1,25 @@
-import React, { useContext } from 'react';
-import { Icon, Upload, Form } from 'antd';
-import FormContext from '../../../context';
+import React, { useContext } from "react";
+import { Icon, Upload, Form } from "antd";
+import FormContext from "../../../context";
+import axe from "../../../../Axios";
 
 const ImageGroupInput = ({ id }) => {
   const context = useContext(FormContext);
   const { getFieldDecorator } = context;
 
   const normFile = e => {
-    console.log('Upload event:', e);
+    console.log("Upload event:", e);
     if (Array.isArray(e)) {
       return e;
     }
     return e && e.fileList;
+  };
+
+  const uploadFile = ({ file }) => {
+    console.log("uploadFile", file);
+    axe.post("/admin/upload", file, {
+      headers: { "Content-Type": "multipart/form-data" }
+    });
   };
 
   // const props = {
@@ -31,17 +39,18 @@ const ImageGroupInput = ({ id }) => {
   //   }
   // };
 
+  // action="https://owe-kazu.herokuapp.com/api/rest/admin/upload"
   return (
     <div>
       <Form.Item label="Fotky">
         <div className="dropbox">
           {getFieldDecorator(`${id}.imageGroup`, {
-            valuePropName: 'fileList',
+            valuePropName: "fileList",
             getValueFromEvent: normFile
           })(
-            <Upload.Dragger action="https://owe-kazu.herokuapp.com/api/rest/admin/upload">
+            <Upload.Dragger customRequest={uploadFile}>
               <p className="ant-upload-drag-icon">
-                <Icon className={'ant-upload-drag-icon'} type="plus" />
+                <Icon className={"ant-upload-drag-icon"} type="plus" />
               </p>
               <p className="ant-upload-text">
                 Klikněte nebo přeneste soubory sem.
