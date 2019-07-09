@@ -14,7 +14,7 @@ const DiagnosisSelect = props => {
     <Input.Group>
       <Form.Item label={'Vyber diagnózu'} defaultValue={''} required={true}>
         {getFieldDecorator('diagnosis', {
-          rules: [{ required: true, message: 'Please input your username!' }]
+          rules: [{ required: true, message: 'Vyberte prosím diagnózu!' }]
         })(
           <Select style={{ width: 220 }}>
             {props.diagnosisList &&

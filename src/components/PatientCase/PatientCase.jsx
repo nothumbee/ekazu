@@ -165,10 +165,10 @@ const Exam = ({ exam, handleShowExam }) => {
   );
 
   return (
-    <>
+    <div>
       <Title level={4}>{exam.title}</Title>
       <ExamWithExamining examining={examining} />
-    </>
+    </div>
   );
 };
 

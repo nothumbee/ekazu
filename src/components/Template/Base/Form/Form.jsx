@@ -5,24 +5,24 @@ import DiagnosisSelect from "../Selects/Diagnosis/Select";
 import RequiredFields from "../RequiredFields/RequiredFields";
 import "./Form.less";
 
-import { TitleInput } from '../Inputs/helpers';
-import CustomFields from '../CustomFields/CustomFields';
-import FormContext from '../../context';
-import axe from '../../../Axios';
-import withMaybe from '../../../HOC/withMaybe';
-import { LoadingHeartBeat } from '../../../Loading';
+import TitleInput from "../Inputs/Helpers/TitleInput";
+import CustomFields from "../CustomFields/CustomFields";
+import FormContext from "../../context";
+import axe from "../../../Axios";
+import withMaybe from "../../../HOC/withMaybe";
+import { LoadingHeartBeat } from "../../../Loading";
 
 const { Title } = Typography;
 
 class TemplateBaseForm extends React.Component {
-  state = { loading: true };
+  state = { loading: true, data: null };
 
   componentDidMount() {
-    console.log('this.props.data', this.props.data);
+    console.log("this.props.data", this.props.data);
     this.setState({ ...this.props.data });
 
     axe
-      .get('admin/codelist/diagnosis')
+      .get("admin/codelist/diagnosis")
       .then(result => {
         this.setState({ diagnosisList: result.data, loading: false });
         this.setVals();
@@ -35,6 +35,8 @@ class TemplateBaseForm extends React.Component {
 
     if (this.props.data) {
       const { first, after } = this.props.data;
+      console.log("ITS HEREEE", first);
+      console.log("ITS AFTER", after);
       this.props.form.setFieldsValue({
         ...first
       });
@@ -47,12 +49,13 @@ class TemplateBaseForm extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
+
     const values = this.props.form.getFieldsValue();
-    console.log("values", values);
+    console.log("FORM values", values);
 
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        console.log("Received values of form: ", values);
         this.props.handleSubmit(values);
       }
     });
@@ -61,10 +64,7 @@ class TemplateBaseForm extends React.Component {
   render() {
     const { form } = this.props;
 
-    const isLoadingConditionFn = props => !props.loading;
-    const Loading = withMaybe(isLoadingConditionFn)(LoadingHeartBeat);
-
-    form.getFieldDecorator('uid', { initialValue: '' });
+    form.getFieldDecorator("uid", { initialValue: "" });
     return (
       <Card>
         <Loading loading={this.state.loading} />
@@ -86,5 +86,8 @@ class TemplateBaseForm extends React.Component {
     );
   }
 }
+
+const isLoadingConditionFn = props => !props.loading;
+const Loading = withMaybe(isLoadingConditionFn)(LoadingHeartBeat);
 
 export default Form.create({ name: "template_base_form" })(TemplateBaseForm);

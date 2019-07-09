@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col, Input } from "antd";
-import { CustomNumberInput } from "../Inputs/helpers";
+import CustomNumberInput from "../Inputs/Helpers/CustomNumberInput";
 
 const REQUIRED_FIELDS = [
   {

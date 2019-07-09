@@ -9,17 +9,17 @@ const CustomFieldAddForm = ({ handleSubmit }) => {
           type="primary"
           onClick={event => handleSubmit(event, "symptoms")}
         >
-          Přidej text input
+          Přidej textové pole
         </Button>
       </Col>
       <Col span={8}>
         <Button type="primary" onClick={event => handleSubmit(event, "exams")}>
-          Přidej exam input
+          Přidej vyšetření s obrázkem
         </Button>
       </Col>
       <Col span={8}>
         <Button type="primary" onClick={event => handleSubmit(event, "ranges")}>
-          Přidej range input
+          Přidej vyšetření číselným rozmezím
         </Button>
       </Col>
     </Row>

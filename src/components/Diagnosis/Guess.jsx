@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import axe from '../Axios';
-import Title from 'antd/lib/typography/Title';
+import React, { useState, useEffect } from "react";
+import axe from "../Axios";
+import Title from "antd/lib/typography/Title";
 // import { Modal, Button } from 'antd';
 
-import { LoadingSpin } from '../Loading';
-import withEither from '../HOC/withEither';
+import { LoadingSpin } from "../Loading";
+import withEither from "../HOC/withEither";
 
 const DiagnosisGuessForm = ({ studentID, exams }) => {
-  const [selectedDiagnosis, setSelectedDiagnosis] = useState('');
+  const [selectedDiagnosis, setSelectedDiagnosis] = useState("");
   const [diagnosisList, setDiagnosisList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [checking, setChecking] = useState(false);
@@ -15,7 +15,7 @@ const DiagnosisGuessForm = ({ studentID, exams }) => {
   const handleLoadDiagnosisList = () => {
     if (!diagnosisList.length)
       axe
-        .get('student/diagnosis')
+        .get("student/diagnosis")
         .then(response => {
           setDiagnosisList(response.data);
           setLoading(false);
@@ -27,8 +27,8 @@ const DiagnosisGuessForm = ({ studentID, exams }) => {
 
   const handleSuccessFinishedCase = ({ wasRight }) => {
     if (wasRight) {
-      console.log('JE TO NA...', wasRight);
-    } else console.log('Spatne kamo :');
+      console.log("JE TO NA...", wasRight);
+    } else console.log("Spatne kamo :");
   };
 
   const handleFinishCase = event => {
@@ -62,7 +62,7 @@ const DiagnosisGuessForm = ({ studentID, exams }) => {
       name="diagnosis"
       value={selectedDiagnosis}
       onChange={({ target }) => {
-        console.log('target.value', target.value);
+        console.log("target.value", target.value);
         setSelectedDiagnosis(target.value);
       }}
     >
@@ -82,19 +82,19 @@ const DiagnosisGuessForm = ({ studentID, exams }) => {
   );
 
   const DiagnosisGuessFormBase = () => (
-    <>
+    <div style={{ marginTop: "2em" }}>
       <Title level={4}>Vyber o jakou diagnózu se jedná:</Title>
       <form onSubmit={event => handleFinishCase(event)}>
         <SelectWithLoading loading={loading} />
         <input
-          className={'ant-btn ant-btn-primary'}
+          className={"ant-btn ant-btn-primary"}
           type="submit"
           disabled={!selectedDiagnosis}
           value="Ověřit diagnózu"
           // disabled={loading}
         />
       </form>
-    </>
+    </div>
   );
 
   const isCheckingConditionFn = props => props.checking;

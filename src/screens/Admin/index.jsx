@@ -1,5 +1,5 @@
 import React from "react";
-import { withAuthorization } from "../../components/Session";
+// import { withAuthorization } from "../../components/Session";
 
 // import { compose } from 'recompose';
 
@@ -46,13 +46,10 @@ const ActionDecision = ({ location }) => {
   }
 };
 
-const condition = authUser => !!authUser;
 
-const AdminPage = withAuthorization(condition)(AdminPageBase);
-
-// const AdminPage = compose(
-//   withAuthorization(condition),
-//   withRouter
-// )(AdminPageBase);
+// const condition = authUser => !!authUser;
+// const AdminPage = withAuthorization(condition)(AdminPageBase);
+// for preview purposes removed authorization
+const AdminPage = AdminPageBase;
 
 export default AdminPage;
