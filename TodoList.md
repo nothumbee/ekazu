@@ -5,13 +5,15 @@
 - Add PropTypes validation !
 - Submit is not working, return e400 - new BE API
 - API request fallbacks and error handling needs to be done - probably the best thing is to do it with HOC, or context API
+- Add feedback when successfully added diagnosis or template {was edited, was duplicated, was saved}
 - Improve login and logout - what logic is going to be provided?
 - [Edit template] rerenders several times on load
+- Remake validating data with Ramda
+- Make image upload work
 
 ## Less important
 
 - In [appbar] in logo - the link must be according to logged in user (admin/student)
-- Fix spacing in exam in student case
 - Improve gooey effect animation on login
 - Improve maybe the data handling
 - Fix edit template form and add template for
@@ -20,6 +22,7 @@
 
 ## Done:
 
+- Fix spacing in exam in student case
 - Add submit methods in form
 - Add methods for data validation and restructure and abstract it to another file - incoming, outcoming
 - Add ID fields to generators
