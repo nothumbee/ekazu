@@ -1,8 +1,7 @@
 import React from 'react';
 import PatientCase from '../../components/PatientCase';
+import Groups from '../../components/PatientCase/Groups';
 
-const StudentPage = () => {
-  return <PatientCase />;
-};
+const StudentPage = () => <Groups />;
 
 export default StudentPage;

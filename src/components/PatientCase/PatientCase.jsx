@@ -80,7 +80,7 @@ const Exams = ({ exams, handleShowExam }) => {
       <Title level={2}>Vyšetření</Title>
       <Row>
         <List
-          size="small"
+          size='large'
           bordered
           dataSource={exams}
           renderItem={exam => (
@@ -173,3 +173,6 @@ const Exam = ({ exam, handleShowExam }) => {
 };
 
 export default PatientCase;
+
+
+// Group, partial exam

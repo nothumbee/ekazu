@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
-import { Form, Switch } from "antd";
-import FormContext from "../../../context";
+import React, { useContext } from 'react';
+import { Form, Switch } from 'antd';
+import FormContext from '../../../context';
 
-import "./helpers.less";
+import './helpers.less';
 
 const IsExamCheckbox = ({ id }) => {
   const { getFieldDecorator } = useContext(FormContext);
@@ -10,10 +10,10 @@ const IsExamCheckbox = ({ id }) => {
   return (
     <Form.Item>
       <span className="label"> Považovat za skryté vyšetření:</span>
-      {getFieldDecorator(`${id}.isExam`, {
-        trigger: "onChange",
-        valuePropName: "checked",
-        initialValue: false
+      {getFieldDecorator(`${id}.exam`, {
+        trigger: 'onChange',
+        valuePropName: 'checked',
+        initialValue: false,
       })(<Switch />)}
     </Form.Item>
   );

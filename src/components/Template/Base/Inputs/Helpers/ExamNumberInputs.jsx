@@ -1,12 +1,12 @@
-import React from "react";
-import { Row, Col } from "antd";
-import CustomNumberInput from "./CustomNumberInput";
+import React from 'react';
+import { Row, Col } from 'antd';
+import CustomNumberInput from './CustomNumberInput';
 
 const data = {};
 const examNumberInputs = [
-  { name: "bonus", title: "Bonus", value: data.bonus },
-  { name: "malus", title: "Malus", value: data.malus },
-  { name: "price", title: "Price", value: data.price }
+  { name: 'bonus', title: 'Bonus', value: data.bonus },
+  { name: 'malus', title: 'Malus', value: data.malus },
+  { name: 'price', title: 'Cena', value: data.price },
 ];
 
 const ExamNumberInputs = ({ id }) => (

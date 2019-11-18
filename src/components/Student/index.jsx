@@ -1,14 +1,12 @@
-import React from "react";
-import LoadPatient from "../Load/LoadPatient";
-import { Card } from "antd";
+import React from 'react';
+import { Card } from 'antd';
+import LoadPatient from '../Load/LoadPatient';
 
-const Student = () => {
-  return (
-    <Card style={{ width: 300 }}>
-      <LoadPatient />
-    </Card>
-  );
-};
+const Student = () => (
+  <Card style={{ width: 300 }}>
+    <LoadPatient />
+  </Card>
+);
 
 export default Student;
 

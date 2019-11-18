@@ -1,23 +1,23 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 // import "antd/dist/antd.css";
-import './index.less';
+import "./index.less";
 
-import * as ROUTES from '../../constants/routes';
-import { Alert } from 'antd';
+import * as ROUTES from "../../constants/routes";
+import { Alert } from "antd";
 // import { ReactComponent as Blood } from './blood.svg';
-import { ReactComponent as Shape } from './shape.svg';
+import { ReactComponent as Shape } from "./shape.svg";
 
-import MorphingBG from './animation.js';
+import MorphingBG from "./animation.js";
 
 const SignInPage = () => (
   <div>
-    <Shape className="scene" />
+    <Shape className='scene' />
 
     {/* <Blood className="blood" /> */}
 
-    <div id="vh">
-      <h1 className="title">Přihlášení</h1>
+    <div id='vh'>
+      <h1 className='title'>Přihlášení</h1>
       <SignInForm />
       {/* <PasswordForgetLink />
     <SignUpLink /> */}
@@ -26,8 +26,8 @@ const SignInPage = () => (
 );
 
 const INITIAL_STATE = {
-  email: '',
-  password: '',
+  email: "",
+  password: "",
   error: null,
   message: null
 };
@@ -39,11 +39,11 @@ class SignInFormBase extends Component {
   }
 
   componentDidMount() {
-    new MorphingBG(document.querySelector('.scene'));
+    new MorphingBG(document.querySelector(".scene"));
 
-    if (this.props.location.search === '?loginfirst') {
+    if (this.props.location.search === "?loginfirst") {
       this.setState({
-        message: 'Pro přístup do této sekce se musíte přihlásit'
+        message: "Pro přístup do této sekce se musíte přihlásit"
       });
     } else {
       this.setState({
@@ -62,7 +62,7 @@ class SignInFormBase extends Component {
     event.preventDefault();
     // const { email, password } = this.state;
 
-    sessionStorage.setItem('authUser', true);
+    sessionStorage.setItem("authUser", true);
 
     // this.props.firebase
     //   .doSignInWithEmailAndPassword(email, password)
@@ -87,23 +87,23 @@ class SignInFormBase extends Component {
       <>
         <form onSubmit={this.onSubmit}>
           <input
-            name="email"
+            name='email'
             value={email}
             onChange={this.onChange}
-            type="text"
-            placeholder="Emailová adresa"
+            type='text'
+            placeholder='Emailová adresa'
           />
           <input
-            name="password"
+            name='password'
             value={password}
             onChange={this.onChange}
-            type="password"
-            placeholder="Heslo"
+            type='password'
+            placeholder='Heslo'
           />
           <button
-            className="ant-btn ant-btn-primary"
+            className='ant-btn ant-btn-primary'
             // disabled={isInvalid}
-            type="submit"
+            type='submit'
           >
             Přihlásit
           </button>
@@ -111,10 +111,10 @@ class SignInFormBase extends Component {
         </form>
         {message && (
           <Alert
-            type="warning"
+            type='warning'
             message={message}
             showIcon
-            style={{ width: '100%', margin: '0.8em 0' }}
+            style={{ width: "100%", margin: "0.8em 0" }}
           />
         )}
       </>

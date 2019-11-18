@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
-import { Button, Input, Form, Icon } from 'antd';
+import {
+  Button, Input, Form, Icon,
+} from 'antd';
 
 import FormContext from '../../../context';
 
@@ -19,29 +21,32 @@ const ItemsInput = ({ id }) => {
     const nextKeys = keys.concat(newItemId);
 
     setFieldsValue({
-      [itemsField]: nextKeys
+      [itemsField]: nextKeys,
     });
   };
 
-  const handleRemoveItem = item => {
+  const handleRemoveItem = (item) => {
     const keys = getFieldValue(itemsField);
     if (keys.length === 1) {
       return;
     }
 
     setFieldsValue({
-      [itemsField]: keys.filter(key => key !== item)
+      [itemsField]: keys.filter((key) => key !== item),
     });
   };
 
   getFieldDecorator(itemsField, { initialValue: [0] });
   const keys = getFieldValue(itemsField);
-  const formItems = keys.map(item => (
+  const method = getFieldValue('method');
+  const setOnChange = method === 'duplicate' || method === 'edit';
+
+  const formItems = keys.map((item) => (
     <Form.Item key={item} label={`Text ${item}`}>
       {getFieldDecorator(`${id}.text[${item}]`, {
-        trigger: 'onBlur',
-        valuePropName: 'defaultValue',
-        rules: [{ required: true, message: 'Vyplňte prosím toto pole!' }]
+        trigger: setOnChange ? 'onChange' : 'onBlur',
+        // valuePropName: 'defaultValue',
+        rules: [{ required: true, message: 'Vyplňte prosím toto pole!' }],
       })(<Input.TextArea style={{ width: '60%', marginRight: 8 }} />)}
 
       {keys.length > 1 ? (
@@ -57,9 +62,9 @@ const ItemsInput = ({ id }) => {
   return (
     <InputGroup>
       {formItems}
-
       <Button type="dashed" onClick={handleAddItem}>
-        <Icon type="plus" /> Add field
+        <Icon type="plus" />
+        Add field
       </Button>
     </InputGroup>
   );

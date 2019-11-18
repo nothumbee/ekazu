@@ -1,20 +1,24 @@
 import React, { useState } from 'react';
+import { Typography, Card, Alert } from 'antd';
 import axe from '../../Axios';
 
-import { Typography, Card } from 'antd';
 
 const { Title } = Typography;
 
-const DiagnosisAddForm = props => {
+const DiagnosisAddForm = () => {
   const [diagnosis, setDiagnosis] = useState('');
+  const [isError, setIsError] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
+    setIsError(false);
+    setIsSuccess(false);
     const objToSend = { definition: diagnosis };
     axe
       .post('/admin/codelist/diagnosis', JSON.stringify(objToSend))
-      .then(response => console.log('response', response))
-      .catch(err => console.log('err', err));
+      .then((response) => setIsSuccess(true))
+      .catch((err) => setIsError(true));
   };
 
   return (
@@ -28,9 +32,12 @@ const DiagnosisAddForm = props => {
             placeholder="Název diagnózy"
             value={diagnosis}
             onChange={({ target }) => setDiagnosis(target.value)}
+            required
           />
           <input type="submit" value="Přidat diagnózu" />
         </form>
+        {isSuccess && <Alert message="Diagnóza úspěšně přidána." type="success" />}
+        {isError && <Alert message="Někde se stala chyba." type="error" />}
       </Card>
     </>
   );

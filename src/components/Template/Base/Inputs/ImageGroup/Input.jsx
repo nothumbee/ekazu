@@ -1,61 +1,65 @@
-import React, { useContext } from "react";
-import { Icon, Upload, Form } from "antd";
-import FormContext from "../../../context";
-import axe from "../../../../Axios";
+import React, { useContext } from 'react';
+import { Icon, Upload, Form } from 'antd';
+import FormContext from '../../../context';
+import axe from '../../../../Axios';
 
 const ImageGroupInput = ({ id }) => {
   const context = useContext(FormContext);
-  const { getFieldDecorator } = context;
+  const { getFieldDecorator, setFieldsValue, getFieldValue } = context;
+  const imagesField = `${id}.imageGroup`;
 
-  const normFile = e => {
-    console.log("Upload event:", e);
+  const normFile = (e) => {
     if (Array.isArray(e)) {
       return e;
     }
     return e && e.fileList;
   };
 
-  const uploadFile = ({ file }) => {
-    console.log("uploadFile", file);
-    axe.post("/admin/upload", file, {
-      headers: { "Content-Type": "multipart/form-data" }
+  const afterUploadFile = (filename) => {
+    const images = getFieldValue(imagesField);
+    const newImagesField = [...images, filename];
+    setFieldsValue({
+      [imagesField]: newImagesField,
     });
   };
 
-  // const props = {
-  //   name: 'file',
-  //   multiple: true,
-  //   action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-  //   onChange(info) {
-  //     const status = info.file.status;
-  //     if (status !== 'uploading') {
-  //       console.log(info.file, info.fileList);
-  //     }
-  //     if (status === 'done') {
-  //       message.success(`${info.file.name} file uploaded successfully.`);
-  //     } else if (status === 'error') {
-  //       message.error(`${info.file.name} file upload failed.`);
-  //     }
-  //   }
-  // };
+  const uploadFile = (event) => {
+    const {
+      file, onProgress, onSuccess, onError,
+    } = event;
+    const formData = new FormData();
+    formData.append('file', file);
 
-  // action="https://owe-kazu.herokuapp.com/api/rest/admin/upload"
+    axe.post('/admin/upload', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+      onUploadProgress: ({ total, loaded }) => {
+        onProgress({ percent: parseFloat(Math.round(loaded / total * 100).toFixed(2)) }, file);
+      },
+    }).then(({ data: response }) => {
+      onSuccess(response, file);
+      afterUploadFile(response.filename);
+    })
+      .catch(onError);
+  };
+
+  getFieldDecorator(imagesField, { initialValue: [] });
+
   return (
     <div>
       <Form.Item label="Fotky">
         <div className="dropbox">
-          {getFieldDecorator(`${id}.imageGroup`, {
-            valuePropName: "fileList",
-            getValueFromEvent: normFile
+          {getFieldDecorator('tempImagesField', {
+            valuePropName: 'fileList',
+            getValueFromEvent: normFile,
           })(
-            <Upload.Dragger customRequest={uploadFile}>
+            <Upload.Dragger customRequest={uploadFile} multiple>
               <p className="ant-upload-drag-icon">
-                <Icon className={"ant-upload-drag-icon"} type="plus" />
+                <Icon className="ant-upload-drag-icon" type="plus" />
               </p>
               <p className="ant-upload-text">
                 Klikněte nebo přeneste soubory sem.
               </p>
-            </Upload.Dragger>
+            </Upload.Dragger>,
           )}
         </div>
       </Form.Item>

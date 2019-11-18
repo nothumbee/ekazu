@@ -1,20 +1,23 @@
-import React, { useContext } from "react";
-import { Form, Input } from "antd";
-import FormContext from "../../../context";
+import React, { useContext } from 'react';
+import { Form, Input } from 'antd';
+import FormContext from '../../../context';
 
-import "./helpers.less";
+import './helpers.less';
 
 const TitleInput = ({ id }) => {
-  const { getFieldDecorator } = useContext(FormContext);
+  const { getFieldDecorator, getFieldValue } = useContext(FormContext);
+
+  const method = getFieldValue('method');
+  const setOnChange = method === 'duplicate' || method === 'edit';
 
   return (
-    // chamche to input item
     <Input.Group>
-      <Form.Item label={"Název"} required={true}>
-        {getFieldDecorator(id ? `${id}.title` : "title", {
-          trigger: "onBlur",
-          valuePropName: "defaultValue",
-          rules: [{ required: true, message: "Vyplňtě prosím toto pole!" }]
+      <Form.Item label="Název" required>
+        {getFieldDecorator(id ? `${id}.title` : 'title', {
+          trigger: setOnChange ? 'onChange' : 'onBlur',
+          ...(setOnChange ? {} : { valuePropName: 'defaultValue' }),
+          initialValue: null,
+          rules: [{ required: true, message: 'Vyplňtě prosím toto pole!' }],
         })(<Input />)}
       </Form.Item>
     </Input.Group>

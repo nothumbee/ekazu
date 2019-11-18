@@ -1,60 +1,98 @@
-import React, { useRef, useState } from 'react';
-import { Affix, Icon, Collapse } from 'antd';
+import React, { useRef, useContext } from 'react';
+import { Affix, Icon, List } from 'antd';
 
 import CustomFieldAddForm from './AddForm';
 import CustomInputBase from './CustomInputBase';
+import immutablySwapItems from '../../../helpers/arraySwap';
+import FormContext from '../../context';
 
-const Panel = Collapse.Panel;
+const CustomFields = ({ id: setId, isPartialExam }) => {
+  const { getFieldDecorator, setFieldsValue, getFieldValue } = useContext(
+    FormContext,
+  );
+  const keysName = setId ? `${setId}.keys` : 'keys';
 
-const CustomFields = ({ count }) => {
-  console.log('count :', count);
-  const id = useRef(0);
-
-  const [fields, setFields] = useState(count || []);
+  const counts = useRef({
+    groups: 0,
+    symptoms: 0,
+    exams: 0,
+    ranges: 0,
+    partials: 0,
+  });
 
   const handleAddField = (event, type) => {
-    const nextFields = fields.concat({ id: id.current++, type });
-    setFields(nextFields);
+    const nextId = counts.current[type]++;
+    const nextFields = keys.concat({ id: nextId, type });
+    setFieldsValue({
+      [keysName]: nextFields,
+    });
   };
 
-  const handleRemoveItem = item => {
-    setFields(fields.filter(({ id }) => id !== item.id));
+  const handleRemoveItem = (item) => {
+    const nextFields = keys.filter(
+      ({ id, type }) => !(id === item.id && type === item.type),
+    );
+    setFieldsValue({
+      [keysName]: nextFields,
+    });
   };
 
-  const header = type =>
-    ({
-      exams: 'Vyšetření',
-      ranges: 'Rozmezí',
-      symptoms: 'Symptom'
-    }[type]);
+  const sortItem = (direction) => ({
+    up: (field) => {
+      const fieldIndex = keys.indexOf(field);
+      const nextFields = immutablySwapItems(keys, fieldIndex, fieldIndex - 1);
+      nextFields
+          && setFieldsValue({
+            [keysName]: nextFields,
+          });
+    },
+    down: (field) => {
+      const fieldIndex = keys.indexOf(field);
+      const nextFields = immutablySwapItems(keys, fieldIndex, fieldIndex + 1);
+      nextFields
+          && setFieldsValue({
+            [keysName]: nextFields,
+          });
+    },
+  }[direction]);
 
-  const openAll = fields.map((field, index) => `${index}`);
+  const getChildId = (field) => (setId
+    ? `${setId}.${field.type}[${field.id}]`
+    : `${field.type}[${field.id}]`);
+
+  getFieldDecorator(keysName, { initialValue: [] });
+  const keys = getFieldValue(keysName);
+
   return (
-    <div>
+    <div style={{ width: '100%' }}>
       <Affix offsetTop={64}>
-        <CustomFieldAddForm handleSubmit={handleAddField} />
+        <CustomFieldAddForm
+          handleSubmit={handleAddField}
+          onlyRanges={!!isPartialExam}
+          isGroup={!!setId}
+        />
       </Affix>
 
-      <Collapse defaultActiveKey={openAll}>
-        {fields.map((field, index) => (
-          <Panel
-            key={index}
-            header={header(field.type)}
-            extra={
-              <Icon
-                className="dynamic-delete-button"
-                type="minus-circle-o"
-                onClick={() => handleRemoveItem(field)}
-              />
-            }
-          >
-            <CustomInputBase
-              id={`${field.type}[${field.id}]`}
-              type={field.type}
-            />
-          </Panel>
-        ))}
-      </Collapse>
+      {keys.map((field, index) => (
+        <List.Item
+          key={index}
+          actions={[
+            <Icon
+              className="dynamic-delete-button"
+              type="minus-circle-o"
+              onClick={() => handleRemoveItem(field)}
+            />,
+            <Icon type="up" onClick={() => sortItem('up')(field)} />,
+            <Icon type="down" onClick={() => sortItem('down')(field)} />,
+          ]}
+        >
+          <CustomInputBase
+            id={getChildId(field)}
+            type={field.type}
+            isPartialExam={isPartialExam}
+          />
+        </List.Item>
+      ))}
     </div>
   );
 };

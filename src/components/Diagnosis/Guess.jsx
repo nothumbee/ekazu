@@ -1,49 +1,48 @@
-import React, { useState, useEffect } from "react";
-import axe from "../Axios";
-import Title from "antd/lib/typography/Title";
+import React, { useState, useEffect } from 'react';
+import Title from 'antd/lib/typography/Title';
+import axe from '../Axios';
 // import { Modal, Button } from 'antd';
 
-import { LoadingSpin } from "../Loading";
-import withEither from "../HOC/withEither";
+import { LoadingSpin } from '../Loading';
+import withEither from '../HOC/withEither';
 
 const DiagnosisGuessForm = ({ studentID, exams }) => {
-  const [selectedDiagnosis, setSelectedDiagnosis] = useState("");
+  const [selectedDiagnosis, setSelectedDiagnosis] = useState('');
   const [diagnosisList, setDiagnosisList] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [checking, setChecking] = useState(false);
 
   const handleLoadDiagnosisList = () => {
-    if (!diagnosisList.length)
+    if (!diagnosisList.length) {
       axe
-        .get("student/diagnosis")
-        .then(response => {
+        .get('student/diagnosis')
+        .then((response) => {
           setDiagnosisList(response.data);
-          setLoading(false);
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
+    }
   };
 
   useEffect(handleLoadDiagnosisList, []);
 
   const handleSuccessFinishedCase = ({ wasRight }) => {
     if (wasRight) {
-      console.log("JE TO NA...", wasRight);
-    } else console.log("Spatne kamo :");
+      console.log('JE TO NA...', wasRight);
+    } else console.log('Spatne kamo :');
   };
 
-  const handleFinishCase = event => {
+  const handleFinishCase = (event) => {
     setChecking(true);
     event.preventDefault();
 
     if (selectedDiagnosis) {
       const caseToFinish = {
         diagnosis: selectedDiagnosis,
-        exams
+        exams,
       };
 
       axe
         .post(`student/${studentID}`, JSON.stringify(caseToFinish))
-        .then(response => {
+        .then((response) => {
           // handle success
           setTimeout(() => {
             setChecking(false);
@@ -51,7 +50,7 @@ const DiagnosisGuessForm = ({ studentID, exams }) => {
 
           handleSuccessFinishedCase(response.data);
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
         });
     }
@@ -62,7 +61,6 @@ const DiagnosisGuessForm = ({ studentID, exams }) => {
       name="diagnosis"
       value={selectedDiagnosis}
       onChange={({ target }) => {
-        console.log("target.value", target.value);
         setSelectedDiagnosis(target.value);
       }}
     >
@@ -75,36 +73,27 @@ const DiagnosisGuessForm = ({ studentID, exams }) => {
     </select>
   );
 
-  const isLoadingConditionFn = props => props.loading;
-
-  const SelectWithLoading = withEither(isLoadingConditionFn, LoadingSpin)(
-    BaseSelect
-  );
-
   const DiagnosisGuessFormBase = () => (
-    <div style={{ marginTop: "2em" }}>
+    <div style={{ marginTop: '2em' }}>
       <Title level={4}>Vyber o jakou diagnózu se jedná:</Title>
-      <form onSubmit={event => handleFinishCase(event)}>
-        <SelectWithLoading loading={loading} />
+      <form onSubmit={(event) => handleFinishCase(event)}>
+        <BaseSelect />
         <input
-          className={"ant-btn ant-btn-primary"}
+          className="ant-btn ant-btn-primary"
           type="submit"
           disabled={!selectedDiagnosis}
           value="Ověřit diagnózu"
-          // disabled={loading}
         />
       </form>
     </div>
   );
 
-  const isCheckingConditionFn = props => props.checking;
+  const isCheckingConditionFn = (props) => props.checking;
 
   const DiagnosisGuessFormWithChecking = withEither(
     isCheckingConditionFn,
-    LoadingSpin
+    LoadingSpin,
   )(DiagnosisGuessFormBase);
-
-  // return <SelectWithLoading loading={loading} />;
 
   return <DiagnosisGuessFormWithChecking checking={checking} />;
 };
